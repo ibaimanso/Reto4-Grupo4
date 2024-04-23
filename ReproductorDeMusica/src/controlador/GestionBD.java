@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 import modelo.Cliente;
 
 public class GestionBD {
@@ -91,5 +93,23 @@ public class GestionBD {
 		}
 		return login;
 
+	}
+	public boolean insertUsuario(Cliente cliente) {
+		boolean correcto = false;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "INSERT INTO clientes (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento) VALUES ('"
+					+ cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "', '"
+					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + cliente.getFecha_de_nacimiento() +  "')";
+
+			consulta.executeUpdate(insert);
+			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+		}
+		return correcto;
 	}
 }

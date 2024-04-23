@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
 import modeloPaneles.Login;
+import modeloPaneles.Registro;
 
 public class VistaPrincipal extends JFrame{
 	
@@ -16,10 +17,10 @@ public class VistaPrincipal extends JFrame{
 	public VistaPrincipal() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gestion = new GestionDeLaInformacion();
-		setIconImage(Toolkit.getDefaultToolkit().getImage("multimedia/logo.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("multimedia/iconoApp.png"));
 		setLocationRelativeTo(null);
 		// cambiarDePanel(0);
-		setSize(760,600);
+		setSize(720,660);
 		setResizable(false);
 	}
 	
@@ -28,6 +29,10 @@ public class VistaPrincipal extends JFrame{
 		switch (i) {
 		case 0:
 			setContentPane(new Login(this, gestion));
+			break;
+		case 1:
+			Registro registro = new Registro(this, gestion);
+			registro.setVisible(true);
 			break;
 	
 	
