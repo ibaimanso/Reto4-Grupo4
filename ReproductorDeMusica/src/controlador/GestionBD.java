@@ -21,8 +21,7 @@ public class GestionBD {
 	public void iniciarConexion() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-//			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3307/cinegrupo5", "root", "");
-			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/cinegrupo5", "root", "");
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost:3306/reto4", "root", "");
 		} catch (ClassNotFoundException e) {
 			System.out.println("No se ha encontrado la libreria");
 		} catch (SQLException e) {
@@ -51,7 +50,7 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT * FROM clientes ";
+			String query = "SELECT * FROM cliente ";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				if (resultadoConsulta.getString(1).contentEquals(cliente.getContraseña())) {
@@ -69,4 +68,28 @@ public class GestionBD {
 		return correcto;
 	}
 
+	public boolean Login(String usuario, String contraseña) {
+		boolean login = false;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM cliente ";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				if (resultadoConsulta.getString(5).contentEquals(usuario)
+						& resultadoConsulta.getString(6).contentEquals(contraseña)) {
+					login = true;
+				}
+
+			}
+			consulta.close();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
+			e.printStackTrace();
+		}
+		return login;
+
+	}
 }
