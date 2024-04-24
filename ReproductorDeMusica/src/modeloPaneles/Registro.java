@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,9 +16,11 @@ import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import modelo.Cliente;
+import modelo.Cliente.idioma;
 import view.VistaPrincipal;
+import java.awt.Dimension;
 
-public class Registro extends JFrame {
+public class Registro extends JPanel {
 	/**
 	 * 
 	 */
@@ -30,32 +31,30 @@ public class Registro extends JFrame {
 	private JTextField textField;
 	private JTextField txtConfirmarContraseña;
 	private JTextField txtFechaDeNacimiento;
-	private JTextField txtIdioma;
 
 	public Registro(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
-		getContentPane().setBackground(new Color(128, 255, 128));
-		setResizable(false);
-		setForeground(new Color(128, 255, 128));
-		getContentPane().setForeground(new Color(128, 255, 128));
 		setBackground(new Color(128, 255, 128));
-		setSize(720,660);
-		getContentPane().setLayout(null);
+		
+		setSize(ventana.getSize());
+		setVisible(true);
+		setLayout(null);
+
 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
 		lblLogo.setBounds(115, 0, 147, 139);
-		getContentPane().add(lblLogo);
+		add(lblLogo);
 
 		JLabel lblLogo_1 = new JLabel("");
 		lblLogo_1.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
 		lblLogo_1.setBounds(257, 0, 331, 139);
-		getContentPane().add(lblLogo_1);
+		add(lblLogo_1);
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		panel.setBackground(new Color(0, 255, 128));
 		panel.setBounds(115, 132, 456, 446);
-		getContentPane().add(panel);
+		add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNombre = new JLabel("Nombre:");
@@ -131,7 +130,6 @@ public class Registro extends JFrame {
 				cliente.setApellido(txtApellido.getText());
 				cliente.setContraseña(txtConfirmarContraseña.getText());
 				cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
-				cliente.setIdioma(txtIdioma.getText());
 				
 				if(!gestion.recogerInformacionFormulario(cliente)) {
 					JOptionPane.showMessageDialog(null, "Parametros incorrectos");
@@ -154,6 +152,8 @@ public class Registro extends JFrame {
 		JButton btnNewButton = new JButton("PREMIUM");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(2);
+				
 			}
 		});
 		btnNewButton.setBackground(new Color(255, 255, 0));
@@ -171,9 +171,9 @@ public class Registro extends JFrame {
 		lblVentajas.setBounds(340, 343, 89, 49);
 		panel.add(lblVentajas);
 		
-		txtIdioma = new JTextField();
-		txtIdioma.setColumns(10);
-		txtIdioma.setBounds(128, 339, 152, 20);
-		panel.add(txtIdioma);
+		JComboBox comboBoxIdioma = new JComboBox(idioma.values());
+		comboBoxIdioma.setBounds(130, 338, 65, 22);
+		
+		panel.add(comboBoxIdioma);
 	}
 }

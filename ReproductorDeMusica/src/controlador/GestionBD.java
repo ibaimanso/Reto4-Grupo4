@@ -99,9 +99,10 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "INSERT INTO clientes (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento) VALUES ('"
+			String insert = "INSERT INTO clientes (IDCliente, Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) "
+					+ "VALUES ('auto_increment',"  
 					+ cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "', '"
-					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + cliente.getFecha_de_nacimiento() +  "')";
+					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + cliente.getFecha_de_nacimiento() +  ", CURRDATE()')" + cliente.isPremium();
 
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
