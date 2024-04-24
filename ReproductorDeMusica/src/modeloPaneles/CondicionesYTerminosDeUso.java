@@ -30,7 +30,7 @@ public class CondicionesYTerminosDeUso extends JPanel{
 		JButton btnNewButton = new JButton("Atras");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				popup.cambiarDePanel(1);
+				popup.cambiarDePanel(0);
 				
 			}
 		});

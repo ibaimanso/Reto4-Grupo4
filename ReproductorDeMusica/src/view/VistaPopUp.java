@@ -27,10 +27,10 @@ public class VistaPopUp extends JFrame {
 
 		switch (i) {
 		case 0:
-			setContentPane(new PopUpPremium(null, gestion));
+			setContentPane(new PopUpPremium(this, gestion));
 			break;
 		case 1:
-			setContentPane(new CondicionesYTerminosDeUso(null, gestion));
+			setContentPane(new CondicionesYTerminosDeUso(this, gestion));
 			break;
 		}
 	}

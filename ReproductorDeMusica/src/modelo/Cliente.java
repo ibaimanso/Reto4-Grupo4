@@ -2,27 +2,17 @@ package modelo;
 
 public class Cliente {
 	private String nombre, idCliente, apellido, usuario, contraseña, fecha_de_nacimiento, contratacion;
-    private idioma idioma;
-    private boolean premium;
+    private String idioma;
+    private String premium;
 
-    public idioma getIdioma() {
-        return idioma;
-    }
 
-    public void setIdioma(idioma idioma) {
-        this.idioma = idioma;
-    }
-
-    public enum idioma {
-        ES, EN, EU, FR, DE, CA, GA, AR 
-    }
-
+ 
     public Cliente() {
 
     }
 
     public Cliente(String nombre, String idCliente, String apellido, String usuario, String contraseña,
-            String fecha_de_nacimiento, String contratacion, modelo.Cliente.idioma idioma, boolean premium) {
+            String fecha_de_nacimiento, String contratacion, String idioma, String premium) {
         super();
         this.nombre = nombre;
         this.idCliente = idCliente;
@@ -36,11 +26,12 @@ public class Cliente {
         
     }
 
-    public boolean isPremium() {
+
+	public String getPremium() {
 		return premium;
 	}
 
-	public void setPremium(boolean premium) {
+	public void setPremium(String premium) {
 		this.premium = premium;
 	}
 
@@ -99,5 +90,13 @@ public class Cliente {
     public void setContratacion(String contratacion) {
         this.contratacion = contratacion;
     }
+
+	public String getIdioma() {
+		return idioma;
+	}
+
+	public void setIdioma(String idioma) {
+		this.idioma = idioma;
+	}
 
 }

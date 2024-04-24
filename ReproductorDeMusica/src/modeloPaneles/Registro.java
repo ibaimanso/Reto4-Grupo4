@@ -1,10 +1,13 @@
 package modeloPaneles;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -13,12 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
-
 import logica.GestionDeLaInformacion;
 import modelo.Cliente;
-import modelo.Cliente.idioma;
 import view.VistaPrincipal;
-import java.awt.Dimension;
 
 public class Registro extends JPanel {
 	/**
@@ -31,14 +31,15 @@ public class Registro extends JPanel {
 	private JTextField textField;
 	private JTextField txtConfirmarContraseña;
 	private JTextField txtFechaDeNacimiento;
+	private JComboBox comboBoxLicencia;
+	private JComboBox comboBoxIdioma;
 
 	public Registro(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(128, 255, 128));
-		
-		setSize(ventana.getSize());
+
+		setSize(new Dimension(697, 734));
 		setVisible(true);
 		setLayout(null);
-
 
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
@@ -130,22 +131,26 @@ public class Registro extends JPanel {
 				cliente.setApellido(txtApellido.getText());
 				cliente.setContraseña(txtConfirmarContraseña.getText());
 				cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
-				
-				if(!gestion.recogerInformacionFormulario(cliente)) {
+				cliente.setContratacion(LocalDateTime.now().toString());
+				String idioma = comboBoxIdioma.getSelectedItem().toString();
+				cliente.setIdioma(idioma);
+				String licencia = comboBoxLicencia.getSelectedItem().toString();
+				cliente.setContratacion(licencia);
+
+				if (!gestion.recogerInformacionFormulario(cliente)) {
 					JOptionPane.showMessageDialog(null, "Parametros incorrectos");
-				}else {
-					if(!gestion.validarExistenciaEnLaBaseDeDatos(cliente)) {
+				} else {
+					if (!gestion.validarExistenciaEnLaBaseDeDatos(cliente)) {
 						JOptionPane.showMessageDialog(null, "Usuario ya existe en la base de datos");
-					}else {
+					} else {
 						JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-						ventana.cambiarDePanel(1);
+						ventana.cambiarDePanel(0);
 					}
 				}
-				
+
 			}
 		});
 
-	
 		btnRegistrarse.setBounds(50, 387, 241, 23);
 		panel.add(btnRegistrarse);
 
@@ -153,27 +158,40 @@ public class Registro extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventana.cambiarDePanel(2);
-				
+
 			}
 		});
 		btnNewButton.setBackground(new Color(255, 255, 0));
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBounds(340, 387, 89, 23);
+		btnNewButton.setBounds(357, 393, 89, 23);
 		panel.add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("¿Quieres \r");
 		lblNewLabel.setFont(new Font("Gill Sans Ultra Bold", Font.PLAIN, 14));
-		lblNewLabel.setBounds(343, 322, 86, 49);
+		lblNewLabel.setBounds(370, 333, 86, 49);
 		panel.add(lblNewLabel);
 
 		JLabel lblVentajas = new JLabel("ventajas?");
 		lblVentajas.setFont(new Font("Gill Sans Ultra Bold", Font.PLAIN, 14));
-		lblVentajas.setBounds(340, 343, 89, 49);
+		lblVentajas.setBounds(367, 354, 89, 49);
 		panel.add(lblVentajas);
-		
-		JComboBox comboBoxIdioma = new JComboBox(idioma.values());
+
+		JComboBox comboBoxIdioma = new JComboBox(
+				new DefaultComboBoxModel(new String[] { "ES", "EU", "EN", "FR", "DE" }));
 		comboBoxIdioma.setBounds(130, 338, 65, 22);
-		
+
 		panel.add(comboBoxIdioma);
+
+		JLabel lblLicencia = new JLabel("Licencia:");
+		lblLicencia.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblLicencia.setBounds(205, 333, 97, 27);
+		panel.add(lblLicencia);
+
+		JComboBox comboBoxLicencia = new JComboBox();
+		comboBoxLicencia.setModel(new DefaultComboBoxModel(new String[] { "FREE", "PREMIUM" }));
+		comboBoxLicencia.setBounds(291, 338, 66, 22);
+		panel.add(comboBoxLicencia);
+
 	}
+
 }

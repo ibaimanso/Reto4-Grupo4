@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
 
@@ -46,7 +47,6 @@ public class GestionBD {
 		System.out.println("Conexion cerrada");
 	}
 
-	
 	public boolean verificarUsuario(Cliente cliente) {
 		boolean correcto = true;
 		try {
@@ -94,15 +94,16 @@ public class GestionBD {
 		return login;
 
 	}
+
 	public boolean insertUsuario(Cliente cliente) {
 		boolean correcto = false;
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "INSERT INTO clientes (IDCliente, Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) "
-					+ "VALUES ('auto_increment',"  
-					+ cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "', '"
-					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + cliente.getFecha_de_nacimiento() +  ", CURRDATE()')" + cliente.isPremium();
+			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
+                    + cliente.getNombre() + " ','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
+                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + cliente.getContratacion()
+                    + "','" + cliente.getPremium() + "')";
 
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
