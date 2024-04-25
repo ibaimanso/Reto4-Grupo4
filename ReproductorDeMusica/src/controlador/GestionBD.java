@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.swing.JOptionPane;
@@ -102,7 +103,7 @@ public class GestionBD {
 
 			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
                     + cliente.getNombre() + " ','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
-                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + cliente.getContratacion()
+                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + LocalDate.now()
                     + "','" + cliente.getPremium() + "')";
 
 			consulta.executeUpdate(insert);

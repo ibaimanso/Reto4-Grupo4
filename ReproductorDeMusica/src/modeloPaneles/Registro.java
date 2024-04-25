@@ -122,6 +122,22 @@ public class Registro extends JPanel {
 		lblIdioma.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblIdioma.setBounds(50, 333, 76, 27);
 		panel.add(lblIdioma);
+		JComboBox comboBoxIdioma = new JComboBox(
+				new DefaultComboBoxModel(new String[] { "ES", "EU", "EN", "FR", "DE" }));
+		comboBoxIdioma.setBounds(130, 338, 65, 22);
+
+		panel.add(comboBoxIdioma);
+		
+		JComboBox comboBoxLicencia = new JComboBox();
+		comboBoxLicencia.setModel(new DefaultComboBoxModel(new String[] { "FREE", "PREMIUM" }));
+		comboBoxLicencia.setBounds(291, 338, 66, 22);
+		panel.add(comboBoxLicencia);
+		
+		JLabel lblFechaHoy = new JLabel();
+		lblFechaHoy.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblFechaHoy.setBounds(349, 11, 97, 14);
+		panel.add(lblFechaHoy);
+
 
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
@@ -132,24 +148,24 @@ public class Registro extends JPanel {
 				cliente.setContraseña(txtConfirmarContraseña.getText());
 				cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
 				cliente.setContratacion(LocalDateTime.now().toString());
+				System.out.println("hola");
 				String idioma = comboBoxIdioma.getSelectedItem().toString();
 				cliente.setIdioma(idioma);
 				String licencia = comboBoxLicencia.getSelectedItem().toString();
 				cliente.setContratacion(licencia);
 
-				if (!gestion.recogerInformacionFormulario(cliente)) {
-					JOptionPane.showMessageDialog(null, "Parametros incorrectos");
-				} else {
-					if (!gestion.validarExistenciaEnLaBaseDeDatos(cliente)) {
-						JOptionPane.showMessageDialog(null, "Usuario ya existe en la base de datos");
-					} else {
-						JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-						ventana.cambiarDePanel(0);
-					}
+//				if (!gestion.recogerInformacionFormulario(cliente)) {
+//					JOptionPane.showMessageDialog(null, "Parametros incorrectos");
+//				} else {
+//					if (!gestion.validarExistenciaEnLaBaseDeDatos(cliente)) {
+//						JOptionPane.showMessageDialog(null, "Usuario ya existe en la base de datos");
+//					} else {
+//						JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+//						ventana.cambiarDePanel(0);
+//					}
+				//}
 				}
-
-			}
-		});
+	});
 
 		btnRegistrarse.setBounds(50, 387, 241, 23);
 		panel.add(btnRegistrarse);
@@ -176,22 +192,16 @@ public class Registro extends JPanel {
 		lblVentajas.setBounds(367, 354, 89, 49);
 		panel.add(lblVentajas);
 
-		JComboBox comboBoxIdioma = new JComboBox(
-				new DefaultComboBoxModel(new String[] { "ES", "EU", "EN", "FR", "DE" }));
-		comboBoxIdioma.setBounds(130, 338, 65, 22);
-
-		panel.add(comboBoxIdioma);
+		
 
 		JLabel lblLicencia = new JLabel("Licencia:");
 		lblLicencia.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblLicencia.setBounds(205, 333, 97, 27);
 		panel.add(lblLicencia);
-
-		JComboBox comboBoxLicencia = new JComboBox();
-		comboBoxLicencia.setModel(new DefaultComboBoxModel(new String[] { "FREE", "PREMIUM" }));
-		comboBoxLicencia.setBounds(291, 338, 66, 22);
-		panel.add(comboBoxLicencia);
-
+		
+		
+	
+			}
+		
 	}
 
-}
