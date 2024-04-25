@@ -103,7 +103,7 @@ public class GestionBD {
 
 			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
                     + cliente.getNombre() + " ','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
-                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + LocalDate.now()
+                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + LocalDate.now().toString()
                     + "','" + cliente.getPremium() + "')";
 
 			consulta.executeUpdate(insert);

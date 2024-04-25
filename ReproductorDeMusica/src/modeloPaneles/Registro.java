@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.swing.DefaultComboBoxModel;
@@ -134,6 +135,7 @@ public class Registro extends JPanel {
 		panel.add(comboBoxLicencia);
 		
 		JLabel lblFechaHoy = new JLabel();
+		lblFechaHoy.setText(LocalDate.now().toString());
 		lblFechaHoy.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFechaHoy.setBounds(349, 11, 97, 14);
 		panel.add(lblFechaHoy);
@@ -153,17 +155,10 @@ public class Registro extends JPanel {
 				cliente.setIdioma(idioma);
 				String licencia = comboBoxLicencia.getSelectedItem().toString();
 				cliente.setContratacion(licencia);
+				JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
+				ventana.cambiarDePanel(0);
 
-//				if (!gestion.recogerInformacionFormulario(cliente)) {
-//					JOptionPane.showMessageDialog(null, "Parametros incorrectos");
-//				} else {
-//					if (!gestion.validarExistenciaEnLaBaseDeDatos(cliente)) {
-//						JOptionPane.showMessageDialog(null, "Usuario ya existe en la base de datos");
-//					} else {
-//						JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-//						ventana.cambiarDePanel(0);
-//					}
-				//}
+
 				}
 	});
 

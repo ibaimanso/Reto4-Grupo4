@@ -27,7 +27,7 @@ public class GestionDeLaInformacion {
 //		 * correctamente
 //		 */
 //		
-//		Pattern patron1 = Pattern.compile("(\\\\d{4})[/-](0[1-9]|1[0-2])[/-](0[1-9]|[12][0-9]|3[01])");
+//		Pattern patron1 = Pattern.compile("^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$");
 //		Matcher pass = patron1.matcher(cliente.getFecha_de_nacimiento());
 //
 //		if (!pass.find()) {
@@ -36,7 +36,7 @@ public class GestionDeLaInformacion {
 //		
 //		return correcto;
 //	}
-	
+//	
 	public boolean validarExistenciaEnLaBaseDeDatos(Cliente cliente) {
 		boolean correcto = false;
 		correcto = gestionBD.verificarUsuario(cliente);

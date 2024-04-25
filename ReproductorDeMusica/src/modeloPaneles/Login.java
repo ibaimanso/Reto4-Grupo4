@@ -24,6 +24,7 @@ public class Login extends JPanel {
 	public JTextField textFieldContraseña;
 
 	public Login(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+		setSize(ventana.getSize());
 		setBackground(new Color(128, 255, 128));
 		setLayout(null);
 
