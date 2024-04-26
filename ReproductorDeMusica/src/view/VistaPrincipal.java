@@ -5,17 +5,21 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
+import modelo.Cliente;
 import modeloPaneles.Login;
-import modeloPaneles.PopUpPremium;
+import modeloPaneles.Menu;
+import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
 
 public class VistaPrincipal extends JFrame{
 	
 	private GestionDeLaInformacion gestion;
 
+
 	private static final long serialVersionUID = 1L;
 
 	public VistaPrincipal() {
+		setTitle("Yfitops");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gestion = new GestionDeLaInformacion();
 		setIconImage(Toolkit.getDefaultToolkit().getImage("multimedia/iconoApp.png"));
@@ -37,6 +41,13 @@ public class VistaPrincipal extends JFrame{
 		case 2:
 			VistaPopUp popup = new VistaPopUp ();
 			popup.setVisible(true);
+			break;
+		case 3:
+			setContentPane(new Menu(this, gestion));
+			break;
+		case 4:
+			Perfil perfil = new Perfil(this, gestion);
+			perfil.setVisible(true);
 			break;
 			
 			

@@ -137,7 +137,7 @@ public class Registro extends JPanel {
 		JLabel lblFechaHoy = new JLabel();
 		lblFechaHoy.setText(LocalDate.now().toString());
 		lblFechaHoy.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblFechaHoy.setBounds(349, 11, 97, 14);
+		lblFechaHoy.setBounds(370, 11, 97, 14);
 		panel.add(lblFechaHoy);
 
 
@@ -150,7 +150,6 @@ public class Registro extends JPanel {
 				cliente.setContraseña(txtConfirmarContraseña.getText());
 				cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
 				cliente.setContratacion(LocalDateTime.now().toString());
-				System.out.println("hola");
 				String idioma = comboBoxIdioma.getSelectedItem().toString();
 				cliente.setIdioma(idioma);
 				String licencia = comboBoxLicencia.getSelectedItem().toString();

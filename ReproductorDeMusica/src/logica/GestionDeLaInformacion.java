@@ -42,4 +42,13 @@ public class GestionDeLaInformacion {
 		correcto = gestionBD.verificarUsuario(cliente);
 		return correcto;
 	}
+	/**
+	 * Metodo para devolver un string con el nombre y apellidos del cliente
+	 * 
+	 * @return String con el nombre y apellido del cliente
+	 */
+	public String devolverNombreUsuario() {
+		String respuesta = usuario.getUsuario();
+		return respuesta;
+	}
 }

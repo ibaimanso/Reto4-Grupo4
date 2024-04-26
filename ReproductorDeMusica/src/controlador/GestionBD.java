@@ -102,7 +102,7 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
-                    + cliente.getNombre() + " ','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
+                    + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
                     + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + LocalDate.now().toString()
                     + "','" + cliente.getPremium() + "')";
 
