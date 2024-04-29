@@ -9,7 +9,7 @@ import modelo.Cliente;
 public class GestionDeLaInformacion {
 
 	private GestionBD gestionBD;
-	private Cliente usuario;
+	private Cliente cliente;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
@@ -47,8 +47,10 @@ public class GestionDeLaInformacion {
 	 * 
 	 * @return String con el nombre y apellido del cliente
 	 */
-	public String devolverNombreUsuario() {
-		String respuesta = usuario.getUsuario();
-		return respuesta;
+	public void guardarUsuario(String usuario) {
+		cliente = gestionBD.pedirUsuario(usuario);
+	}
+	public Cliente devolverUsuario() {
+		return this.cliente;
 	}
 }

@@ -102,9 +102,9 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
-                    + cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
-                    + cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento() + "','" + LocalDate.now().toString()
-                    + "','" + cliente.getPremium() + "')";
+					+ cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
+					+ cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento()
+					+ "','" + LocalDate.now().toString() + "','" + cliente.getPremium() + "')";
 
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
@@ -114,5 +114,24 @@ public class GestionBD {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 		}
 		return correcto;
+	}
+
+	public Cliente pedirUsuario(String usuario) {
+		
+		Cliente cliente = new Cliente();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM cliente WHERE usuario LIKE '"+ usuario +"' ";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				cliente = new Cliente(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), resultadoConsulta.getString(5), 
+						resultadoConsulta.getString(6), resultadoConsulta.getString(7), resultadoConsulta.getString(8), resultadoConsulta.getString(9));
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+		}
+		return null;
+		
 	}
 }
