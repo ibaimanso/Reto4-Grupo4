@@ -1,6 +1,13 @@
 package modelo;
 
 public class Cliente {
+	@Override
+	public String toString() {
+		return "Cliente [nombre=" + nombre + ", idCliente=" + idCliente + ", apellido=" + apellido + ", usuario="
+				+ usuario + ", contraseña=" + contraseña + ", fecha_de_nacimiento=" + fecha_de_nacimiento
+				+ ", contratacion=" + contratacion + ", idioma=" + idioma + ", premium=" + premium + "]";
+	}
+
 	private String nombre, idCliente, apellido, usuario, contraseña, fecha_de_nacimiento, contratacion;
     private String idioma;
     private String premium;
@@ -10,9 +17,9 @@ public class Cliente {
     public Cliente() {
 
     }
-
-    public Cliente(String nombre, String idCliente, String apellido, String usuario, String contraseña,
-            String fecha_de_nacimiento, String contratacion, String idioma, String premium) {
+    
+    public Cliente(String idCliente, String nombre, String apellido, String idioma, String usuario,
+            String contraseña, String fecha_de_nacimiento, String contratacion, String premium) {
         super();
         this.nombre = nombre;
         this.idCliente = idCliente;

@@ -131,7 +131,7 @@ public class Perfil extends JFrame {
 		panel_1.add(lblfechaDeNacimiento1);
 
 		JLabel lblLicencia1 = new JLabel("premium o free");
-		lblLicencia.setText(cliente.getPremium());
+		lblLicencia1.setText(cliente.getPremium());
 		lblLicencia1.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblLicencia1.setBounds(10, 351, 150, 38);
 		panel_1.add(lblLicencia1);

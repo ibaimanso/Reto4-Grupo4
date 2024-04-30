@@ -20,26 +20,26 @@ public class GestionDeLaInformacion {
 		login = gestionBD.Login(usuario, contraseña);
 		return login;
 	}
-//	public boolean recogerInformacionFormulario(Cliente cliente) {
-//		boolean correcto = true;
-//		/**
-//		 * Regex para que en el panel de registro toda la informacion se introduzca
-//		 * correctamente
-//		 */
-//		
-//		Pattern patron1 = Pattern.compile("^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$");
-//		Matcher pass = patron1.matcher(cliente.getFecha_de_nacimiento());
-//
-//		if (!pass.find()) {
-//			correcto = false;
-//		} 
-//		
-//		return correcto;
-//	}
-//	
-	public boolean validarExistenciaEnLaBaseDeDatos(Cliente cliente) {
+
+	public boolean recogerInformacionFormulario(String fecha) {
+		boolean opcion = true;
+		/**
+		 * Regex para que en el panel de registro toda la informacion se introduzca
+		 * correctamente
+		 */
+		Pattern patron1 = Pattern.compile("^\\d{4}([\\-/.])(0?[1-9]|1[1-2])\\1(3[01]|[12][0-9]|0?[1-9])$");
+		Matcher pass = patron1.matcher(fecha);
+		
+		if(!pass.find()) {
+			opcion = false;
+		}
+		
+		return opcion;
+	}
+	
+	public boolean validarExistenciaEnLaBaseDeDatos(String usuario) {
 		boolean correcto = false;
-		correcto = gestionBD.verificarUsuario(cliente);
+		correcto = gestionBD.verificarUsuario(usuario);
 		return correcto;
 	}
 	/**
@@ -48,9 +48,16 @@ public class GestionDeLaInformacion {
 	 * @return String con el nombre y apellido del cliente
 	 */
 	public void guardarUsuario(String usuario) {
-		cliente = gestionBD.pedirUsuario(usuario);
+		this.cliente = gestionBD.pedirUsuario(usuario);
+		System.out.println(cliente);
 	}
 	public Cliente devolverUsuario() {
+		System.out.println(cliente);
 		return this.cliente;
+	}
+	
+	public boolean insertarUsuario(Cliente insertar) {
+		gestionBD.insertUsuario(insertar);
+		return true;
 	}
 }

@@ -48,7 +48,7 @@ public class GestionBD {
 		System.out.println("Conexion cerrada");
 	}
 
-	public boolean verificarUsuario(Cliente cliente) {
+	public boolean verificarUsuario(String cliente) {
 		boolean correcto = true;
 		try {
 			Statement consulta = conexion.createStatement();
@@ -56,7 +56,7 @@ public class GestionBD {
 			String query = "SELECT * FROM cliente ";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				if (resultadoConsulta.getString(1).contentEquals(cliente.getContraseña())) {
+				if (resultadoConsulta.getString(5).equalsIgnoreCase(cliente)) {
 					correcto = false;
 				}
 
@@ -102,36 +102,40 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String insert = "insert into cliente (Nombre, Apellido, Idioma, Usuario, Contraseña, FechaNacimiento, FechaRegistro, Tipo) VALUES ('"
-					+ cliente.getNombre() + "','" + cliente.getApellido() + "','" + cliente.getIdioma() + "','"
-					+ cliente.getUsuario() + "','" + cliente.getContraseña() + "','" + cliente.getFecha_de_nacimiento()
-					+ "','" + LocalDate.now().toString() + "','" + cliente.getPremium() + "')";
-
+					+ cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getIdioma() + "', '"
+					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + "', '"
+					+ cliente.getFecha_de_nacimiento() + "', CURRENT_DATE, '" + cliente.getPremium() + "')";
+			System.out.println(insert);
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
 			consulta.close();
 			correcto = true;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
 		}
 		return correcto;
 	}
 
 	public Cliente pedirUsuario(String usuario) {
-		
+
 		Cliente cliente = new Cliente();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT * FROM cliente WHERE usuario LIKE '"+ usuario +"' ";
+			String query = "SELECT * FROM cliente WHERE usuario LIKE '" + usuario + "' ";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				cliente = new Cliente(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), resultadoConsulta.getString(5), 
-						resultadoConsulta.getString(6), resultadoConsulta.getString(7), resultadoConsulta.getString(8), resultadoConsulta.getString(9));
+				cliente = new Cliente(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getString(3), resultadoConsulta.getString(4), resultadoConsulta.getString(5),
+						resultadoConsulta.getString(6), resultadoConsulta.getString(7), resultadoConsulta.getString(8),
+						resultadoConsulta.getString(9));
 			}
+			System.out.println(cliente);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 		}
-		return null;
-		
+		return cliente;
+
 	}
 }

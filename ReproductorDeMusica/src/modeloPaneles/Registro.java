@@ -29,11 +29,11 @@ public class Registro extends JPanel {
 	private JTextField txtNombre;
 	private JTextField txtApellido;
 	private JTextField txtNombredeUsuario;
-	private JTextField textField;
+	private JTextField txtContraseña;
 	private JTextField txtConfirmarContraseña;
 	private JTextField txtFechaDeNacimiento;
-	private JComboBox comboBoxLicencia;
-	private JComboBox comboBoxIdioma;
+	private JComboBox<String> comboBoxLicencia;
+	private JComboBox<String> comboBoxIdioma;
 
 	public Registro(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(128, 255, 128));
@@ -94,10 +94,10 @@ public class Registro extends JPanel {
 		lblContrasea.setBounds(50, 138, 368, 27);
 		panel.add(lblContrasea);
 
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(50, 169, 241, 20);
-		panel.add(textField);
+		txtContraseña = new JTextField();
+		txtContraseña.setColumns(10);
+		txtContraseña.setBounds(50, 169, 241, 20);
+		panel.add(txtContraseña);
 
 		JLabel lblConfirmarContrasea = new JLabel("Confirmar Contraseña:");
 		lblConfirmarContrasea.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -123,43 +123,60 @@ public class Registro extends JPanel {
 		lblIdioma.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblIdioma.setBounds(50, 333, 76, 27);
 		panel.add(lblIdioma);
-		JComboBox comboBoxIdioma = new JComboBox(
-				new DefaultComboBoxModel(new String[] { "ES", "EU", "EN", "FR", "DE" }));
+
+		comboBoxIdioma = new JComboBox<String>(
+				new DefaultComboBoxModel<String>(new String[] { "ES", "EU", "EN", "FR", "DE" }));
 		comboBoxIdioma.setBounds(130, 338, 65, 22);
 
 		panel.add(comboBoxIdioma);
-		
-		JComboBox comboBoxLicencia = new JComboBox();
-		comboBoxLicencia.setModel(new DefaultComboBoxModel(new String[] { "FREE", "PREMIUM" }));
+
+		comboBoxLicencia = new JComboBox<String>();
+		comboBoxLicencia.setModel(new DefaultComboBoxModel<String>(new String[] { "Free", "Premium" }));
 		comboBoxLicencia.setBounds(291, 338, 66, 22);
 		panel.add(comboBoxLicencia);
-		
+
 		JLabel lblFechaHoy = new JLabel();
 		lblFechaHoy.setText(LocalDate.now().toString());
 		lblFechaHoy.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblFechaHoy.setBounds(370, 11, 97, 14);
 		panel.add(lblFechaHoy);
 
-
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Cliente cliente = new Cliente();
-				cliente.setNombre(txtNombredeUsuario.getText());
-				cliente.setApellido(txtApellido.getText());
-				cliente.setContraseña(txtConfirmarContraseña.getText());
-				cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
-				cliente.setContratacion(LocalDateTime.now().toString());
-				String idioma = comboBoxIdioma.getSelectedItem().toString();
-				cliente.setIdioma(idioma);
-				String licencia = comboBoxLicencia.getSelectedItem().toString();
-				cliente.setContratacion(licencia);
-				JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-				ventana.cambiarDePanel(0);
+				System.out.println(txtNombredeUsuario.getText());
+				if (txtNombredeUsuario.getText().equalsIgnoreCase("") || txtApellido.getText().equalsIgnoreCase("")
+						|| txtConfirmarContraseña.getText().equalsIgnoreCase("")
+						|| txtContraseña.getText().equalsIgnoreCase("")
+						|| txtFechaDeNacimiento.getText().equalsIgnoreCase("")) {
+					JOptionPane.showMessageDialog(null, "Rellene todos los campos");
 
-
+				} else if (txtNombredeUsuario.getText().equalsIgnoreCase("admin")) {
+					JOptionPane.showMessageDialog(null, "Admin no se puede registrar");
+				} else if (!gestion.validarExistenciaEnLaBaseDeDatos(txtNombredeUsuario.getText())) {
+					JOptionPane.showMessageDialog(null, "Usuario ya existe en la base de datos");
+				} else if (!txtContraseña.getText().equalsIgnoreCase(txtConfirmarContraseña.getText())) {
+					JOptionPane.showMessageDialog(null, "Contraseña mal escrita");
+				} else if (!gestion.recogerInformacionFormulario(txtFechaDeNacimiento.getText())) {
+					JOptionPane.showMessageDialog(null, "Fecha deberia ser año-mes-dia");
+				} else {
+					Cliente cliente = new Cliente();
+					cliente.setNombre(txtNombre.getText());
+					cliente.setApellido(txtApellido.getText());
+					cliente.setContraseña(txtConfirmarContraseña.getText());
+					cliente.setFecha_de_nacimiento(txtFechaDeNacimiento.getText());
+					cliente.setContratacion(LocalDateTime.now().toString());
+					cliente.setUsuario(txtNombredeUsuario.getText());
+					String idioma = comboBoxIdioma.getSelectedItem().toString();
+					cliente.setIdioma(idioma);
+					String licencia = comboBoxLicencia.getSelectedItem().toString();
+					cliente.setPremium(licencia);
+					gestion.insertarUsuario(cliente);
+					ventana.cambiarDePanel(0);
 				}
-	});
+
+			}
+		});
 
 		btnRegistrarse.setBounds(50, 387, 241, 23);
 		panel.add(btnRegistrarse);
@@ -186,16 +203,11 @@ public class Registro extends JPanel {
 		lblVentajas.setBounds(367, 354, 89, 49);
 		panel.add(lblVentajas);
 
-		
-
 		JLabel lblLicencia = new JLabel("Licencia:");
 		lblLicencia.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblLicencia.setBounds(205, 333, 97, 27);
 		panel.add(lblLicencia);
-		
-		
-	
-			}
-		
+
 	}
 
+}

@@ -14,7 +14,7 @@ public class VistaPopUp extends JFrame {
 
 	public VistaPopUp() {
 
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gestion = new GestionDeLaInformacion();
 		setIconImage(Toolkit.getDefaultToolkit().getImage("multimedia/iconoApp.png"));
 		setLocationRelativeTo(null);
