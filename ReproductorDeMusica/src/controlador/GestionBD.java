@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import modelo.Cliente;
+import modelo.Musico;
 
 public class GestionBD {
 
@@ -136,6 +136,48 @@ public class GestionBD {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 		}
 		return cliente;
+
+	}
+
+	public Musico sacarMusico(String musico) {
+
+		Musico cantante = new Musico();
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM musico WHERE NombreArtistico LIKE '" + musico + "'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				cantante = new Musico(resultadoConsulta.getString(2), resultadoConsulta.getString(4),
+						resultadoConsulta.getString(5));
+			}
+			System.out.println(musico);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+		return cantante;
+
+	}
+
+	public void llenarLista(String nombre) {
+
+		ArrayList<String> artista = new ArrayList<String>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT NombreArtistico FROM musico";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				artista.add(resultadoConsulta.getString(2));
+
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
 
 	}
 }

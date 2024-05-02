@@ -1,15 +1,18 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import controlador.GestionBD;
 import modelo.Cliente;
+import modelo.Musico;
 
 public class GestionDeLaInformacion {
 
 	private GestionBD gestionBD;
 	private Cliente cliente;
+	private Musico musico;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
@@ -59,5 +62,19 @@ public class GestionDeLaInformacion {
 	public boolean insertarUsuario(Cliente insertar) {
 		gestionBD.insertUsuario(insertar);
 		return true;
+	}
+	public void guardarMusico(String musico) {
+		this.musico = gestionBD.sacarMusico(musico);
+
+	}
+	
+	public Musico devolverMusico() {
+		return this.musico;
+		
+		
+	}
+	public ArrayList<String> devolverMusicos(){
+		return null;
+		
 	}
 }
