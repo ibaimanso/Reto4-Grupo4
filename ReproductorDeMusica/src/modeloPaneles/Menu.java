@@ -21,6 +21,7 @@ public class Menu extends JPanel {
 		setBackground(new Color(125, 255, 190));
 		setLayout(null);
 		setSize(ventana.getSize());
+		
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -66,6 +67,11 @@ public class Menu extends JPanel {
 		panel_1.setLayout(null);
 
 		JButton btnDescubrirMusica = new JButton("Descubrir Musica");
+		btnDescubrirMusica.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(5);
+			}
+		});
 		btnDescubrirMusica.setBackground(new Color(173, 255, 47)); 
 
 		btnDescubrirMusica.setForeground(Color.BLACK);

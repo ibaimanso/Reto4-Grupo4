@@ -1,15 +1,19 @@
 package modelo;
 
+import javax.swing.Icon;
+
 public class Musico {
-	private String nombre, clase, descripcion;
-	
+	private String id, nombre,  clase, descripcion;
+	private Icon imagen;
 	public Musico() {
 		
 	}
 
-	public Musico(String nombre, String clase, String descripcion) {
+	public Musico(String id, String nombre,Icon imagen, String clase, String descripcion) {
 		super();
+		this.id = id;
 		this.nombre = nombre;
+		this.imagen = imagen;
 		this.clase = clase;
 		this.descripcion = descripcion;
 	}
@@ -38,9 +42,21 @@ public class Musico {
 		this.descripcion = descripcion;
 	}
 
-	@Override
-	public String toString() {
-		return "Musico [nombre=" + nombre + ", clase=" + clase + ", descripcion=" + descripcion + "]";
+	public String getId() {
+		return id;
 	}
 
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Icon getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Icon imagen) {
+		this.imagen = imagen;
+	}
+
+	
 }

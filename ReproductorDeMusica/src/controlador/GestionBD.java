@@ -105,7 +105,7 @@ public class GestionBD {
 					+ cliente.getNombre() + "', '" + cliente.getApellido() + "', '" + cliente.getIdioma() + "', '"
 					+ cliente.getUsuario() + "', '" + cliente.getContraseña() + "', '"
 					+ cliente.getFecha_de_nacimiento() + "', CURRENT_DATE, '" + cliente.getPremium() + "')";
-			System.out.println(insert);
+			
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
 			consulta.close();
@@ -131,7 +131,7 @@ public class GestionBD {
 						resultadoConsulta.getString(6), resultadoConsulta.getString(7), resultadoConsulta.getString(8),
 						resultadoConsulta.getString(9));
 			}
-			System.out.println(cliente);
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 		}
@@ -149,10 +149,10 @@ public class GestionBD {
 			String query = "SELECT * FROM musico WHERE NombreArtistico LIKE '" + musico + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				cantante = new Musico(resultadoConsulta.getString(2), resultadoConsulta.getString(4),
-						resultadoConsulta.getString(5));
+//				cantante = new Musico(resultadoConsulta.getString(2), resultadoConsulta.getString(4),
+	//					resultadoConsulta.getString(5));
 			}
-			System.out.println(musico);
+			
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
@@ -161,16 +161,16 @@ public class GestionBD {
 
 	}
 
-	public void llenarLista(String nombre) {
+	public ArrayList<Musico> llenarListaMusico() {
 
-		ArrayList<String> artista = new ArrayList<String>();
+		ArrayList<Musico> artista = new ArrayList<Musico>();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT NombreArtistico FROM musico";
+			String query = "SELECT * FROM musico";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				artista.add(resultadoConsulta.getString(2));
+				//artista.add(resultadoConsulta.getString(2));
 
 			}
 
@@ -178,6 +178,6 @@ public class GestionBD {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 		}
-
+		return artista;
 	}
 }

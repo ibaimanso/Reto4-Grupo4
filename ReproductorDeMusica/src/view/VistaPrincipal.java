@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
 import modelo.Cliente;
+import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
 import modeloPaneles.Perfil;
@@ -49,7 +50,10 @@ public class VistaPrincipal extends JFrame{
 			Perfil perfil = new Perfil(this, gestion);
 			perfil.setVisible(true);
 			break;
-			
+		case 5:
+			setContentPane(new DescubrirMusica(this, gestion));
+			break;
+
 			
 	
 	

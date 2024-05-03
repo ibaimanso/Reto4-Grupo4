@@ -13,9 +13,12 @@ public class GestionDeLaInformacion {
 	private GestionBD gestionBD;
 	private Cliente cliente;
 	private Musico musico;
+	private ArrayList<Musico> musicos;
+	
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
+		musicos = gestionBD.llenarListaMusico();
 	}
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
@@ -52,10 +55,10 @@ public class GestionDeLaInformacion {
 	 */
 	public void guardarUsuario(String usuario) {
 		this.cliente = gestionBD.pedirUsuario(usuario);
-		System.out.println(cliente);
+		
 	}
 	public Cliente devolverUsuario() {
-		System.out.println(cliente);
+		
 		return this.cliente;
 	}
 	
@@ -73,8 +76,7 @@ public class GestionDeLaInformacion {
 		
 		
 	}
-	public ArrayList<String> devolverMusicos(){
-		return null;
-		
+	public ArrayList<Musico> devolverMusicos(){
+		return this.musicos;
 	}
 }
