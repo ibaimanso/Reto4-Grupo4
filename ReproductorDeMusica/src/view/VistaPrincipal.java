@@ -5,10 +5,10 @@ import java.awt.Toolkit;
 import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
-import modelo.Cliente;
 import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
+import modeloPaneles.PanelArtista;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
 
@@ -52,6 +52,9 @@ public class VistaPrincipal extends JFrame{
 			break;
 		case 5:
 			setContentPane(new DescubrirMusica(this, gestion));
+			break;
+		case 6:
+			setContentPane(new PanelArtista(this, gestion));
 			break;
 
 			

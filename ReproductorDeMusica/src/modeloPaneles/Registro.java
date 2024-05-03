@@ -207,6 +207,19 @@ public class Registro extends JPanel {
 		lblLicencia.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblLicencia.setBounds(205, 333, 97, 27);
 		panel.add(lblLicencia);
+		
+		JButton bntCerrarSesion = new JButton("");
+		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
+		bntCerrarSesion.setFocusPainted(false);
+		bntCerrarSesion.setBorderPainted(false);
+		bntCerrarSesion.setContentAreaFilled(false);
+		bntCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(0);
+			}
+		});
+		bntCerrarSesion.setBounds(580, 527, 153, 62);
+		add(bntCerrarSesion);
 
 	}
 

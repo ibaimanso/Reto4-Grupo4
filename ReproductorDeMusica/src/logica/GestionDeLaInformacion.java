@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import controlador.GestionBD;
+import modelo.Album;
 import modelo.Cliente;
 import modelo.Musico;
 
@@ -14,6 +15,8 @@ public class GestionDeLaInformacion {
 	private Cliente cliente;
 	private Musico musico;
 	private ArrayList<Musico> musicos;
+	private Album album;
+	private ArrayList<Album> albums;
 	
 
 	public GestionDeLaInformacion() {
@@ -66,17 +69,42 @@ public class GestionDeLaInformacion {
 		gestionBD.insertUsuario(insertar);
 		return true;
 	}
-	public void guardarMusico(String musico) {
-		this.musico = gestionBD.sacarMusico(musico);
+	
+	/**
+	 * Metodos para la gestion de musicos
+	 * @param musico
+	 */
+	public void guardarMusico(Musico musico) {
+		this.musico = musico;
+	}
+	
+	public Musico devolverMusico(){
+		return this.musico;
+	}
+	
+	public ArrayList<Musico> devolverMusicos(){
+		return this.musicos;
+	}
+
+	public void recogerMusicosDeLaBaseDeDatos() {
+		musicos = gestionBD.llenarListaMusico();
+	}
+	
+	/**
+	 * Metodos para la gestion de albums
+	 * @param album
+	 */
+	
+	public void guardarAlbum(Album album) {
+		this.album = album;
 
 	}
 	
-	public Musico devolverMusico() {
-		return this.musico;
-		
-		
+	public ArrayList<Album> devolverAlbums(){
+		return this.albums;
 	}
-	public ArrayList<Musico> devolverMusicos(){
-		return this.musicos;
+
+	public void recogerAlbumsDeLaBaseDeDatos() {
+		this.albums = gestionBD.llenarListaDeAlbums(this.musico);
 	}
 }

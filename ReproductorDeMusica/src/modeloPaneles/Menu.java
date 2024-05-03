@@ -17,6 +17,8 @@ import view.VistaPrincipal;
 
 public class Menu extends JPanel {
 
+	private static final long serialVersionUID = 1L;
+
 	public Menu(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(125, 255, 190));
 		setLayout(null);

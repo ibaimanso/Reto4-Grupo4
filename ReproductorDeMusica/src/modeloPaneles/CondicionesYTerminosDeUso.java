@@ -13,6 +13,7 @@ import view.VistaPopUp;
 
 public class CondicionesYTerminosDeUso extends JPanel{
 	
+	private static final long serialVersionUID = 1L;
 
 	public CondicionesYTerminosDeUso(VistaPopUp popup,GestionDeLaInformacion gestion) {
 		setLayout(null);

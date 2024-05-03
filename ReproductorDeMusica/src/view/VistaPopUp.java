@@ -10,6 +10,7 @@ import modeloPaneles.PopUpPremium;
 
 public class VistaPopUp extends JFrame {
 
+	private static final long serialVersionUID = 1L;
 	private GestionDeLaInformacion gestion;
 
 	public VistaPopUp() {

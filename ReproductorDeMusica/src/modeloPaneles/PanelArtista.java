@@ -19,22 +19,22 @@ import javax.swing.JScrollPane;
 
 import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
-import modelo.Musico;
+import modelo.Album;
 import view.VistaPrincipal;
 
-public class DescubrirMusica extends JPanel implements Paneles{
+public class PanelArtista extends JPanel implements Paneles{
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Musico> musicos;
+	private ArrayList<Album> albums;
 	private int contador;
 	private JLabel lblCaracteristica;
 	private JLabel lblDescripcion;
-
-	public DescubrirMusica(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+	
+	public PanelArtista(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setLayout(null);
-		gestion.recogerMusicosDeLaBaseDeDatos();
-		musicos = gestion.devolverMusicos();
+		gestion.recogerAlbumsDeLaBaseDeDatos();
+		albums = gestion.devolverAlbums();
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
@@ -43,13 +43,12 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		 * Crear un panel para contener los JLabels
 		 */
 		JPanel panel = new JPanel();
-		// panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setLayout(new GridLayout(0, 1));
 
 		/**
 		 * Agregar JLabels al panel
 		 */
-		for (int i = 0; i < musicos.size(); i++) {
+		for (int i = 0; i < albums.size(); i++) {
 			JPanel panelItem = new JPanel();
 			panelItem.setLayout(new GridLayout());
 			panelItem.setSize(80, 396);
@@ -58,7 +57,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 			 *  Cargar imagen
 			 */
 			ImageIcon imageIcon = null;
-			if (musicos.get(i).getImagen() == null) {
+			if (albums.get(i).getImagen() == null) {
 				imageIcon = new ImageIcon("multimedia/default_perfil.png");
 			} else {
 
@@ -73,7 +72,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 			/*
 			 *  Agregar JLabel de nombre al lado de la imagen
 			 */
-			JLabel label1 = new JLabel("Nombre: "+ musicos.get(i).getNombre());
+			JLabel label1 = new JLabel("Nombre: ");
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
@@ -110,7 +109,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		lblTituloCaracteristica.setBounds(420, 65, 238, 43);
 		add(lblTituloCaracteristica);
 
-		lblCaracteristica = new JLabel(musicos.get(contador).getClase());
+		lblCaracteristica = new JLabel("");
 		lblCaracteristica.setBounds(420, 119, 238, 57);
 		add(lblCaracteristica);
 
@@ -118,7 +117,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		lblTituloDescripcion.setBounds(420, 203, 238, 43);
 		add(lblTituloDescripcion);
 
-		lblDescripcion = new JLabel(musicos.get(contador).getDescripcion());
+		lblDescripcion = new JLabel("");
 		lblDescripcion.setBounds(420, 257, 238, 180);
 		add(lblDescripcion);
 
@@ -151,17 +150,18 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		JButton btnSiguiente = new JButton("");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.guardarMusico(musicos.get(contador));
-				ventana.cambiarDePanel(6);
+				gestion.guardarAlbum(albums.get(contador));
+				ventana.cambiarDePanel(7);
 			}
 		});
 		btnSiguiente.setBounds(481, 518, 89, 23);
 		add(btnSiguiente);
 
 	}
-	
+
+	@Override
 	public void cambiarContenidoDeLabels() {
-		lblCaracteristica.setText(musicos.get(contador).getClase());
-		lblDescripcion.setText(musicos.get(contador).getDescripcion());
+		// TODO Auto-generated method stub
+		
 	}
 }

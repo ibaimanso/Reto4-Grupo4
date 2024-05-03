@@ -19,6 +19,8 @@ import view.VistaPrincipal;
 
 public class Perfil extends JFrame {
 	
+	private static final long serialVersionUID = 1L;
+
 	public Perfil(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
 		Cliente cliente = gestion.devolverUsuario();
