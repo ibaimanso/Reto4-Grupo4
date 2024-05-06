@@ -97,7 +97,10 @@ public class GestionDeLaInformacion {
 	
 	public void guardarAlbum(Album album) {
 		this.album = album;
-
+	}
+	
+	public Album devolverAlbum(){
+		return this.album;
 	}
 	
 	public ArrayList<Album> devolverAlbums(){

@@ -62,7 +62,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 				imageIcon = new ImageIcon("multimedia/default_perfil.png");
 			} else {
 
-				imageIcon = new ImageIcon("multimedia/default_perfil.png");
+				imageIcon = musicos.get(i).getImagen();
 			}
 			Image image = imageIcon.getImage();
 			Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);

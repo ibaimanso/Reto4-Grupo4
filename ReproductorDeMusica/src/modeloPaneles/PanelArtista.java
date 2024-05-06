@@ -2,6 +2,7 @@ package modeloPaneles;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
 import modelo.Album;
+import modelo.Musico;
 import view.VistaPrincipal;
 
 public class PanelArtista extends JPanel implements Paneles{
@@ -27,6 +29,7 @@ public class PanelArtista extends JPanel implements Paneles{
 	private static final long serialVersionUID = 1L;
 
 	private ArrayList<Album> albums;
+	private Musico musico;
 	private int contador;
 	private JLabel lblCaracteristica;
 	private JLabel lblDescripcion;
@@ -35,6 +38,7 @@ public class PanelArtista extends JPanel implements Paneles{
 		setLayout(null);
 		gestion.recogerAlbumsDeLaBaseDeDatos();
 		albums = gestion.devolverAlbums();
+		musico = gestion.devolverMusico();
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
@@ -60,8 +64,7 @@ public class PanelArtista extends JPanel implements Paneles{
 			if (albums.get(i).getImagen() == null) {
 				imageIcon = new ImageIcon("multimedia/default_perfil.png");
 			} else {
-
-				imageIcon = new ImageIcon("multimedia/default_perfil.png");
+				imageIcon = albums.get(i).getImagen();
 			}
 			Image image = imageIcon.getImage();
 			Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -72,7 +75,7 @@ public class PanelArtista extends JPanel implements Paneles{
 			/*
 			 *  Agregar JLabel de nombre al lado de la imagen
 			 */
-			JLabel label1 = new JLabel("Nombre: ");
+			JLabel label1 = new JLabel("Nombre: " + albums.get(i).getTitulo());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
@@ -104,22 +107,38 @@ public class PanelArtista extends JPanel implements Paneles{
 		scrollArtista.setSize(350, 490);
 		scrollArtista.setLocation(34, 65);
 		add(scrollArtista);
+		
+		JLabel lblNombre = new JLabel(musico.getNombre());
+		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 18));
+		lblNombre.setBounds(420, 65, 274, 45);
+		add(lblNombre);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
-		lblTituloCaracteristica.setBounds(420, 65, 238, 43);
+		lblTituloCaracteristica.setBounds(420, 121, 238, 30);
 		add(lblTituloCaracteristica);
 
-		lblCaracteristica = new JLabel("");
-		lblCaracteristica.setBounds(420, 119, 238, 57);
+		lblCaracteristica = new JLabel(musico.getClase());
+		lblCaracteristica.setBounds(420, 162, 238, 30);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
 		lblTituloDescripcion.setBounds(420, 203, 238, 43);
 		add(lblTituloDescripcion);
 
-		lblDescripcion = new JLabel("");
-		lblDescripcion.setBounds(420, 257, 238, 180);
+		lblDescripcion = new JLabel(musico.getDescripcion());
+		lblDescripcion.setBounds(420, 257, 238, 100);
 		add(lblDescripcion);
+		
+		JLabel lblImagenAutor = new JLabel("");
+		ImageIcon imageIcon = null;
+		if (musico.getImagen() == null) {
+			imageIcon = new ImageIcon("multimedia/default_perfil.png");
+		} else {
+			imageIcon = musico.getImagen();
+		}
+		lblImagenAutor.setIcon(imageIcon);
+		lblImagenAutor.setBounds(470, 379, 100, 100);
+		add(lblImagenAutor);
 
 		JButton bntCerrarSesion = new JButton("");
 		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
@@ -137,7 +156,7 @@ public class PanelArtista extends JPanel implements Paneles{
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(4);
+				ventana.cambiarDePanel(5);
 			}
 		});
 		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));

@@ -1,15 +1,15 @@
-package modelo;
+	package modelo;
 
-import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 public class Musico {
 	private String id, nombre,  clase, descripcion;
-	private Icon imagen;
+	private ImageIcon imagen;
 	public Musico() {
 		
 	}
 
-	public Musico(String id, String nombre,Icon imagen, String clase, String descripcion) {
+	public Musico(String id, String nombre,ImageIcon imagen, String clase, String descripcion) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -50,11 +50,11 @@ public class Musico {
 		this.id = id;
 	}
 
-	public Icon getImagen() {
+	public ImageIcon getImagen() {
 		return imagen;
 	}
 
-	public void setImagen(Icon imagen) {
+	public void setImagen(ImageIcon imagen) {
 		this.imagen = imagen;
 	}
 

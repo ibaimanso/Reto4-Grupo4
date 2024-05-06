@@ -5,7 +5,9 @@ import javax.swing.ImageIcon;
 public class Album {
 	private String idAlbum, titulo, año, genero, idMusico;
 	private ImageIcon imagen;
+	int numeroDeCanciones;
 	
+
 	public Album() {
 		// TODO Auto-generated constructor stub
 	}
@@ -66,6 +68,19 @@ public class Album {
 
 	public void setImagen(ImageIcon imagen) {
 		this.imagen = imagen;
+	}
+	
+	public int getNumeroDeCanciones() {
+		return numeroDeCanciones;
+	}
+
+	public void setNumeroDeCanciones(int numeroDeCanciones) {
+		this.numeroDeCanciones = numeroDeCanciones;
+	}
+	
+	public String datosPanel() {
+		String datos = titulo + ", " + año + ", " + numeroDeCanciones+ "canciones";
+		return datos;
 	}
 	
 	
