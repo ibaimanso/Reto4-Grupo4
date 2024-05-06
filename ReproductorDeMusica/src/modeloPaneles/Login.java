@@ -22,6 +22,7 @@ public class Login extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JTextField txtfieldUsuario;
 	public JTextField textFieldContraseña;
+	private String usuario = "admin", contraseña = "admin";
 
 	public Login(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setSize(ventana.getSize());
@@ -72,6 +73,10 @@ public class Login extends JPanel {
 					JOptionPane.showMessageDialog(null, "Has iniciado sesión");
 					gestion.guardarUsuario(txtfieldUsuario.getText());
 					ventana.cambiarDePanel(3);
+				}else if  (usuario == "admin" && contraseña == "admin"){
+					JOptionPane.showMessageDialog(null, "Bienvenido Administrador!");
+					ventana.cambiarDePanel(7);
+
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña erronea");
 
