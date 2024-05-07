@@ -21,6 +21,20 @@ public class Album {
 		this.idMusico = idMusico;
 		this.imagen = imagen;
 	}
+	
+	
+
+	public Album(String idAlbum, String titulo, String año, String genero, ImageIcon imagen, String idMusico,
+			int numeroDeCanciones) {
+		super();
+		this.idAlbum = idAlbum;
+		this.titulo = titulo;
+		this.año = año;
+		this.genero = genero;
+		this.idMusico = idMusico;
+		this.imagen = imagen;
+		this.numeroDeCanciones = numeroDeCanciones;
+	}
 
 	public String getIdAlbum() {
 		return idAlbum;

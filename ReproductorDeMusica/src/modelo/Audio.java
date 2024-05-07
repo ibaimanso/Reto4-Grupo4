@@ -1,15 +1,33 @@
 package modelo;
 
+import java.sql.Blob;
+
+import javax.swing.ImageIcon;
+
 public class Audio {
 	
-	private String idAudio,nombreAudio,duracion,imagen;
+	private String idAudio, nombreAudio;
+	private int duracion;
+	private ImageIcon imagen;
+	private Blob audio;
+	
+	
 
-	public String getImagen() {
-	    return imagen;
+	public Audio(String idAudio, String nombreAudio, int duracion, ImageIcon imagen) {
+		super();
+		this.idAudio = idAudio;
+		this.nombreAudio = nombreAudio;
+		this.duracion = duracion;
+		this.imagen = imagen;
 	}
 
-	public void setImagen(String imagen) {
-	    this.imagen = imagen;
+	public Audio(String idAudio, String nombreAudio, int duracion, ImageIcon imagen, Blob audio) {
+		super();
+		this.idAudio = idAudio;
+		this.nombreAudio = nombreAudio;
+		this.duracion = duracion;
+		this.imagen = imagen;
+		this.audio = audio;
 	}
 
 	public String getIdAudio() {
@@ -28,12 +46,28 @@ public class Audio {
 	    this.nombreAudio = nombreAudio;
 	}
 
-	public String getDuracion() {
+	public int getDuracion() {
 	    return duracion;
 	}
 
-	public void setDuracion(String duracion) {
+	public void setDuracion(int duracion) {
 	    this.duracion = duracion;
+	}
+
+	public ImageIcon getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(ImageIcon imagen) {
+		this.imagen = imagen;
+	}
+
+	public Blob getAudio() {
+		return audio;
+	}
+
+	public void setAudio(Blob audio) {
+		this.audio = audio;
 	}
 
 	}

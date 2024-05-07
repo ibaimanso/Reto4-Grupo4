@@ -8,6 +8,7 @@ import logica.GestionDeLaInformacion;
 import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
+import modeloPaneles.PanelAlbum;
 import modeloPaneles.PanelArtista;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
@@ -56,6 +57,10 @@ public class VistaPrincipal extends JFrame{
 		case 6:
 			setContentPane(new PanelArtista(this, gestion));
 			break;
+		case 7:
+			setContentPane(new PanelAlbum(this, gestion));
+			break;
+			
 
 			
 	

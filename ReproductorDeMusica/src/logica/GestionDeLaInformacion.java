@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 import controlador.GestionBD;
 import modelo.Album;
+import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
 
@@ -17,6 +18,8 @@ public class GestionDeLaInformacion {
 	private ArrayList<Musico> musicos;
 	private Album album;
 	private ArrayList<Album> albums;
+	private Cancion cancion;
+	private ArrayList<Cancion> canciones;
 	
 
 	public GestionDeLaInformacion() {
@@ -110,4 +113,27 @@ public class GestionDeLaInformacion {
 	public void recogerAlbumsDeLaBaseDeDatos() {
 		this.albums = gestionBD.llenarListaDeAlbums(this.musico);
 	}
+	
+	/**
+	 * Metodos para la gestion de canciones
+	 * @param album
+	 */
+	
+	public void guardarCancion(Cancion cancion) {
+		this.cancion = cancion;
+	}
+	
+	public Cancion devolverCancion(){
+		return this.cancion;
+	}
+	
+	public ArrayList<Cancion> devolverCanciones(){
+		return this.canciones;
+	}
+
+	public void recogerCancionesDeLaBaseDeDatos() {
+		this.canciones = gestionBD.llenarListaDeCanciones(this.album);
+	}
+	
+	
 }

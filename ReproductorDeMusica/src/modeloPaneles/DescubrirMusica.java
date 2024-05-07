@@ -22,7 +22,7 @@ import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
 
-public class DescubrirMusica extends JPanel implements Paneles{
+public class DescubrirMusica extends JPanel implements Paneles {
 
 	private static final long serialVersionUID = 1L;
 
@@ -55,13 +55,12 @@ public class DescubrirMusica extends JPanel implements Paneles{
 			panelItem.setSize(80, 396);
 
 			/**
-			 *  Cargar imagen
-			 */
+			 * Cargar imagen
+			 */	
 			ImageIcon imageIcon = null;
 			if (musicos.get(i).getImagen() == null) {
 				imageIcon = new ImageIcon("multimedia/default_perfil.png");
 			} else {
-
 				imageIcon = musicos.get(i).getImagen();
 			}
 			Image image = imageIcon.getImage();
@@ -71,18 +70,18 @@ public class DescubrirMusica extends JPanel implements Paneles{
 			panelItem.add(imageLabel);
 
 			/*
-			 *  Agregar JLabel de nombre al lado de la imagen
+			 * Agregar JLabel de nombre al lado de la imagen
 			 */
-			JLabel label1 = new JLabel("Nombre: "+ musicos.get(i).getNombre());
+			JLabel label1 = new JLabel("Nombre: " + musicos.get(i).getNombre());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
 			/**
-			 *  Le damos un identificador
+			 * Le damos un identificador
 			 */
 			panelItem.setName("" + i);
 			/**
-			 *  Añadirmos un borde al panelItem para hacerlo mas visual
+			 * Añadirmos un borde al panelItem para hacerlo mas visual
 			 */
 			panelItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -93,7 +92,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
 					cambiarContenidoDeLabels();
-					
+
 				}
 			});
 			// Agregar panelItem al panel principal
@@ -134,7 +133,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
-		
+
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -147,7 +146,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		btnPerfil.setBorderPainted(false);
 		btnPerfil.setContentAreaFilled(false);
 		add(btnPerfil);
-		
+
 		JButton btnSiguiente = new JButton("");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,7 +158,7 @@ public class DescubrirMusica extends JPanel implements Paneles{
 		add(btnSiguiente);
 
 	}
-	
+
 	public void cambiarContenidoDeLabels() {
 		lblCaracteristica.setText(musicos.get(contador).getClase());
 		lblDescripcion.setText(musicos.get(contador).getDescripcion());
