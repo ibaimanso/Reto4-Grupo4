@@ -16,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
@@ -40,6 +41,38 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(0, 255, 0));
+		panel1.setBounds(-48, 0, 762, 140);
+		add(panel1);
+		panel1.setLayout(null);
+
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
+		lblNewLabel.setBounds(179, 9, 313, 118);
+		panel1.add(lblNewLabel);
+
+		JButton btnPerfil = new JButton("");
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(4);
+
+			}
+		});
+		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
+		btnPerfil.setBounds(590, 7, 137, 120);
+		btnPerfil.setFocusPainted(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setContentAreaFilled(false);
+		panel1.add(btnPerfil);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(35, 11, 167, 108);
+		panel1.add(lblLogo);
+		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
+
 
 		/**
 		 * Crear un panel para contener los JLabels
@@ -141,18 +174,12 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
 
-		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventana.cambiarDePanel(4);
 			}
 		});
-		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
-		btnPerfil.setBounds(590, 7, 137, 120);
-		btnPerfil.setFocusPainted(false);
-		btnPerfil.setBorderPainted(false);
-		btnPerfil.setContentAreaFilled(false);
-		add(btnPerfil);
+		
 
 		JButton btnSiguiente = new JButton("Ir al artista");
 		btnSiguiente.addActionListener(new ActionListener() {
