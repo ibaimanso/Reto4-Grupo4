@@ -1,24 +1,18 @@
 package modeloPaneles;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
+import logica.ControladorDeSonido;
 import logica.GestionDeLaInformacion;
 import modelo.Album;
-import modelo.Audio;
 import modelo.Cancion;
 import view.VistaPrincipal;
 
@@ -30,15 +24,19 @@ public class PanelReproducion extends JPanel {
 	private ArrayList<Cancion> canciones;
 	private Album album;
 	private int contador;
+	private ControladorDeSonido control;
 	private JLabel lblNombre;
+	private boolean reproduciendo;
 	
-	public PanelReproducion(VistaPrincipal ventana, GestionDeLaInformacion gestion, int contadorPista) {
-		setLayout(null);
+	public PanelReproducion(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		gestion.recogerCancionesDeLaBaseDeDatos();
 		canciones = gestion.devolverCanciones();
 		album = gestion.devolverAlbum();
-		this.contador = contadorPista;
+		this.contador = 0;
+		reproduciendo = false;
+		control = new ControladorDeSonido(canciones.get(contador));
 
+		setLayout(null);
 		setSize(new Dimension(704, 603));
 
 		JLabel lblInformacion = new JLabel("Información");
@@ -102,25 +100,32 @@ public class PanelReproducion extends JPanel {
 		add(lblColaboradores);
 		
 		btnPlay = new JButton("▶");
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (btnPlay.getText().equalsIgnoreCase("▶")) {
+					control.reproducir();
+				}
+			}
+		});
 		btnPlay.setBounds(292, 414, 89, 23);
 		add(btnPlay);
 		
-		btnAnterior = new JButton("▶");
+		btnAnterior = new JButton("<-");
 		btnAnterior.setBounds(241, 414, 41, 23);
 		add(btnAnterior);
 		
-		btnSiguiente = new JButton("▶");
+		btnSiguiente = new JButton("->");
 		btnSiguiente.setBounds(391, 414, 41, 23);
 		add(btnSiguiente);
 		
-		btnMenu = new JButton("▶");
+		btnMenu = new JButton("|||");
 		btnMenu.setBounds(89, 414, 89, 23);
 		add(btnMenu);
 		
-		btnMeGusta = new JButton("▶");
+		btnMeGusta = new JButton("<3");
 		btnMeGusta.setBounds(500, 414, 89, 23);
 		add(btnMeGusta);
 		
-
+		
 	}
 }

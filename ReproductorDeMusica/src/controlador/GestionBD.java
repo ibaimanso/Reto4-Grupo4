@@ -1,5 +1,7 @@
 package controlador;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,7 +10,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -195,9 +196,6 @@ public class GestionBD {
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
-							resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
-							resultadoConsulta.getString(6)));
 				}
 			}
 			}} catch (Exception e) {
@@ -266,7 +264,23 @@ public class GestionBD {
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					imagen = new ImageIcon(arrayImagen);
 				}
-				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getBlob(5), resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+				
+				File cancion = null;
+				if(resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				}else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("", ".wav", new File("."));
+					FileOutputStream out = new FileOutputStream(cancion);
+				    out.write(arrayCancion);
+				    out.close();
+				    if (!cancion.exists()) {
+				    	System.out.println("Fichero nulo");
+				    }
+					
+				}
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

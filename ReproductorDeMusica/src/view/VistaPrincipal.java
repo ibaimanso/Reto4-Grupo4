@@ -12,6 +12,7 @@ import modeloPaneles.Menu;
 import modeloPaneles.PanelAlbum;
 import modeloPaneles.PanelAdministrador;
 import modeloPaneles.PanelArtista;
+import modeloPaneles.PanelReproducion;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
 
@@ -64,6 +65,9 @@ public class VistaPrincipal extends JFrame{
 			break;
 		case 8:
 			setContentPane(new PanelAdministrador(this, gestion));
+			break;
+		case 9:
+			setContentPane(new PanelReproducion(this, gestion));
 			break;
 
 			

@@ -1,6 +1,6 @@
 package modelo;
 
-import java.sql.Blob;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 
@@ -15,7 +15,7 @@ public class Cancion extends Audio{
 		this.idAlbum = idAlbum;
 	} 
 	
-	public Cancion(String idAudio, String nombreAudio, int duracion, ImageIcon imagen,  Blob audio, String idCancion,
+	public Cancion(String idAudio, String nombreAudio, int duracion, ImageIcon imagen,  File audio, String idCancion,
 			String idAlbum) {
 		super(idAudio, nombreAudio, duracion, imagen, audio);
 		this.idCancion = idCancion;
