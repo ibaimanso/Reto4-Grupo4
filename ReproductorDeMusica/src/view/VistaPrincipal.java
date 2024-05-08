@@ -2,6 +2,7 @@ package view;
 
 import java.awt.Toolkit;
 
+
 import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
@@ -9,6 +10,7 @@ import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
 import modeloPaneles.PanelAlbum;
+import modeloPaneles.PanelAdministrador;
 import modeloPaneles.PanelArtista;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
@@ -60,7 +62,9 @@ public class VistaPrincipal extends JFrame{
 		case 7:
 			setContentPane(new PanelAlbum(this, gestion));
 			break;
-			
+		case 8:
+			setContentPane(new PanelAdministrador(this, gestion));
+			break;
 
 			
 	

@@ -22,6 +22,7 @@ public class Login extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JTextField txtfieldUsuario;
 	public JTextField textFieldContraseña;
+	
 
 	public Login(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setSize(ventana.getSize());
@@ -64,14 +65,21 @@ public class Login extends JPanel {
 		textFieldContraseña.setBounds(20, 106, 235, 20);
 		panel.add(textFieldContraseña);
 		textFieldContraseña.setColumns(10);
-		
+
 		JButton btnContinuar = new JButton("Iniciar Sesion");
+		
 		btnContinuar.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
+				
 				if (gestion.testUsuarioYContraseña(txtfieldUsuario.getText(), textFieldContraseña.getText()) == true) {
 					JOptionPane.showMessageDialog(null, "Has iniciado sesión");
 					gestion.guardarUsuario(txtfieldUsuario.getText());
 					ventana.cambiarDePanel(3);
+				} else if (txtfieldUsuario.getText().equals("admin") && textFieldContraseña.getText().equals("admin")) {
+					JOptionPane.showMessageDialog(null, "Bienvenido Administrador!");
+					ventana.cambiarDePanel(8);
+
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña erronea");
 
@@ -102,10 +110,10 @@ public class Login extends JPanel {
 			public void keyReleased(KeyEvent e) {
 			}
 		});
-				
+
 		btnContinuar.setBounds(20, 157, 231, 23);
 		panel.add(btnContinuar);
-		
+
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -178,19 +178,29 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT * FROM album where IDMusico like '"+ musico.getId() +"'";
+			String query = "SELECT * FROM album where IDMusico like '" + musico.getId() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
+
 				if(resultadoConsulta.getBlob(5) == null) {
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), null, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
 				}else {
+
+				if (resultadoConsulta.getBlob(5) == null) {
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
+							resultadoConsulta.getString(6)));
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(5);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
+							resultadoConsulta.getString(6)));
 				}
 			}
-		} catch (Exception e) {
+			}} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 			albums = null;
@@ -263,6 +273,49 @@ public class GestionBD {
 			canciones = null;
 		}
 		return canciones;
+	}
+	
+	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "UPDATE musico SET IDMusico=" + "'" + id + "'" + ", NombreArtistico=" + "'" + nombre + "'"
+					+ ", Caracteristica=" + "'" + tipo + "'" + ", Descripcion=" + "'" + desc + "'" +
+					"WHERE IDMusico="+ "'" + id + "'";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Musico actualizado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+	public boolean insertNuevoMusico(String nombre, String desc, String tipo) {
+		boolean correcto = false;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "insert into musico (NombreArtistico, Caracteristica, Descripcion) VALUES ('"
+				+ nombre + "','" + tipo + "','" + desc + "')";
+
+			System.out.println(insert);
+			consulta.executeUpdate(insert);
+			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
+			
+			consulta.close();
+		
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+		return correcto;
 	}
 
 }
