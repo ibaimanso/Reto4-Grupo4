@@ -128,7 +128,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3);
+				ventana.cambiarDePanel(3, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
@@ -137,7 +137,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(4);
+				ventana.cambiarDePanel(4, 0);
 			}
 		});
 		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
@@ -151,7 +151,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gestion.guardarMusico(musicos.get(contador));
-				ventana.cambiarDePanel(6);
+				ventana.cambiarDePanel(6, 0);
 			}
 		});
 		btnSiguiente.setBounds(481, 518, 89, 23);

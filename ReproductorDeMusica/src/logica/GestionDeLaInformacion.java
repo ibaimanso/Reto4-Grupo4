@@ -140,6 +140,10 @@ public class GestionDeLaInformacion {
 		this.canciones = gestionBD.llenarListaDeCanciones(this.album);
 	}
 	
+	public void recogerCancionesDeLaBaseDeDatosConAudio() {
+		this.canciones = new ArrayList<Cancion>();
+		this.canciones = gestionBD.llenarListaDeCancionesConAudio(this.album);
+	}
 	
 
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {

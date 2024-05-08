@@ -150,7 +150,7 @@ public class PanelArtista extends JPanel implements Paneles{
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(5);
+				ventana.cambiarDePanel(5, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
@@ -159,7 +159,7 @@ public class PanelArtista extends JPanel implements Paneles{
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3);
+				ventana.cambiarDePanel(3, 0);
 			}
 		});
 		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
@@ -173,7 +173,7 @@ public class PanelArtista extends JPanel implements Paneles{
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gestion.guardarAlbum(albums.get(contador));
-				ventana.cambiarDePanel(7);
+				ventana.cambiarDePanel(7, 0);
 			}
 		});
 		btnSiguiente.setBounds(481, 518, 89, 23);

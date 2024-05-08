@@ -28,7 +28,6 @@ public class ControladorDeSonido {
 			clip.start();
 
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -38,6 +37,10 @@ public class ControladorDeSonido {
 		clip.close();
 	}
 	
+	public void cambiarCancion(Audio audio) {
+		pausar();
+		this.audio = audio;
+	}
 	
 
 }

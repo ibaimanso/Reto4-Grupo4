@@ -253,7 +253,7 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				ImageIcon imagen = new ImageIcon();
@@ -271,13 +271,10 @@ public class GestionBD {
 				}else {
 					Blob cancionBlob = resultadoConsulta.getBlob(5);
 					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
-					cancion = File.createTempFile("", ".wav", new File("."));
+					cancion = File.createTempFile("aud--", ".wav", new File("."));
 					FileOutputStream out = new FileOutputStream(cancion);
 				    out.write(arrayCancion);
 				    out.close();
-				    if (!cancion.exists()) {
-				    	System.out.println("Fichero nulo");
-				    }
 					
 				}
 				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));

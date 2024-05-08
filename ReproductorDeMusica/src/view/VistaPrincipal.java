@@ -34,7 +34,7 @@ public class VistaPrincipal extends JFrame{
 		setResizable(false);
 	}
 	
-	public void cambiarDePanel(int i) {
+	public void cambiarDePanel(int i, int cont) {
 
 		switch (i) {
 		case 0:
@@ -67,11 +67,8 @@ public class VistaPrincipal extends JFrame{
 			setContentPane(new PanelAdministrador(this, gestion));
 			break;
 		case 9:
-			setContentPane(new PanelReproducion(this, gestion));
+			setContentPane(new PanelReproducion(this, gestion, cont));
 			break;
-
-			
-	
 	
 		}
 	}

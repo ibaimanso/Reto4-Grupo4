@@ -52,7 +52,7 @@ public class Perfil extends JFrame {
 		JButton btnAtras = new JButton("");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3);
+				ventana.cambiarDePanel(3, 0);
 			}
 		});
 		// Dejar este boton puede que se le de un uso en otro momento (en este panel no

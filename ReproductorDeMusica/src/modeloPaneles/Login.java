@@ -75,10 +75,10 @@ public class Login extends JPanel {
 				if (gestion.testUsuarioYContraseña(txtfieldUsuario.getText(), textFieldContraseña.getText()) == true) {
 					JOptionPane.showMessageDialog(null, "Has iniciado sesión");
 					gestion.guardarUsuario(txtfieldUsuario.getText());
-					ventana.cambiarDePanel(3);
+					ventana.cambiarDePanel(3, 0);
 				} else if (txtfieldUsuario.getText().equals("admin") && textFieldContraseña.getText().equals("admin")) {
 					JOptionPane.showMessageDialog(null, "Bienvenido Administrador!");
-					ventana.cambiarDePanel(8);
+					ventana.cambiarDePanel(8, 0);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña erronea");
@@ -117,7 +117,7 @@ public class Login extends JPanel {
 		JButton btnRegistrarse = new JButton("Registrarse");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(1);
+				ventana.cambiarDePanel(1, 0);
 			}
 		});
 		btnRegistrarse.setBounds(20, 191, 231, 23);
