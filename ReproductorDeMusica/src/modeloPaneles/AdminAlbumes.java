@@ -28,25 +28,36 @@ import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import logica.GestionDeLaInformacion;
+import modelo.Album;
+import modelo.Cancion;
 import modelo.Musico;
 import view.VistaPrincipal;
 
-public class PanelAdministrador extends JPanel {
+public class AdminAlbumes extends JPanel{
+	
 	private JTextField txtNombre;
-	private JLabel txtID;
-	private JTextField txtDescripcion;
+	private JTextField txtGenero;
+	private JTextField txtAño;
+	private JLabel lblID1;
 	private ArrayList<Musico> musicos;
+	private Album album;
+	
+	private ArrayList<Album> albums;
+	private Musico musico;
 	private int contador;
 
-	public PanelAdministrador(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 
-		gestion.recogerMusicosDeLaBaseDeDatos();
-		musicos = gestion.devolverMusicos();
+	
+	public AdminAlbumes(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+		
+		gestion.recogerAlbumsDeLaBaseDeDatos();
+		albums = gestion.devolverAlbumsAdmin();
+		musico = gestion.devolverMusico();
 		contador = 0;
 
 		setBackground(new Color(0, 255, 127));
-		// setSize(720,600);
-		setSize(new Dimension(709, 600));
+		setSize(720,600);
+	//	setSize(new Dimension(709, 600));
 
 		setLayout(null);
 
@@ -71,29 +82,30 @@ public class PanelAdministrador extends JPanel {
 		add(lblClase1);
 
 		/**
-		 * Lista
+		 * Inicio scrollpane
+		 */
+		/**
+		 * Crear un panel para contener los JLabels
 		 */
 		JPanel panel = new JPanel();
-		// panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setLayout(new GridLayout(0, 1));
 
 		/**
 		 * Agregar JLabels al panel
 		 */
-		for (int i = 0; i < musicos.size(); i++) {
+		for (int i = 0; i < albums.size(); i++) {
 			JPanel panelItem = new JPanel();
 			panelItem.setLayout(new GridLayout());
 			panelItem.setSize(80, 396);
 
 			/**
-			 * Cargar imagen
+			 *  Cargar imagen
 			 */
 			ImageIcon imageIcon = null;
-			if (musicos.get(i).getImagen() == null) {
+			if (albums.get(i).getImagen() == null) {
 				imageIcon = new ImageIcon("multimedia/default_perfil.png");
 			} else {
-
-				imageIcon = musicos.get(i).getImagen();
+				imageIcon = albums.get(i).getImagen();
 			}
 			Image image = imageIcon.getImage();
 			Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -102,18 +114,18 @@ public class PanelAdministrador extends JPanel {
 			panelItem.add(imageLabel);
 
 			/*
-			 * Agregar JLabel de nombre al lado de la imagen
+			 *  Agregar JLabel de nombre al lado de la imagen
 			 */
-			JLabel label1 = new JLabel("Nombre: " + musicos.get(i).getNombre());
+			JLabel label1 = new JLabel(albums.get(i).datosPanel());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
 			/**
-			 * Le damos un identificador
+			 *  Le damos un identificador
 			 */
 			panelItem.setName("" + i);
 			/**
-			 * Añadirmos un borde al panelItem para hacerlo mas visual
+			 *  Añadirmos un borde al panelItem para hacerlo mas visual
 			 */
 			panelItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -124,7 +136,7 @@ public class PanelAdministrador extends JPanel {
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
 					cambiarContenidoTextFields();
-
+					
 				}
 			});
 			// Agregar panelItem al panel principal
@@ -133,14 +145,18 @@ public class PanelAdministrador extends JPanel {
 
 		JScrollPane scrollArtista = new JScrollPane(panel);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(351, 381);
-		scrollArtista.setLocation(34, 174);
+		scrollArtista.setSize(350, 369);
+		scrollArtista.setLocation(34, 186);
 		add(scrollArtista);
+		
+		/**
+		 * Fin de scrollpane
+		 */
 
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.editarArtistaAdministrador(txtNombre.getText(), txtID.getText(), txtDescripcion.getText(), lblClase1.getText());
+				gestion.editarAlbumAdministrador(txtNombre.getText(), lblID1.getText(), txtGenero.getText(), txtGenero.getText());
 			}
 		});
 		btnNewButton.setBounds(423, 186, 226, 23);
@@ -150,7 +166,7 @@ public class PanelAdministrador extends JPanel {
 		btnAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				gestion.añadirMusicoABaseDeDatos(txtNombre.getText(), txtDescripcion.getText(), lblClase1.getText());
+//				gestion.añadirMusicoABaseDeDatos(txtNombre.getText(), txtDescripcion.getText(), lblClase1.getText());
 
 			}
 		});
@@ -171,43 +187,38 @@ public class PanelAdministrador extends JPanel {
 		add(txtNombre);
 		txtNombre.setColumns(10);
 
-		JLabel lblombre = new JLabel("Nombre:");
-		lblombre.setBounds(410, 286, 58, 14);
-		add(lblombre);
+		JLabel lblTitulo = new JLabel("Titulo:");
+		lblTitulo.setBounds(410, 286, 58, 14);
+		add(lblTitulo);
 
 		JLabel lblID = new JLabel("ID:");
-		lblID.setBounds(578, 286, 46, 14);
+		lblID.setBounds(565, 286, 46, 14);
 		add(lblID);
 
-		txtID = new JLabel(musicos.get(contador).getId());
-		txtID.setBounds(565, 311, 98, 20);
-		add(txtID);
+		
 
-		JLabel lblClase = new JLabel("Clase:");
-		lblClase.setBounds(412, 341, 46, 14);
-		add(lblClase);
+		JLabel lblGenero = new JLabel("Genero:");
+		lblGenero.setBounds(412, 341, 46, 14);
+		add(lblGenero);
 
-		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setBounds(575, 341, 88, 14);
-		add(lblDescripcion);
+		JLabel lblAño = new JLabel("Año:");
+		lblAño.setBounds(565, 342, 88, 14);
+		add(lblAño);
 
-		txtDescripcion = new JTextField(musicos.get(contador).getDescripcion());
-		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(585, 366, 98, 70);
-		add(txtDescripcion);
+		txtAño = new JTextField(albums.get(contador).getAño());
+		txtAño.setColumns(10);
+		txtAño.setBounds(565, 366, 106, 20);
+		add(txtAño);
 
 		JLabel lblImagen = new JLabel("Imagen");
 		lblImagen.setBounds(410, 422, 46, 14);
 		add(lblImagen);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(48, 173, 280, 375);
-		add(scrollPane);
-
-		JButton btnAadir_1 = new JButton("Albumes");
+		JButton btnAadir_1 = new JButton("Artistas");
 		btnAadir_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(12);
+				ventana.cambiarDePanel(8);
+				
 			}
 		});
 		btnAadir_1.setBounds(420, 532, 81, 23);
@@ -238,26 +249,13 @@ public class PanelAdministrador extends JPanel {
 		btnLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtNombre.setText("");
-				txtDescripcion.setText("");
-				txtID.setText("");
+				txtGenero.setText("");
+				txtAño.setText("");
+				
 			}
 		});
 		btnLimpiar.setBounds(423, 491, 226, 23);
 		add(btnLimpiar);
-
-		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] { "solista", "grupo" }));
-		comboBoxTipo.setBounds(410, 366, 106, 22);
-		comboBoxTipo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// Obtener el elemento seleccionado
-				String selectedItem = (String) comboBoxTipo.getSelectedItem();
-				// Actualizar el JLabel con el elemento seleccionado
-				lblClase1.setText(selectedItem);
-			}
-		});
-		add(comboBoxTipo);
 		
 		JButton btnNewButton_1 = new JButton("Seleccione archivo...\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -294,12 +292,20 @@ public class PanelAdministrador extends JPanel {
         });
 		btnNewButton_1.setBounds(455, 421, 117, 20);
 		add(btnNewButton_1);
+		
+		txtGenero = new JTextField(albums.get(contador).getGenero());
+		txtGenero.setColumns(10);
+		txtGenero.setBounds(410, 366, 106, 20);
+		add(txtGenero);
+		
+		JLabel lblID1 = new JLabel(albums.get(contador).getIdAlbum());
+		lblID1.setBounds(565, 314, 106, 14);
+		add(lblID1);
 
 	}
 
 	public void cambiarContenidoTextFields() {
-		txtNombre.setText(musicos.get(contador).getNombre());
-		txtDescripcion.setText(musicos.get(contador).getDescripcion());
-		txtID.setText(musicos.get(contador).getId());
+		txtNombre.setText(albums.get(contador).getTitulo());
+		txtGenero.setText(albums.get(contador).getGenero());
 	}
 }

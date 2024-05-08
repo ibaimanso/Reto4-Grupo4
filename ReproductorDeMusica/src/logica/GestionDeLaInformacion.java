@@ -22,13 +22,13 @@ public class GestionDeLaInformacion {
 	private Cancion cancion;
 	private ArrayList<Cancion> canciones;
 	private ArrayList<Podcaster> podcasters;
-	
-
+	private ArrayList<Album> albumsAdmin;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
 		musicos = gestionBD.llenarListaMusico();
 		podcasters = gestionBD.llenarListaPodcaster();
+		
 	}
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
@@ -121,46 +121,58 @@ public class GestionDeLaInformacion {
 	public void recogerAlbumsDeLaBaseDeDatos() {
 		this.albums = gestionBD.llenarListaDeAlbums(this.musico);
 	}
-	
+
 	/**
 	 * Metodos para la gestion de canciones
+	 * 
 	 * @param album
 	 */
-	
+
 	public void guardarCancion(Cancion cancion) {
 		this.cancion = cancion;
 	}
-	
-	public Cancion devolverCancion(){
+
+	public Cancion devolverCancion() {
 		return this.cancion;
 	}
-	
-	public ArrayList<Cancion> devolverCanciones(){
+
+	public ArrayList<Cancion> devolverCanciones() {
 		return this.canciones;
 	}
 
 	public void recogerCancionesDeLaBaseDeDatos() {
 		this.canciones = gestionBD.llenarListaDeCanciones(this.album);
 	}
-	
-	
 
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		gestionBD.editarArtistaAdministrador(nombre, id, desc, tipo);
 		return true;
 	}
 
-	public boolean añadirMusicoABaseDeDatos(String nombre,  String desc, String tipo) {
-		gestionBD.insertNuevoMusico(nombre,  desc, tipo);
+	public boolean añadirMusicoABaseDeDatos(String nombre, String desc, String tipo) {
+		gestionBD.insertNuevoMusico(nombre, desc, tipo);
 
 		return true;
 
 	}
+
 	public ArrayList<Podcaster> devolverPodcasters() {
 		return this.podcasters;
 	}
+
 	public void recogerPodcastersDeLaBaseDeDatos() {
 		podcasters = gestionBD.llenarListaPodcaster();
+	}
+
+	public boolean editarAlbumAdministrador(String nombre, String id, String genero, String año) {
+		gestionBD.editarAlbumAdministrador(nombre, id, genero, año);
+		return true;
+	}
+	public void recogerAlbumsDeLaBaseDeDatosAdmin() {
+		this.albumsAdmin = gestionBD.llenarListaDeAlbumsAdmin(this.musico);
+	}
+	public ArrayList<Album> devolverAlbumsAdmin() {
+		return this.albumsAdmin;
 	}
 
 }

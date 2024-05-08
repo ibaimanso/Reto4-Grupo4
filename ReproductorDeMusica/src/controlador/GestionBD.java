@@ -345,5 +345,60 @@ public class GestionBD {
 		}
 		return podcaster;
 	}
+	public boolean editarAlbumAdministrador(String nombre, String id, String genero, String año) {
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
+					+ ", Año=" + "'" + año + "'" + ", Descripcion=" + "'" + genero + "'" +
+					"WHERE IDAlbum="+ "'" + id + "'";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return correcto;
+	}
+	public ArrayList<Album> llenarListaDeAlbumsAdmin(Musico musico) {
+		ArrayList<Album> albums = new ArrayList<Album>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM album";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+
+				if(resultadoConsulta.getBlob(5) == null) {
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), null, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+				}else {
+
+				if (resultadoConsulta.getBlob(5) == null) {
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
+							resultadoConsulta.getString(6)));
+				} else {
+					Blob imagenBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					ImageIcon imagen = new ImageIcon(arrayImagen);
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
+							resultadoConsulta.getString(6)));
+				}
+			}
+			}} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+			albums = null;
+		}
+		return albums;
+	}
 
 }

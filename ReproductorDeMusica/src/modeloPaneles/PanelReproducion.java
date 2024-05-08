@@ -79,7 +79,7 @@ public class PanelReproducion extends JPanel {
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(2);
+				ventana.cambiarDePanel(4);
 			}
 		});
 		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
