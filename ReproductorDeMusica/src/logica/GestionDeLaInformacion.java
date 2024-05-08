@@ -9,6 +9,7 @@ import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
+import modelo.Podcaster;
 
 public class GestionDeLaInformacion {
 
@@ -20,12 +21,14 @@ public class GestionDeLaInformacion {
 	private ArrayList<Album> albums;
 	private Cancion cancion;
 	private ArrayList<Cancion> canciones;
+	private ArrayList<Podcaster> podcasters;
 	
 
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
 		musicos = gestionBD.llenarListaMusico();
+		podcasters = gestionBD.llenarListaPodcaster();
 	}
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
@@ -153,4 +156,11 @@ public class GestionDeLaInformacion {
 		return true;
 
 	}
+	public ArrayList<Podcaster> devolverPodcasters() {
+		return this.podcasters;
+	}
+	public void recogerPodcastersDeLaBaseDeDatos() {
+		podcasters = gestionBD.llenarListaPodcaster();
+	}
+
 }

@@ -14,6 +14,7 @@ import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
+import java.awt.Dimension;
 
 public class Menu extends JPanel {
 
@@ -86,6 +87,11 @@ public class Menu extends JPanel {
 		panel_1.add(btnDescubrirMusica);
 
 		JButton btnDescubrirPodcast = new JButton("Descubrir Podcast");
+		btnDescubrirPodcast.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(10);
+			}
+		});
 		btnDescubrirPodcast.setBounds(144, 135, 234, 43);
 		btnDescubrirPodcast.setBackground(new Color(173, 255, 47)); 
 

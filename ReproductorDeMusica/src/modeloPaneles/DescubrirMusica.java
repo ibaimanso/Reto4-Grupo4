@@ -21,6 +21,7 @@ import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
+import java.awt.Font;
 
 public class DescubrirMusica extends JPanel implements Paneles {
 
@@ -32,6 +33,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 	private JLabel lblDescripcion;
 
 	public DescubrirMusica(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+		setBackground(new Color(0, 255, 127));
 		setLayout(null);
 		gestion.recogerMusicosDeLaBaseDeDatos();
 		musicos = gestion.devolverMusicos();
@@ -43,6 +45,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		 * Crear un panel para contener los JLabels
 		 */
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(64, 224, 208));
 		// panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		panel.setLayout(new GridLayout(0, 1));
 
@@ -101,24 +104,28 @@ public class DescubrirMusica extends JPanel implements Paneles {
 
 		JScrollPane scrollArtista = new JScrollPane(panel);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(350, 490);
-		scrollArtista.setLocation(34, 65);
+		scrollArtista.setSize(350, 396);
+		scrollArtista.setLocation(34, 159);
 		add(scrollArtista);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
-		lblTituloCaracteristica.setBounds(420, 65, 238, 43);
+		lblTituloCaracteristica.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 18));
+		lblTituloCaracteristica.setBounds(420, 159, 238, 43);
 		add(lblTituloCaracteristica);
 
 		lblCaracteristica = new JLabel(musicos.get(contador).getClase());
-		lblCaracteristica.setBounds(420, 119, 238, 57);
+		lblCaracteristica.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
+		lblCaracteristica.setBounds(420, 199, 238, 57);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setBounds(420, 203, 238, 43);
+		lblTituloDescripcion.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 18));
+		lblTituloDescripcion.setBounds(420, 279, 238, 43);
 		add(lblTituloDescripcion);
 
 		lblDescripcion = new JLabel(musicos.get(contador).getDescripcion());
-		lblDescripcion.setBounds(420, 257, 238, 180);
+		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
+		lblDescripcion.setBounds(420, 333, 238, 43);
 		add(lblDescripcion);
 
 		JButton bntCerrarSesion = new JButton("");
@@ -147,7 +154,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		btnPerfil.setContentAreaFilled(false);
 		add(btnPerfil);
 
-		JButton btnSiguiente = new JButton("");
+		JButton btnSiguiente = new JButton("Ir al artista");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gestion.guardarMusico(musicos.get(contador));

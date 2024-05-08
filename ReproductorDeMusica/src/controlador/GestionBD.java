@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -16,6 +15,7 @@ import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
+import modelo.Podcaster;
 
 public class GestionBD {
 
@@ -316,6 +316,34 @@ public class GestionBD {
 			e.printStackTrace();
 		}
 		return correcto;
+	}
+	public ArrayList<Podcaster> llenarListaPodcaster() {
+
+		ArrayList<Podcaster> podcaster = new ArrayList<Podcaster>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM podcaster";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				if (resultadoConsulta.getBlob(3) == null) {
+					podcaster.add(new Podcaster(resultadoConsulta.getString(1), resultadoConsulta.getString(2), null,
+							resultadoConsulta.getString(4)));
+				} else {
+					Blob imagenBlob = resultadoConsulta.getBlob(3);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					ImageIcon imagen = new ImageIcon(arrayImagen);
+					podcaster.add(new Podcaster(resultadoConsulta.getString(1), resultadoConsulta.getString(2), imagen,
+							resultadoConsulta.getString(4)));
+				}
+			}
+
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+			podcaster = null;
+		}
+		return podcaster;
 	}
 
 }
