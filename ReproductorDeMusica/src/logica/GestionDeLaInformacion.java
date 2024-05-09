@@ -22,7 +22,6 @@ public class GestionDeLaInformacion {
 	private Cancion cancion;
 	private ArrayList<Cancion> canciones;
 	private ArrayList<Podcaster> podcasters;
-	private ArrayList<Album> albumsAdmin;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
@@ -169,10 +168,12 @@ public class GestionDeLaInformacion {
 		return true;
 	}
 	public void recogerAlbumsDeLaBaseDeDatosAdmin() {
-		this.albumsAdmin = gestionBD.llenarListaDeAlbumsAdmin(this.musico);
+		albums = new ArrayList<Album>();
+		this.albums = gestionBD.llenarListaDeAlbumsAdmin();
 	}
-	public ArrayList<Album> devolverAlbumsAdmin() {
-		return this.albumsAdmin;
+	public void recogerCancionesDeLaBaseDeDatosAdmin() {
+	canciones = new ArrayList<Cancion>();
+	this.canciones = gestionBD.llenarListaDeCancionesAdmin();
 	}
 
 }

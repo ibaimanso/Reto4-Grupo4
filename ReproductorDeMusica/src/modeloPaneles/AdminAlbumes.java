@@ -1,7 +1,6 @@
 package modeloPaneles;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -16,44 +15,42 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
 import modelo.Album;
-import modelo.Cancion;
-import modelo.Musico;
 import view.VistaPrincipal;
 
-public class AdminAlbumes extends JPanel{
+public class AdminAlbumes extends JPanel implements Paneles{
 	
 	private JTextField txtNombre;
 	private JTextField txtGenero;
 	private JTextField txtAño;
 	private JLabel lblID1;
-	private ArrayList<Musico> musicos;
+
 	private Album album;
 	
 	private ArrayList<Album> albums;
-	private Musico musico;
+
 	private int contador;
 
 
 	
 	public AdminAlbumes(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
-		gestion.recogerAlbumsDeLaBaseDeDatos();
-		albums = gestion.devolverAlbumsAdmin();
-		musico = gestion.devolverMusico();
+		gestion.recogerAlbumsDeLaBaseDeDatosAdmin();
+		albums = gestion.devolverAlbums();
 		contador = 0;
+		
 
 		setBackground(new Color(0, 255, 127));
 		setSize(720,600);
@@ -62,6 +59,7 @@ public class AdminAlbumes extends JPanel{
 		setLayout(null);
 
 		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		panel1.setBackground(new Color(127, 255, 0));
 		panel1.setBounds(0, 0, 754, 142);
 		add(panel1);
@@ -135,7 +133,7 @@ public class AdminAlbumes extends JPanel{
 				public void mouseClicked(MouseEvent e) {
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
-					cambiarContenidoTextFields();
+				cambiarContenidoDeLabels();
 					
 				}
 			});
@@ -153,6 +151,10 @@ public class AdminAlbumes extends JPanel{
 		 * Fin de scrollpane
 		 */
 
+		JLabel lblID1 = new JLabel(albums.get(contador).getIdAlbum().toString());
+		lblID1.setBounds(565, 314, 106, 14);
+		add(lblID1);
+		
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -182,7 +184,7 @@ public class AdminAlbumes extends JPanel{
 		btnEliminar.setBounds(423, 235, 226, 23);
 		add(btnEliminar);
 
-		txtNombre = new JTextField(musicos.get(contador).getNombre());
+		txtNombre = new JTextField(albums.get(contador).getTitulo());
 		txtNombre.setBounds(410, 311, 106, 20);
 		add(txtNombre);
 		txtNombre.setColumns(10);
@@ -251,7 +253,7 @@ public class AdminAlbumes extends JPanel{
 				txtNombre.setText("");
 				txtGenero.setText("");
 				txtAño.setText("");
-				
+				lblID1.setText("");
 			}
 		});
 		btnLimpiar.setBounds(423, 491, 226, 23);
@@ -298,14 +300,17 @@ public class AdminAlbumes extends JPanel{
 		txtGenero.setBounds(410, 366, 106, 20);
 		add(txtGenero);
 		
-		JLabel lblID1 = new JLabel(albums.get(contador).getIdAlbum());
-		lblID1.setBounds(565, 314, 106, 14);
-		add(lblID1);
+		
 
 	}
 
-	public void cambiarContenidoTextFields() {
+
+	@Override
+	public void cambiarContenidoDeLabels() {
 		txtNombre.setText(albums.get(contador).getTitulo());
 		txtGenero.setText(albums.get(contador).getGenero());
+		txtAño.setText(albums.get(contador).getAño());
+		lblID1.setText(albums.get(contador).getIdAlbum());
+		
 	}
 }

@@ -216,6 +216,7 @@ public class PanelAdministrador extends JPanel {
 		JButton btnAadir_1_1 = new JButton("Audios");
 		btnAadir_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(13);
 			}
 		});
 		btnAadir_1_1.setBounds(511, 532, 81, 23);

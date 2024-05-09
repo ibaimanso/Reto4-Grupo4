@@ -366,7 +366,7 @@ public class GestionBD {
 
 		return correcto;
 	}
-	public ArrayList<Album> llenarListaDeAlbumsAdmin(Musico musico) {
+	public ArrayList<Album> llenarListaDeAlbumsAdmin() {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		try {
 			Statement consulta = conexion.createStatement();
@@ -388,9 +388,7 @@ public class GestionBD {
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
-							resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
-							resultadoConsulta.getString(6)));
+				
 				}
 			}
 			}} catch (Exception e) {
@@ -400,5 +398,30 @@ public class GestionBD {
 		}
 		return albums;
 	}
+	public ArrayList<Cancion> llenarListaDeCancionesAdmin() {
+		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+		try {
+			Statement consulta = conexion.createStatement();
 
+			String query = "SELECT * FROM canciones";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				if(resultadoConsulta.getBlob(4) == null) {
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+				}else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					ImageIcon imagen = new ImageIcon(arrayImagen);
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+				}
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+			canciones = null;
+		}
+		return canciones;
+	}
 }
+
+

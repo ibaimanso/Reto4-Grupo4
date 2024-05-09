@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
 import modeloPaneles.AdminAlbumes;
+import modeloPaneles.AdminCanciones;
 import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
@@ -80,7 +81,9 @@ public class VistaPrincipal extends JFrame{
 		case 12:
 			setContentPane(new AdminAlbumes(this, gestion));
 			break;
-			
+		case 13:
+			setContentPane(new AdminCanciones(this, gestion));
+			break;
 			
 	
 	
