@@ -170,8 +170,7 @@ public class PanelAlbum extends JPanel {
 		JButton btnSiguiente = new JButton("");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.guardarCancion(canciones.get(contador));
-				ventana.cambiarDePanel(9, 0);
+				ventana.cambiarDePanel(9, contador);
 			}
 		});
 		btnSiguiente.setBounds(481, 518, 89, 23);

@@ -42,5 +42,9 @@ public class ControladorDeSonido {
 		this.audio = audio;
 	}
 	
+	public boolean verificarEjecucion() {
+		return clip.isActive();
+	}
+	
 
 }

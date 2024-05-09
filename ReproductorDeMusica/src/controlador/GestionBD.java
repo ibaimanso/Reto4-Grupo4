@@ -329,4 +329,42 @@ public class GestionBD {
 		return correcto;
 	}
 
+	public ArrayList<Cancion> buscarAnuncios() {
+		ArrayList<Cancion> anuncios = new ArrayList<Cancion>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like 'AL060'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				ImageIcon imagen = new ImageIcon();
+				if(resultadoConsulta.getBlob(4) == null) {
+					imagen = null;
+				}else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					imagen = new ImageIcon(arrayImagen);
+				}
+				
+				File cancion = null;
+				if(resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				}else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("."));
+					FileOutputStream out = new FileOutputStream(cancion);
+				    out.write(arrayCancion);
+				    out.close();
+					
+				}
+				anuncios.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			anuncios = null;
+		}
+		return anuncios;
+	}
+
 }
