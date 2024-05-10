@@ -24,6 +24,7 @@ import logica.GestionDeLaInformacion;
 import modelo.Album;
 import modelo.Musico;
 import view.VistaPrincipal;
+import javax.swing.JTextArea;
 
 public class PanelArtista extends JPanel implements Paneles{
 
@@ -33,7 +34,6 @@ public class PanelArtista extends JPanel implements Paneles{
 	private Musico musico;
 	private int contador;
 	private JLabel lblCaracteristica;
-	private JLabel lblDescripcion;
 	
 	public PanelArtista(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(0, 255, 127));
@@ -157,12 +157,10 @@ JPanel panel1 = new JPanel();
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setBounds(420, 286, 238, 43);
+		lblTituloDescripcion.setBounds(420, 265, 238, 43);
 		add(lblTituloDescripcion);
 
-		lblDescripcion = new JLabel(musico.getDescripcion());
-		lblDescripcion.setBounds(420, 327, 238, 30);
-		add(lblDescripcion);
+		
 		
 		JLabel lblImagenAutor = new JLabel("");
 		ImageIcon imageIcon = null;
@@ -202,6 +200,13 @@ JPanel panel1 = new JPanel();
 		});
 		btnSiguiente.setBounds(420, 490, 172, 51);
 		add(btnSiguiente);
+		
+		JTextArea txtDescripcion = new JTextArea(musico.getDescripcion());
+		txtDescripcion.setBackground(new Color(0, 255, 127));
+		txtDescripcion.setEditable(false);
+		txtDescripcion.setLineWrap(true);
+		txtDescripcion.setBounds(420, 327, 238, 70);
+		add(txtDescripcion);
 
 	}
 

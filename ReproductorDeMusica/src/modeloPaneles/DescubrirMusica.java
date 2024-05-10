@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
@@ -23,6 +24,7 @@ import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
 import java.awt.Font;
+import javax.swing.JTextArea;
 
 public class DescubrirMusica extends JPanel implements Paneles {
 
@@ -31,7 +33,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 	private ArrayList<Musico> musicos;
 	private int contador;
 	private JLabel lblCaracteristica;
-	private JLabel lblDescripcion;
+	private JTextArea textArea;
 
 	public DescubrirMusica(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(0, 255, 127));
@@ -157,10 +159,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		lblTituloDescripcion.setBounds(420, 279, 238, 43);
 		add(lblTituloDescripcion);
 
-		lblDescripcion = new JLabel(musicos.get(contador).getDescripcion());
-		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
-		lblDescripcion.setBounds(420, 333, 238, 43);
-		add(lblDescripcion);
+		
 
 		JButton bntCerrarSesion = new JButton("");
 		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
@@ -191,11 +190,20 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		});
 		btnSiguiente.setBounds(420, 495, 124, 43);
 		add(btnSiguiente);
+		
+		textArea = new JTextArea(musicos.get(contador).getDescripcion());
+		textArea.setBackground(new Color(0, 255, 127));
+		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		textArea.setLineWrap(true);
+		textArea.setEditable(false);
+		textArea.setBounds(420, 333, 238, 97);
+		add(textArea);
 
 	}
 
 	public void cambiarContenidoDeLabels() {
 		lblCaracteristica.setText(musicos.get(contador).getClase());
-		lblDescripcion.setText(musicos.get(contador).getDescripcion());
+		textArea.setText(musicos.get(contador).getDescripcion());
+		
 	}
 }
