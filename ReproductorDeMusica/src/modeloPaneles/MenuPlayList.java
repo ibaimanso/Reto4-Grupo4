@@ -156,6 +156,15 @@ public class MenuPlayList extends JPanel {
 		
 		JButton btnBorrarPlaylist = new JButton("Borrar PlayList");
 		btnBorrarPlaylist.setBounds(470, 252, 174, 50);
+		btnBorrarPlaylist.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(playList.get(contador).getTitulo().equalsIgnoreCase("Favoritos")) {
+					
+				}else {
+					
+				}
+			}
+		});
 		add(btnBorrarPlaylist);
 		
 		JButton btnImportar = new JButton("Importar");
