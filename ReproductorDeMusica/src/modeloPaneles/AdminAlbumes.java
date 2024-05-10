@@ -35,7 +35,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 	private JTextField txtNombre;
 	private JTextField txtGenero;
 	private JTextField txtAño;
-	private JLabel lblID1;
+	private JLabel txtID;
 
 	private Album album;
 	
@@ -151,14 +151,14 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		 * Fin de scrollpane
 		 */
 
-		JLabel lblID1 = new JLabel(albums.get(contador).getIdAlbum().toString());
-		lblID1.setBounds(565, 314, 106, 14);
-		add(lblID1);
+		 txtID = new JLabel(albums.get(contador).getIdAlbum());
+		 txtID.setBounds(565, 314, 106, 14);
+		add(txtID);
 		
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.editarAlbumAdministrador(txtNombre.getText(), lblID1.getText(), txtGenero.getText(), txtGenero.getText());
+				gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
 			}
 		});
 		btnNewButton.setBounds(423, 186, 226, 23);
@@ -253,7 +253,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 				txtNombre.setText("");
 				txtGenero.setText("");
 				txtAño.setText("");
-				lblID1.setText("");
+				txtID.setText("");
 			}
 		});
 		btnLimpiar.setBounds(423, 491, 226, 23);
@@ -310,7 +310,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		txtNombre.setText(albums.get(contador).getTitulo());
 		txtGenero.setText(albums.get(contador).getGenero());
 		txtAño.setText(albums.get(contador).getAño());
-		lblID1.setText(albums.get(contador).getIdAlbum());
+		txtID.setText(albums.get(contador).getIdAlbum());
 		
 	}
 }

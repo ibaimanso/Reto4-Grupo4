@@ -163,13 +163,20 @@ public class GestionDeLaInformacion {
 		podcasters = gestionBD.llenarListaPodcaster();
 	}
 
-	public boolean editarAlbumAdministrador(String nombre, String id, String genero, String año) {
-		gestionBD.editarAlbumAdministrador(nombre, id, genero, año);
+	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
+		gestionBD.editarAlbumAdministrador(id, nombre, año, genero);
+		
 		return true;
 	}
 	public void recogerAlbumsDeLaBaseDeDatosAdmin() {
 		albums = new ArrayList<Album>();
 		this.albums = gestionBD.llenarListaDeAlbumsAdmin();
+	}
+	public boolean añadirAlbumABaseDeDatos(String nombre, String desc, String tipo) {
+		gestionBD.insertNuevoMusico(nombre, desc, tipo);
+
+		return true;
+
 	}
 	public void recogerCancionesDeLaBaseDeDatosAdmin() {
 	canciones = new ArrayList<Cancion>();

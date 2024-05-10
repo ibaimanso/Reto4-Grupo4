@@ -41,6 +41,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
+		
 		JPanel panel1 = new JPanel();
 		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		panel1.setBackground(new Color(0, 255, 0));
@@ -188,7 +189,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 				ventana.cambiarDePanel(6);
 			}
 		});
-		btnSiguiente.setBounds(481, 518, 89, 23);
+		btnSiguiente.setBounds(420, 495, 124, 43);
 		add(btnSiguiente);
 
 	}

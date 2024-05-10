@@ -61,78 +61,78 @@ public class Registro extends JPanel {
 
 		JLabel lblNombre = new JLabel("Nombre:");
 		lblNombre.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNombre.setBounds(50, 22, 368, 27);
+		lblNombre.setBounds(27, 21, 368, 27);
 		panel.add(lblNombre);
 
 		txtNombre = new JTextField();
-		txtNombre.setBounds(50, 49, 133, 20);
+		txtNombre.setBounds(27, 48, 133, 20);
 		panel.add(txtNombre);
 		txtNombre.setColumns(10);
 
 		JLabel lblApellido = new JLabel("Apellido:");
 		lblApellido.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblApellido.setBounds(236, 22, 182, 27);
+		lblApellido.setBounds(213, 21, 182, 27);
 		panel.add(lblApellido);
 
 		txtApellido = new JTextField();
 		txtApellido.setColumns(10);
-		txtApellido.setBounds(236, 49, 133, 20);
+		txtApellido.setBounds(213, 48, 133, 20);
 		panel.add(txtApellido);
 
 		JLabel lblNombreDeUsuario = new JLabel("Nombre de usuario:");
 		lblNombreDeUsuario.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblNombreDeUsuario.setBounds(50, 78, 368, 27);
+		lblNombreDeUsuario.setBounds(27, 77, 368, 27);
 		panel.add(lblNombreDeUsuario);
 
 		txtNombredeUsuario = new JTextField();
 		txtNombredeUsuario.setColumns(10);
-		txtNombredeUsuario.setBounds(50, 107, 241, 20);
+		txtNombredeUsuario.setBounds(27, 106, 241, 20);
 		panel.add(txtNombredeUsuario);
 
 		JLabel lblContrasea = new JLabel("Contraseña:");
 		lblContrasea.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblContrasea.setBounds(50, 138, 368, 27);
+		lblContrasea.setBounds(27, 137, 368, 27);
 		panel.add(lblContrasea);
 
 		txtContraseña = new JTextField();
 		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(50, 169, 241, 20);
+		txtContraseña.setBounds(27, 168, 241, 20);
 		panel.add(txtContraseña);
 
 		JLabel lblConfirmarContrasea = new JLabel("Confirmar Contraseña:");
 		lblConfirmarContrasea.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblConfirmarContrasea.setBounds(50, 200, 368, 27);
+		lblConfirmarContrasea.setBounds(27, 199, 368, 27);
 		panel.add(lblConfirmarContrasea);
 
 		txtConfirmarContraseña = new JTextField();
 		txtConfirmarContraseña.setColumns(10);
-		txtConfirmarContraseña.setBounds(50, 230, 241, 20);
+		txtConfirmarContraseña.setBounds(27, 229, 241, 20);
 		panel.add(txtConfirmarContraseña);
 
 		JLabel lblFechaDeNacimiento = new JLabel("Fecha De Nacimiento:\r\n");
 		lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblFechaDeNacimiento.setBounds(50, 261, 368, 27);
+		lblFechaDeNacimiento.setBounds(27, 260, 368, 27);
 		panel.add(lblFechaDeNacimiento);
 
 		txtFechaDeNacimiento = new JTextField();
 		txtFechaDeNacimiento.setColumns(10);
-		txtFechaDeNacimiento.setBounds(50, 290, 241, 20);
+		txtFechaDeNacimiento.setBounds(27, 289, 241, 20);
 		panel.add(txtFechaDeNacimiento);
 
 		JLabel lblIdioma = new JLabel("Idioma:");
 		lblIdioma.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblIdioma.setBounds(50, 333, 76, 27);
+		lblIdioma.setBounds(27, 332, 76, 27);
 		panel.add(lblIdioma);
 
 		comboBoxIdioma = new JComboBox<String>(
 				new DefaultComboBoxModel<String>(new String[] { "ES", "EU", "EN", "FR", "DE" }));
-		comboBoxIdioma.setBounds(130, 338, 65, 22);
+		comboBoxIdioma.setBounds(107, 337, 65, 22);
 
 		panel.add(comboBoxIdioma);
 
 		comboBoxLicencia = new JComboBox<String>();
 		comboBoxLicencia.setModel(new DefaultComboBoxModel<String>(new String[] { "Free", "Premium" }));
-		comboBoxLicencia.setBounds(291, 338, 66, 22);
+		comboBoxLicencia.setBounds(268, 337, 66, 22);
 		panel.add(comboBoxLicencia);
 
 		JLabel lblFechaHoy = new JLabel();
@@ -178,7 +178,7 @@ public class Registro extends JPanel {
 			}
 		});
 
-		btnRegistrarse.setBounds(50, 387, 241, 23);
+		btnRegistrarse.setBounds(27, 384, 241, 39);
 		panel.add(btnRegistrarse);
 
 		JButton btnNewButton = new JButton("PREMIUM");
@@ -190,22 +190,22 @@ public class Registro extends JPanel {
 		});
 		btnNewButton.setBackground(new Color(255, 255, 0));
 		btnNewButton.setForeground(new Color(0, 0, 0));
-		btnNewButton.setBounds(357, 393, 89, 23);
+		btnNewButton.setBounds(319, 222, 107, 35);
 		panel.add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("¿Quieres \r");
 		lblNewLabel.setFont(new Font("Gill Sans Ultra Bold", Font.PLAIN, 14));
-		lblNewLabel.setBounds(370, 333, 86, 49);
+		lblNewLabel.setBounds(339, 156, 86, 49);
 		panel.add(lblNewLabel);
 
 		JLabel lblVentajas = new JLabel("ventajas?");
 		lblVentajas.setFont(new Font("Gill Sans Ultra Bold", Font.PLAIN, 14));
-		lblVentajas.setBounds(367, 354, 89, 49);
+		lblVentajas.setBounds(336, 177, 89, 49);
 		panel.add(lblVentajas);
 
 		JLabel lblLicencia = new JLabel("Licencia:");
 		lblLicencia.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblLicencia.setBounds(205, 333, 97, 27);
+		lblLicencia.setBounds(182, 332, 97, 27);
 		panel.add(lblLicencia);
 		
 		JButton bntCerrarSesion = new JButton("");

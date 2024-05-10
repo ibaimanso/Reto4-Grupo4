@@ -352,7 +352,7 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
-					+ ", Año=" + "'" + año + "'" + ", Descripcion=" + "'" + genero + "'" +
+					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" +
 					"WHERE IDAlbum="+ "'" + id + "'";
 
 			consulta.executeUpdate(update);
@@ -421,6 +421,28 @@ public class GestionBD {
 			canciones = null;
 		}
 		return canciones;
+	}
+	
+	public boolean insertNuevoAlbum(String nombre, String id, String genero, String año) {
+		boolean correcto = false;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "insert into album (Titulo, Año, Genero) VALUES ('"
+				+ nombre + "','" + año + "','" + genero + "')";
+
+			System.out.println(insert);
+			consulta.executeUpdate(insert);
+			JOptionPane.showMessageDialog(null, "Album creado correctamente");
+			
+			consulta.close();
+		
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+		return correcto;
 	}
 }
 

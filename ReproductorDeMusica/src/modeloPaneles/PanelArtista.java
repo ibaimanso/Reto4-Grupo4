@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
@@ -35,6 +36,7 @@ public class PanelArtista extends JPanel implements Paneles{
 	private JLabel lblDescripcion;
 	
 	public PanelArtista(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+		setBackground(new Color(0, 255, 127));
 		setLayout(null);
 		gestion.recogerAlbumsDeLaBaseDeDatos();
 		albums = gestion.devolverAlbums();
@@ -42,6 +44,39 @@ public class PanelArtista extends JPanel implements Paneles{
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
+		
+JPanel panel1 = new JPanel();
+		
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(0, 255, 0));
+		panel1.setBounds(-48, 0, 762, 140);
+		add(panel1);
+		panel1.setLayout(null);
+
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
+		lblNewLabel.setBounds(179, 9, 313, 118);
+		panel1.add(lblNewLabel);
+
+		JButton btnPerfil = new JButton("");
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(4);
+
+			}
+		});
+		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
+		btnPerfil.setBounds(590, 7, 137, 120);
+		btnPerfil.setFocusPainted(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setContentAreaFilled(false);
+		panel1.add(btnPerfil);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(35, 11, 167, 108);
+		panel1.add(lblLogo);
+		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
 
 		/**
 		 * Crear un panel para contener los JLabels
@@ -104,29 +139,29 @@ public class PanelArtista extends JPanel implements Paneles{
 
 		JScrollPane scrollArtista = new JScrollPane(panel);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(350, 490);
-		scrollArtista.setLocation(34, 65);
+		scrollArtista.setSize(350, 393);
+		scrollArtista.setLocation(34, 162);
 		add(scrollArtista);
 		
 		JLabel lblNombre = new JLabel(musico.getNombre());
 		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 18));
-		lblNombre.setBounds(420, 65, 274, 45);
+		lblNombre.setBounds(420, 152, 274, 45);
 		add(lblNombre);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
-		lblTituloCaracteristica.setBounds(420, 121, 238, 30);
+		lblTituloCaracteristica.setBounds(420, 209, 238, 30);
 		add(lblTituloCaracteristica);
 
 		lblCaracteristica = new JLabel(musico.getClase());
-		lblCaracteristica.setBounds(420, 162, 238, 30);
+		lblCaracteristica.setBounds(420, 236, 238, 30);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setBounds(420, 203, 238, 43);
+		lblTituloDescripcion.setBounds(420, 286, 238, 43);
 		add(lblTituloDescripcion);
 
 		lblDescripcion = new JLabel(musico.getDescripcion());
-		lblDescripcion.setBounds(420, 257, 238, 100);
+		lblDescripcion.setBounds(420, 327, 238, 30);
 		add(lblDescripcion);
 		
 		JLabel lblImagenAutor = new JLabel("");
@@ -156,27 +191,16 @@ public class PanelArtista extends JPanel implements Paneles{
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
 		
-		JButton btnPerfil = new JButton("");
-		btnPerfil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3);
-			}
-		});
-		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
-		btnPerfil.setBounds(590, 7, 137, 120);
-		btnPerfil.setFocusPainted(false);
-		btnPerfil.setBorderPainted(false);
-		btnPerfil.setContentAreaFilled(false);
-		add(btnPerfil);
+	
 		
-		JButton btnSiguiente = new JButton("");
+		JButton btnSiguiente = new JButton("Ir a canciones");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gestion.guardarAlbum(albums.get(contador));
 				ventana.cambiarDePanel(7);
 			}
 		});
-		btnSiguiente.setBounds(481, 518, 89, 23);
+		btnSiguiente.setBounds(420, 490, 172, 51);
 		add(btnSiguiente);
 
 	}
