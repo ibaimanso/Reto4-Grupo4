@@ -69,6 +69,7 @@ public class GestionDeLaInformacion {
 	 * @return String con el nombre y apellido del cliente
 	 */
 	public void guardarUsuario(String usuario) {
+		this.cliente = new Cliente();
 		this.cliente = gestionBD.pedirUsuario(usuario);
 
 	}
@@ -89,6 +90,7 @@ public class GestionDeLaInformacion {
 	 * @param musico
 	 */
 	public void guardarMusico(Musico musico) {
+		this.musico = new Musico();
 		this.musico = musico;
 	}
 
@@ -111,6 +113,7 @@ public class GestionDeLaInformacion {
 	 */
 
 	public void guardarAlbum(Album album) {
+		this.album = new Album();
 		this.album = album;
 	}
 
@@ -157,7 +160,7 @@ public class GestionDeLaInformacion {
 	public void recogerCancionesDeLaBaseDeDatosConAudio() {
 		if (playList != null) {
 			this.canciones = new ArrayList<Cancion>();
-			// this.canciones =
+			this.canciones = gestionBD.llenarListaDeCancionesConAudioPorPlayList(this.playList);
 		} else {
 			this.canciones = new ArrayList<Cancion>();
 			this.canciones = gestionBD.llenarListaDeCancionesConAudio(this.album);
@@ -183,6 +186,7 @@ public class GestionDeLaInformacion {
 	 * Metodos para sacar playlists
 	 */
 	public void guardarPlayList(PlayList playList) {
+		this.playList = new PlayList();
 		this.playList = playList;
 	}
 
@@ -201,6 +205,20 @@ public class GestionDeLaInformacion {
 	public int cantidadDePlayList() {
 		return gestionBD.contarPlayList(cliente);
 	}
+	
+	public void crearPlayList(String nombre) {
+		gestionBD.crearPlayList(nombre, cliente);
+	}
+
+	public void borrarPlayList(PlayList playList) {
+		gestionBD.borrarPlayList(playList);
+		gestionBD.borrarCancionesDePlayList(playList);
+	}
+	
+	public void borrarPlayListAdmin(PlayList playList) {
+		gestionBD.borrarCancionesDePlayList(playList);
+	}
+	
 
 	/**
 	 * Funciones del panel De adminstración

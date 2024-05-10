@@ -22,6 +22,10 @@ import view.VistaPrincipal;
 
 public class PanelDescubrirPodcast extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private ArrayList<Podcaster> podcasters;
 	private int contador;
 	private JLabel lblDescripcion_1;

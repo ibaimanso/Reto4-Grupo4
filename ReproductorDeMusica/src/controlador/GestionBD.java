@@ -598,6 +598,51 @@ public class GestionBD {
 		return playlist;
 	}
 
+	public void crearPlayList(String nombre, Cliente cliente) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "INSERT INTO `playlist` (`Titulo`, `IDCliente`) VALUES ('"+ nombre +"', '"+ cliente.getIdCliente() +"');";
+			consulta.executeUpdate(insert);
+			JOptionPane.showMessageDialog(null, "PlayList creada correctamente");
+			
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void borrarPlayList(PlayList playList) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "delete FROM `playlist` WHERE IDList = "+ playList.getIDList() +"";
+			consulta.executeUpdate(insert);
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+	}
+
+	public void borrarCancionesDePlayList(PlayList playList) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "delete FROM `playlist_canciones` WHERE IDList = "+ playList.getIDList() +"";
+			consulta.executeUpdate(insert);
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+	}
+
 }
 
 
