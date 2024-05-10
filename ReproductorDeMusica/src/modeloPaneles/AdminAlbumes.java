@@ -241,7 +241,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(8);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);

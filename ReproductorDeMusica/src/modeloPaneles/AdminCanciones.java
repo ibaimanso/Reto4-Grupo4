@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
@@ -46,8 +47,12 @@ public class AdminCanciones extends JPanel implements Paneles{
 		/**
 		 * Crear un panel para contener los JLabels
 		 */
-		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(0, 1));
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(127, 255, 0));
+		panel1.setBounds(0, 0, 754, 142);
+		add(panel1);
+		panel1.setLayout(null);
 
 		/**
 		 * Agregar JLabels al panel
@@ -98,10 +103,10 @@ public class AdminCanciones extends JPanel implements Paneles{
 				}
 			});
 			// Agregar panelItem al panel principal
-			panel.add(panelItem);
+			panel1.add(panelItem);
 		}
 
-		JScrollPane scrollArtista = new JScrollPane(panel);
+		JScrollPane scrollArtista = new JScrollPane(panel1);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
 		scrollArtista.setSize(350, 490);
 		scrollArtista.setLocation(34, 65);

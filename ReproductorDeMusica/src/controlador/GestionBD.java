@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 import modelo.Album;
+import modelo.Audio;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
@@ -207,6 +208,7 @@ public class GestionBD {
 		}
 		return albums;
 	}
+	
 
 	public int contarCanciones(String album) {
 		int canciones = 0;

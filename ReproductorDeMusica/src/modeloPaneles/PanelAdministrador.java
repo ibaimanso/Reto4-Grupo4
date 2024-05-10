@@ -229,7 +229,7 @@ public class PanelAdministrador extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(11);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
