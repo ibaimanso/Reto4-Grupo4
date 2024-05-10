@@ -54,7 +54,7 @@ public class MenuPanelAdmin extends JPanel{
 		JButton btnDescubrirMusica = new JButton("Editar Musicos");
 		btnDescubrirMusica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(8);
+				ventana.cambiarDePanel(8, 0);
 			}
 		});
 		btnDescubrirMusica.setBackground(new Color(173, 255, 47)); 
@@ -71,7 +71,7 @@ public class MenuPanelAdmin extends JPanel{
 		JButton btnDescubrirPodcast = new JButton("Editar Podcasters");
 		btnDescubrirPodcast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(10);
+				ventana.cambiarDePanel(10, 0);
 			}
 		});
 		btnDescubrirPodcast.setBounds(144, 135, 234, 43);
@@ -102,7 +102,7 @@ public class MenuPanelAdmin extends JPanel{
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(0, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);

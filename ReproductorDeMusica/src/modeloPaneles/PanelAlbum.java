@@ -18,7 +18,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
 import modelo.Album;
 import modelo.Cancion;
@@ -149,7 +148,7 @@ public class PanelAlbum extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(6);
+				ventana.cambiarDePanel(6, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
@@ -158,7 +157,7 @@ public class PanelAlbum extends JPanel {
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3);
+				ventana.cambiarDePanel(3, 0);
 			}
 		});
 		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
@@ -171,8 +170,9 @@ public class PanelAlbum extends JPanel {
 		JButton btnSiguiente = new JButton("");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				gestion.guardarCancion(canciones.get(contador));
-				ventana.cambiarDePanel(9);
+				ventana.cambiarDePanel(9, contador);
 			}
 		});
 		btnSiguiente.setBounds(481, 518, 89, 23);

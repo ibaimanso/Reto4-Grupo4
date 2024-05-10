@@ -1,5 +1,7 @@
 package controlador;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +18,7 @@ import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
 import modelo.Podcaster;
+import modelo.PlayList;
 
 public class GestionBD {
 
@@ -195,9 +198,6 @@ public class GestionBD {
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
-							resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
-							resultadoConsulta.getString(6)));
 				}
 			}
 			}} catch (Exception e) {
@@ -255,7 +255,7 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				ImageIcon imagen = new ImageIcon();
@@ -266,7 +266,20 @@ public class GestionBD {
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					imagen = new ImageIcon(arrayImagen);
 				}
-				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getBlob(5), resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+				
+				File cancion = null;
+				if(resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				}else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
+					FileOutputStream out = new FileOutputStream(cancion);
+				    out.write(arrayCancion);
+				    out.close();
+					
+				}
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -318,6 +331,7 @@ public class GestionBD {
 		return correcto;
 	}
 	public ArrayList<Podcaster> llenarListaPodcaster() {
+
 
 		ArrayList<Podcaster> podcaster = new ArrayList<Podcaster>();
 		try {
@@ -444,6 +458,146 @@ public class GestionBD {
 		}
 		return correcto;
 	}
+
+	public ArrayList<Cancion> buscarAnuncios() {
+		ArrayList<Cancion> anuncios = new ArrayList<Cancion>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like 'AL060'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				ImageIcon imagen = new ImageIcon();
+				if(resultadoConsulta.getBlob(4) == null) {
+					imagen = null;
+				}else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					imagen = new ImageIcon(arrayImagen);
+				}
+				
+				File cancion = null;
+				if(resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				}else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
+					FileOutputStream out = new FileOutputStream(cancion);
+				    out.write(arrayCancion);
+				    out.close();
+					
+				}
+				anuncios.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			anuncios = null;
+		}
+		return anuncios;
+	}
+
+	public ArrayList<PlayList> llenarListaDePlaylists(Cliente cliente) {
+		ArrayList<PlayList> playlist = new ArrayList<PlayList>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT * FROM `playlist` WHERE IDCliente like '"+ cliente.getIdCliente() +"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				playlist.add(new PlayList(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3)));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			playlist = null;
+		}
+		return playlist;
+	}
+
+	public ArrayList<Cancion> llenarListaDeCancionesPorPlayList(PlayList playList) {
+		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"+ playList.getIDList()+"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				if(resultadoConsulta.getBlob(4) == null) {
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+				}else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					ImageIcon imagen = new ImageIcon(arrayImagen);
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+				}
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+			canciones = null;
+		}
+		return canciones;
+	}
+	
+
+	
+	public ArrayList<Cancion> llenarListaDeCancionesConAudioPorPlayList(PlayList playList) {
+		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"+ playList.getIDList()+"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				ImageIcon imagen = new ImageIcon();
+				if(resultadoConsulta.getBlob(4) == null) {
+					imagen = null;
+				}else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					imagen = new ImageIcon(arrayImagen);
+				}
+				
+				File cancion = null;
+				if(resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				}else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
+					FileOutputStream out = new FileOutputStream(cancion);
+				    out.write(arrayCancion);
+				    out.close();
+					
+				}
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			canciones = null;
+		}
+		return canciones;
+	}
+
+	public int contarPlayList(Cliente cliente) {
+		int playlist = 0;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT COUNT(IDCliente) FROM `playlist` WHERE IDCliente like '"+ cliente.getIdCliente() +"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				playlist = resultadoConsulta.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			playlist = 0;
+		}
+		return playlist;
+	}
+
 }
 
 

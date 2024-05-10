@@ -41,7 +41,7 @@ public class Menu extends JPanel {
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(4);
+				ventana.cambiarDePanel(4, 0);
 
 			}
 		});
@@ -72,7 +72,7 @@ public class Menu extends JPanel {
 		JButton btnDescubrirMusica = new JButton("Descubrir Musica");
 		btnDescubrirMusica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(5);
+				ventana.cambiarDePanel(5, 0);
 			}
 		});
 		btnDescubrirMusica.setBackground(new Color(173, 255, 47)); 
@@ -89,7 +89,7 @@ public class Menu extends JPanel {
 		JButton btnDescubrirPodcast = new JButton("Descubrir Podcast");
 		btnDescubrirPodcast.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(10);
+				ventana.cambiarDePanel(10, 0);
 			}
 		});
 		btnDescubrirPodcast.setBounds(144, 135, 234, 43);
@@ -105,12 +105,14 @@ public class Menu extends JPanel {
 		JButton btnPlayList = new JButton("Mis PlayList");
 		btnPlayList.setBounds(144, 218, 234, 43);
 		btnPlayList.setBackground(new Color(173, 255, 47)); 
-
 		btnPlayList.setForeground(Color.BLACK);
-
 		btnPlayList.setFont(new Font("Arial", Font.BOLD, 16));
-
 		btnPlayList.setMargin(new Insets(10, 20, 10, 20));
+		btnPlayList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(10, 0);
+			}
+		});
 		panel_1.add(btnPlayList);
 
 		JButton bntCerrarSesion = new JButton("");
@@ -120,7 +122,7 @@ public class Menu extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(0, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);

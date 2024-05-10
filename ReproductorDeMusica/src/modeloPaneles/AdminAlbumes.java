@@ -219,7 +219,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnAadir_1 = new JButton("Artistas");
 		btnAadir_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(8);
+				ventana.cambiarDePanel(8, 0);
 				
 			}
 		});
@@ -241,7 +241,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(0, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);

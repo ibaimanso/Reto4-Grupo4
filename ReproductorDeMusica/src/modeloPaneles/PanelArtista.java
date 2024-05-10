@@ -62,7 +62,7 @@ JPanel panel1 = new JPanel();
 		JButton btnPerfil = new JButton("");
 		btnPerfil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(4);
+				ventana.cambiarDePanel(4, 0);
 
 			}
 		});
@@ -183,19 +183,20 @@ JPanel panel1 = new JPanel();
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(5);
+				ventana.cambiarDePanel(5, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
 		
+
+
 	
-		
 		JButton btnSiguiente = new JButton("Ir a canciones");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				gestion.guardarAlbum(albums.get(contador));
-				ventana.cambiarDePanel(7);
+				ventana.cambiarDePanel(7, 0);
 			}
 		});
 		btnSiguiente.setBounds(420, 490, 172, 51);

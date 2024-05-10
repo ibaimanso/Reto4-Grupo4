@@ -2,6 +2,10 @@ package view;
 
 import java.awt.Toolkit;
 
+import java.awt.Window;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.swing.JFrame;
 
 import logica.GestionDeLaInformacion;
@@ -11,10 +15,12 @@ import modeloPaneles.DescubrirMusica;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
 import modeloPaneles.MenuPanelAdmin;
+import modeloPaneles.MenuPlayList;
 import modeloPaneles.PanelAdministrador;
 import modeloPaneles.PanelAlbum;
 import modeloPaneles.PanelArtista;
 import modeloPaneles.PanelDescubrirPodcast;
+
 import modeloPaneles.PanelReproducion;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
@@ -35,9 +41,53 @@ public class VistaPrincipal extends JFrame{
 		// cambiarDePanel(0);
 		setSize(720,660);
 		setResizable(false);
+		
+		addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				gestion.borrarAudiosDelSistema();
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 	
-	public void cambiarDePanel(int i) {
+	public void cambiarDePanel(int i, int cont) {
 
 		switch (i) {
 		case 0:
@@ -84,8 +134,15 @@ public class VistaPrincipal extends JFrame{
 		case 13:
 			setContentPane(new AdminCanciones(this, gestion));
 			break;
-			
-	
+		case 14:
+			setContentPane(new PanelReproducion(this, gestion, cont));
+			break;
+		case 15:
+			setContentPane(new MenuPlayList(this, gestion));
+			break;
+		case 16:
+			//setContentPane(new PanelPlayList(this, gestion));
+			break;
 	
 		}
 	}

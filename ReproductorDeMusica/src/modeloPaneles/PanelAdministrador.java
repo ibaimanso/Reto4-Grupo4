@@ -207,7 +207,7 @@ public class PanelAdministrador extends JPanel {
 		JButton btnAadir_1 = new JButton("Albumes");
 		btnAadir_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(12);
+				ventana.cambiarDePanel(12, 0);
 			}
 		});
 		btnAadir_1.setBounds(420, 532, 81, 23);
@@ -216,7 +216,7 @@ public class PanelAdministrador extends JPanel {
 		JButton btnAadir_1_1 = new JButton("Audios");
 		btnAadir_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(13);
+				ventana.cambiarDePanel(13, 0);
 			}
 		});
 		btnAadir_1_1.setBounds(511, 532, 81, 23);
@@ -229,7 +229,7 @@ public class PanelAdministrador extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(0, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);

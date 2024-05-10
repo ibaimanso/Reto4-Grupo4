@@ -172,7 +172,7 @@ public class Registro extends JPanel {
 					String licencia = comboBoxLicencia.getSelectedItem().toString();
 					cliente.setPremium(licencia);
 					gestion.insertarUsuario(cliente);
-					ventana.cambiarDePanel(0);
+					ventana.cambiarDePanel(0, 0);
 				}
 
 			}
@@ -184,7 +184,7 @@ public class Registro extends JPanel {
 		JButton btnNewButton = new JButton("PREMIUM");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(2);
+				ventana.cambiarDePanel(2, 0);
 
 			}
 		});
@@ -215,7 +215,7 @@ public class Registro extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0);
+				ventana.cambiarDePanel(0, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
