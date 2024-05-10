@@ -99,12 +99,14 @@ public class Menu extends JPanel {
 		JButton btnPlayList = new JButton("Mis PlayList");
 		btnPlayList.setBounds(144, 218, 234, 43);
 		btnPlayList.setBackground(new Color(173, 255, 47)); 
-
 		btnPlayList.setForeground(Color.BLACK);
-
 		btnPlayList.setFont(new Font("Arial", Font.BOLD, 16));
-
 		btnPlayList.setMargin(new Insets(10, 20, 10, 20));
+		btnPlayList.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(10, 0);
+			}
+		});
 		panel_1.add(btnPlayList);
 
 		JButton bntCerrarSesion = new JButton("");

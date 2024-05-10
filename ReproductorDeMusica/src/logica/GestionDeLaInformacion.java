@@ -1,6 +1,8 @@
 package logica;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +11,7 @@ import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
+import modelo.PlayList;
 
 public class GestionDeLaInformacion {
 
@@ -20,8 +23,8 @@ public class GestionDeLaInformacion {
 	private ArrayList<Album> albums;
 	private Cancion cancion;
 	private ArrayList<Cancion> canciones;
-	
-
+	private PlayList playList;
+	private ArrayList<PlayList> playlists;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
@@ -118,47 +121,101 @@ public class GestionDeLaInformacion {
 	public void recogerAlbumsDeLaBaseDeDatos() {
 		this.albums = gestionBD.llenarListaDeAlbums(this.musico);
 	}
-	
+
 	/**
 	 * Metodos para la gestion de canciones
+	 * 
 	 * @param album
 	 */
-	
+
 	public void guardarCancion(Cancion cancion) {
 		this.cancion = cancion;
 	}
-	
-	public Cancion devolverCancion(){
+
+	public Cancion devolverCancion() {
 		return this.cancion;
 	}
-	
-	public ArrayList<Cancion> devolverCanciones(){
+
+	public ArrayList<Cancion> devolverCanciones() {
 		return this.canciones;
 	}
 
 	public void recogerCancionesDeLaBaseDeDatos() {
-		this.canciones = gestionBD.llenarListaDeCanciones(this.album);
+		if (playList != null) {
+			this.canciones = new ArrayList<Cancion>();
+			this.canciones = gestionBD.llenarListaDeCancionesPorPlayList(this.playList);
+		} else {
+			this.canciones = new ArrayList<Cancion>();
+			this.canciones = gestionBD.llenarListaDeCanciones(this.album);
+		}
 	}
-	
+
 	public void recogerCancionesDeLaBaseDeDatosConAudio() {
-		this.canciones = new ArrayList<Cancion>();
-		this.canciones = gestionBD.llenarListaDeCancionesConAudio(this.album);
+		if (playList != null) {
+			this.canciones = new ArrayList<Cancion>();
+			// this.canciones =
+		} else {
+			this.canciones = new ArrayList<Cancion>();
+			this.canciones = gestionBD.llenarListaDeCancionesConAudio(this.album);
+		}
 	}
 	
+	public void borrarAudiosDelSistema() {
+		File directory = new File("./canciones");
+		 
+        for (File file: Objects.requireNonNull(directory.listFiles())) {
+            if (!file.isDirectory()) {
+                file.delete();
+        }
+       }
+	}
+
 	public ArrayList<Cancion> recogerAnunciosDeLaBaseDeDatosConAudio() {
 		return gestionBD.buscarAnuncios();
 	}
-	
 
+	/**
+	 * Metodos para sacar playlists
+	 */
+	public void guardarPlayList(PlayList playList) {
+		this.playList = playList;
+	}
+
+	public PlayList devolverPlayList() {
+		return this.playList;
+	}
+
+	public ArrayList<PlayList> devolverPlayLists() {
+		return this.playlists;
+	}
+
+	public void recogerPlayListsDeLaBaseDeDatos() {
+		this.playlists = gestionBD.llenarListaDePlaylists(this.cliente);
+	}
+	
+	public int cantidadDePlayList() {
+		return gestionBD.contarPlayList(cliente);
+	}
+
+	/**
+	 * Funciones del panel De adminstración
+	 * 
+	 * @param nombre
+	 * @param id
+	 * @param desc
+	 * @param tipo
+	 * @return
+	 */
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		gestionBD.editarArtistaAdministrador(nombre, id, desc, tipo);
 		return true;
 	}
 
-	public boolean añadirMusicoABaseDeDatos(String nombre,  String desc, String tipo) {
-		gestionBD.insertNuevoMusico(nombre,  desc, tipo);
+	public boolean añadirMusicoABaseDeDatos(String nombre, String desc, String tipo) {
+		gestionBD.insertNuevoMusico(nombre, desc, tipo);
 
 		return true;
 
 	}
+	
 }
