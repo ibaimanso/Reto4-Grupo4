@@ -5,5 +5,6 @@ public class Main {
 		VistaPrincipal ventana = new VistaPrincipal();
 		ventana.cambiarDePanel(0);
 		ventana.setVisible(true);
+		//AITOR HAZ OTRA RAMA
 	}
 }
