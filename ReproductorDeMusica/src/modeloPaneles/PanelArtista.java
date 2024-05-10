@@ -26,7 +26,7 @@ import modelo.Musico;
 import view.VistaPrincipal;
 import javax.swing.JTextArea;
 
-public class PanelArtista extends JPanel implements Paneles{
+public class PanelArtista extends JPanel implements Paneles {
 
 	private static final long serialVersionUID = 1L;
 
@@ -34,7 +34,7 @@ public class PanelArtista extends JPanel implements Paneles{
 	private Musico musico;
 	private int contador;
 	private JLabel lblCaracteristica;
-	
+
 	public PanelArtista(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(0, 255, 127));
 		setLayout(null);
@@ -44,16 +44,15 @@ public class PanelArtista extends JPanel implements Paneles{
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
-		
-JPanel panel1 = new JPanel();
-		
+
+		JPanel panel1 = new JPanel();
+
 		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
 		panel1.setBackground(new Color(0, 255, 0));
 		panel1.setBounds(-48, 0, 762, 140);
 		add(panel1);
 		panel1.setLayout(null);
 
-		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
 		lblNewLabel.setBounds(179, 9, 313, 118);
@@ -72,7 +71,7 @@ JPanel panel1 = new JPanel();
 		btnPerfil.setBorderPainted(false);
 		btnPerfil.setContentAreaFilled(false);
 		panel1.add(btnPerfil);
-		
+
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setBounds(35, 11, 167, 108);
 		panel1.add(lblLogo);
@@ -93,7 +92,7 @@ JPanel panel1 = new JPanel();
 			panelItem.setSize(80, 396);
 
 			/**
-			 *  Cargar imagen
+			 * Cargar imagen
 			 */
 			ImageIcon imageIcon = null;
 			if (albums.get(i).getImagen() == null) {
@@ -108,18 +107,18 @@ JPanel panel1 = new JPanel();
 			panelItem.add(imageLabel);
 
 			/*
-			 *  Agregar JLabel de nombre al lado de la imagen
+			 * Agregar JLabel de nombre al lado de la imagen
 			 */
 			JLabel label1 = new JLabel(albums.get(i).datosPanel());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
 			/**
-			 *  Le damos un identificador
+			 * Le damos un identificador
 			 */
 			panelItem.setName("" + i);
 			/**
-			 *  Añadirmos un borde al panelItem para hacerlo mas visual
+			 * Añadirmos un borde al panelItem para hacerlo mas visual
 			 */
 			panelItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -130,7 +129,7 @@ JPanel panel1 = new JPanel();
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
 					cambiarContenidoDeLabels();
-					
+
 				}
 			});
 			// Agregar panelItem al panel principal
@@ -142,26 +141,29 @@ JPanel panel1 = new JPanel();
 		scrollArtista.setSize(350, 393);
 		scrollArtista.setLocation(34, 162);
 		add(scrollArtista);
-		
+
 		JLabel lblNombre = new JLabel(musico.getNombre());
-		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 18));
+		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 24));
 		lblNombre.setBounds(420, 152, 274, 45);
 		add(lblNombre);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
 		lblTituloCaracteristica.setBounds(420, 209, 238, 30);
+		lblTituloCaracteristica.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
 		add(lblTituloCaracteristica);
 
 		lblCaracteristica = new JLabel(musico.getClase());
-		lblCaracteristica.setBounds(420, 236, 238, 30);
+		lblCaracteristica.setText(musico.getClase().toUpperCase());
+		lblCaracteristica.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 18));
+		lblCaracteristica.setBounds(420, 243, 238, 30);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setBounds(420, 265, 238, 43);
+		lblTituloDescripcion.setBounds(420, 284, 238, 43);
+		lblTituloDescripcion.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
+
 		add(lblTituloDescripcion);
 
-		
-		
 		JLabel lblImagenAutor = new JLabel("");
 		ImageIcon imageIcon = null;
 		if (musico.getImagen() == null) {
@@ -188,10 +190,7 @@ JPanel panel1 = new JPanel();
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
-		
 
-
-	
 		JButton btnSiguiente = new JButton("Ir a canciones");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -201,12 +200,14 @@ JPanel panel1 = new JPanel();
 		});
 		btnSiguiente.setBounds(420, 490, 172, 51);
 		add(btnSiguiente);
-		
+
 		JTextArea txtDescripcion = new JTextArea(musico.getDescripcion());
 		txtDescripcion.setBackground(new Color(0, 255, 127));
 		txtDescripcion.setEditable(false);
+		txtDescripcion.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 16));
+
 		txtDescripcion.setLineWrap(true);
-		txtDescripcion.setBounds(420, 327, 238, 70);
+		txtDescripcion.setBounds(420, 326, 238, 70);
 		add(txtDescripcion);
 
 	}
@@ -214,6 +215,6 @@ JPanel panel1 = new JPanel();
 	@Override
 	public void cambiarContenidoDeLabels() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
