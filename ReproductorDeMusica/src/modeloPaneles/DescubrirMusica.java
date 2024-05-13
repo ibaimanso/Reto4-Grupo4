@@ -145,17 +145,18 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		add(scrollArtista);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
-		lblTituloCaracteristica.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 18));
+		lblTituloCaracteristica.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
 		lblTituloCaracteristica.setBounds(420, 159, 238, 43);
 		add(lblTituloCaracteristica);
 
 		lblCaracteristica = new JLabel(musicos.get(contador).getClase());
+		lblCaracteristica.setText(musicos.get(contador).getClase().toUpperCase());
 		lblCaracteristica.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
 		lblCaracteristica.setBounds(420, 199, 238, 57);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 18));
+		lblTituloDescripcion.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
 		lblTituloDescripcion.setBounds(420, 279, 238, 43);
 		add(lblTituloDescripcion);
 
@@ -193,7 +194,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		
 		textArea = new JTextArea(musicos.get(contador).getDescripcion());
 		textArea.setBackground(new Color(0, 255, 127));
-		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 14));
+		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
 		textArea.setBounds(420, 333, 238, 97);
@@ -202,7 +203,7 @@ public class DescubrirMusica extends JPanel implements Paneles {
 	}
 
 	public void cambiarContenidoDeLabels() {
-		lblCaracteristica.setText(musicos.get(contador).getClase());
+		lblCaracteristica.setText(musicos.get(contador).getClase().toUpperCase());
 		textArea.setText(musicos.get(contador).getDescripcion());
 		
 	}

@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import modelo.Album;
@@ -34,6 +35,7 @@ public class PanelAlbum extends JPanel {
 	private JLabel lblDescripcion;
 	
 	public PanelAlbum(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+		setBackground(new Color(0, 255, 127));
 		setLayout(null);
 		gestion.recogerCancionesDeLaBaseDeDatos();
 		canciones = gestion.devolverCanciones();
@@ -41,6 +43,40 @@ public class PanelAlbum extends JPanel {
 		contador = 0;
 
 		setSize(new Dimension(704, 603));
+		
+		JPanel panel1 = new JPanel();
+		
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(0, 255, 0));
+		panel1.setBounds(-48, 0, 762, 140);
+		add(panel1);
+		panel1.setLayout(null);
+
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
+		lblNewLabel.setBounds(179, 9, 313, 118);
+		panel1.add(lblNewLabel);
+
+		JButton btnPerfil = new JButton("");
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(4, 0);
+
+			}
+		});
+		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
+		btnPerfil.setBounds(590, 7, 137, 120);
+		btnPerfil.setFocusPainted(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setContentAreaFilled(false);
+		panel1.add(btnPerfil);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(35, 11, 167, 108);
+		panel1.add(lblLogo);
+		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
+
 
 		/**
 		 * Crear un panel para contener los JLabels
@@ -102,29 +138,35 @@ public class PanelAlbum extends JPanel {
 
 		JScrollPane scrollArtista = new JScrollPane(panel);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(350, 490);
-		scrollArtista.setLocation(34, 65);
+		scrollArtista.setSize(350, 393);
+		scrollArtista.setLocation(34, 162);
 		add(scrollArtista);
 		
 		JLabel lblNombre = new JLabel(album.getTitulo());
-		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 18));
-		lblNombre.setBounds(420, 65, 274, 45);
+		lblNombre.setFont(new Font("Snap ITC", Font.BOLD, 24));
+		lblNombre.setBounds(420, 162, 274, 45);
 		add(lblNombre);
 
 		JLabel lblTituloCaracteristica = new JLabel("Caracteristica:");
-		lblTituloCaracteristica.setBounds(420, 121, 238, 30);
+		lblTituloCaracteristica.setBounds(420, 218, 238, 30);
+		
+		lblTituloCaracteristica.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
 		add(lblTituloCaracteristica);
 
 		lblCaracteristica = new JLabel(album.getGenero());
-		lblCaracteristica.setBounds(420, 162, 238, 30);
+		lblCaracteristica.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 18));
+		lblCaracteristica.setText(album.getGenero().toUpperCase());
+		lblCaracteristica.setBounds(420, 259, 238, 30);
 		add(lblCaracteristica);
 
 		JLabel lblTituloDescripcion = new JLabel("Descripcion:");
-		lblTituloDescripcion.setBounds(420, 203, 238, 43);
+		lblTituloDescripcion.setBounds(420, 300, 238, 43);
+		lblTituloDescripcion.setFont(new Font("Franklin Gothic Heavy", Font.PLAIN, 24));
 		add(lblTituloDescripcion);
 
 		lblDescripcion = new JLabel(album.getAño() + " , Nº Canciones "+ album.getNumeroDeCanciones());
-		lblDescripcion.setBounds(420, 257, 238, 100);
+		lblDescripcion.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
+		lblDescripcion.setBounds(420, 318, 238, 73);
 		add(lblDescripcion);
 		
 		JLabel lblImagenAutor = new JLabel("");
@@ -138,7 +180,7 @@ public class PanelAlbum extends JPanel {
 		Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
 		ImageIcon newImageIcon = new ImageIcon(newImage);
 		lblImagenAutor.setIcon(newImageIcon);
-		lblImagenAutor.setBounds(470, 379, 100, 100);
+		lblImagenAutor.setBounds(470, 385, 100, 100);
 		add(lblImagenAutor);
 
 		JButton bntCerrarSesion = new JButton("");
@@ -154,20 +196,9 @@ public class PanelAlbum extends JPanel {
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
 		
-		JButton btnPerfil = new JButton("");
-		btnPerfil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3, 0);
-			}
-		});
-		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
-		btnPerfil.setBounds(590, 7, 137, 120);
-		btnPerfil.setFocusPainted(false);
-		btnPerfil.setBorderPainted(false);
-		btnPerfil.setContentAreaFilled(false);
-		add(btnPerfil);
+
 		
-		JButton btnSiguiente = new JButton("");
+		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(contador);
@@ -175,7 +206,7 @@ public class PanelAlbum extends JPanel {
 				ventana.cambiarDePanel(9, contador);
 			}
 		});
-		btnSiguiente.setBounds(481, 518, 89, 23);
+		btnSiguiente.setBounds(420, 490, 202, 51);
 		add(btnSiguiente);
 
 	}
