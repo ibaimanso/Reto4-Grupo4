@@ -10,6 +10,10 @@ public class PlayList {
 		FechaCreacion = fechaCreacion;
 	}
 
+	public PlayList() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getIDList() {
 		return IDList;
 	}

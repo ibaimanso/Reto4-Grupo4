@@ -32,6 +32,10 @@ import modelo.Musico;
 import view.VistaPrincipal;
 
 public class PanelAdministrador extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JLabel txtID;
 	private JTextField txtDescripcion;
