@@ -1,7 +1,6 @@
 package modeloPaneles;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -113,7 +112,12 @@ public class PanelReproducion extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(7, 0);
+				if(gestion.devolverAlbum().getAño() != null) {
+					ventana.cambiarDePanel(7, 0);
+				}else {
+					ventana.cambiarDePanel(15, 0);
+				}
+				
 			}
 		});
 		bntCerrarSesion.setBounds(575, 151, 153, 62);
@@ -202,6 +206,7 @@ public class PanelReproducion extends JPanel {
 		Long tiempoAnuncio = System.currentTimeMillis();
 		Long tiempoAnuncio30000 =  tiempoAnuncio + 30000;
 		control.cambiarCancion(anuncios.get(0));
+		cambiarInfoAnuncio();
 		while (tiempoAnuncio < tiempoAnuncio30000) {
 			btnPlay.setEnabled(false);
 			btnAnterior.setEnabled(false);
@@ -223,18 +228,19 @@ public class PanelReproducion extends JPanel {
 			System.out.println(tiempo);
 			System.out.println(tiempo + 600);
 			System.out.println(System.currentTimeMillis());
-			if (System.currentTimeMillis() < tiempo + 600) {
+			if (System.currentTimeMillis() < tiempo + 60000) {
 				JOptionPane.showMessageDialog(null, "No han pasado 10 mins");
 			} else {
 				if (contador <= 0) {
 					mostarAnuncio();
 					contador = canciones.size() - 1;
 					control.cambiarCancion(canciones.get(contador));
+					cambiarInfoAudio();
 				} else {
 					mostarAnuncio();
 					contador--;
-					
 					control.cambiarCancion(canciones.get(contador));
+					cambiarInfoAudio();
 				}
 				tiempo = System.currentTimeMillis();
 			}
@@ -242,9 +248,11 @@ public class PanelReproducion extends JPanel {
 			if (contador <= 0) {
 				contador = canciones.size() - 1;
 				control.cambiarCancion(canciones.get(contador));
+				cambiarInfoAudio();
 			} else {
 				contador--;
 				control.cambiarCancion(canciones.get(contador));
+				cambiarInfoAudio();
 			}
 			tiempo = System.currentTimeMillis();
 		}
@@ -259,10 +267,12 @@ public class PanelReproducion extends JPanel {
 					mostarAnuncio();
 					contador = 0;
 					control.cambiarCancion(canciones.get(contador));
+					cambiarInfoAudio();
 				} else {
 					mostarAnuncio();
 					contador++;
 					control.cambiarCancion(canciones.get(contador));
+					cambiarInfoAudio();
 				}
 				tiempo = System.currentTimeMillis();
 			}
@@ -270,9 +280,11 @@ public class PanelReproducion extends JPanel {
 			if (contador >= canciones.size() - 1) {
 				contador = 0;
 				control.cambiarCancion(canciones.get(contador));
+				cambiarInfoAudio();
 			} else {
 				contador++;
 				control.cambiarCancion(canciones.get(contador));
+				cambiarInfoAudio();
 			}
 			tiempo = System.currentTimeMillis();
 		}
@@ -286,6 +298,22 @@ public class PanelReproducion extends JPanel {
 			imageIcon = new ImageIcon("multimedia/default_perfil.png");
 		} else {
 			imageIcon = canciones.get(contador).getImagen();
+		}
+		Image image = imageIcon.getImage();
+		Image newImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
+		ImageIcon newImageIcon = new ImageIcon(newImage);
+		lblImagenAutor.setIcon(newImageIcon);
+	}
+	
+	public void cambiarInfoAnuncio() {
+		lblAlbum.setText(anuncios.get(0).getIdAlbum());
+		lblDuracion.setText("" + anuncios.get(0).getDuracion());
+		lblNombre.setText(anuncios.get(0).getNombreAudio());
+		ImageIcon imageIcon = null;
+		if (canciones.get(0).getImagen() == null) {
+			imageIcon = new ImageIcon("multimedia/default_perfil.png");
+		} else {
+			imageIcon = anuncios.get(0).getImagen();
 		}
 		Image image = imageIcon.getImage();
 		Image newImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);

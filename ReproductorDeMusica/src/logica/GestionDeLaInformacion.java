@@ -17,6 +17,7 @@ import modelo.PlayList;
 public class GestionDeLaInformacion {
 
 	private GestionBD gestionBD;
+	private GestionFicheros gestionFI;
 	private Cliente cliente;
 	private Musico musico;
 	private ArrayList<Musico> musicos;
@@ -30,9 +31,18 @@ public class GestionDeLaInformacion {
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
-		musicos = gestionBD.llenarListaMusico();
-		podcasters = gestionBD.llenarListaPodcaster();
-		
+		gestionFI = new GestionFicheros();
+	}
+	
+	public void limpiar() {
+		musico = new Musico();
+		musicos = new ArrayList<Musico>();
+		album = new Album();
+		albums = new ArrayList<Album>();
+		canciones = new ArrayList<Cancion>();
+		podcasters = new ArrayList<Podcaster>();
+		playList = new PlayList();
+		playlists = new ArrayList<PlayList>();
 	}
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
@@ -148,7 +158,7 @@ public class GestionDeLaInformacion {
 	}
 
 	public void recogerCancionesDeLaBaseDeDatos() {
-		if (playList != null) {
+		if (playList.getIDList() != null) {
 			this.canciones = new ArrayList<Cancion>();
 			this.canciones = gestionBD.llenarListaDeCancionesPorPlayList(this.playList);
 		} else {
@@ -158,7 +168,7 @@ public class GestionDeLaInformacion {
 	}
 
 	public void recogerCancionesDeLaBaseDeDatosConAudio() {
-		if (playList != null) {
+		if (playList.getIDList() != null) {
 			this.canciones = new ArrayList<Cancion>();
 			this.canciones = gestionBD.llenarListaDeCancionesConAudioPorPlayList(this.playList);
 		} else {
@@ -204,6 +214,10 @@ public class GestionDeLaInformacion {
 	
 	public int cantidadDePlayList() {
 		return gestionBD.contarPlayList(cliente);
+	}
+	
+	public int cantidadDeCancionesEnPlayList(PlayList p) {
+		return gestionBD.contarCantidadDeCancionEnPlayList(p);
 	}
 	
 	public void crearPlayList(String nombre) {
@@ -268,6 +282,16 @@ public class GestionDeLaInformacion {
 	public void recogerCancionesDeLaBaseDeDatosAdmin() {
 	canciones = new ArrayList<Cancion>();
 	this.canciones = gestionBD.llenarListaDeCancionesAdmin();
+	}
+	
+	//Metodos de gestion de archivos
+	public void escribirFichero() {
+		gestionFI.escribirFichero(canciones, playList.getTitulo());
+	}
+	
+	public void insertarFichero(File fichero) {
+		gestionFI.leerFichero(fichero);
+
 	}
 
 	

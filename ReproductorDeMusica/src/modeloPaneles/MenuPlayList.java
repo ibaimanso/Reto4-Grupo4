@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -27,6 +29,7 @@ public class MenuPlayList extends JPanel {
 
 	private ArrayList<PlayList> playList;
 	private int contador;
+	private GestionDeLaInformacion gestionInfo;
 
 	public MenuPlayList(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(125, 255, 190));
@@ -34,6 +37,7 @@ public class MenuPlayList extends JPanel {
 		setSize(ventana.getSize());
 		gestion.recogerPlayListsDeLaBaseDeDatos();
 		playList = gestion.devolverPlayLists();
+		gestionInfo = gestion;
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -141,25 +145,27 @@ public class MenuPlayList extends JPanel {
 		JButton btnNuevo = new JButton("Nueva Playlist");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free") && gestion.cantidadDePlayList() >= 3) {
+				if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free")
+						&& gestion.cantidadDePlayList() >= 3) {
 					JOptionPane.showMessageDialog(null, "Mas de tres playlist creadas");
 				} else {
 					String respuesta = JOptionPane.showInputDialog(null, "Inserte nombre: ", "Crear PlayList",
 							JOptionPane.QUESTION_MESSAGE);
 					if (respuesta == null) {
 						JOptionPane.showMessageDialog(null, "Inserte algun campo");
-					}else if (respuesta.equalsIgnoreCase("Favoritos")) {
+					} else if (respuesta.equalsIgnoreCase("Favoritos")) {
 
 						JOptionPane.showMessageDialog(null, "No puedes generar favoritos");
 					} else {
 						boolean seleccion = false;
 						for (int i = 0; i < playList.size(); i++) {
 							if (respuesta.equalsIgnoreCase(playList.get(i).getTitulo())) {
-								JOptionPane.showMessageDialog(null, "No puedes generar una playlist llamada " + playList.get(i).getTitulo());
+								JOptionPane.showMessageDialog(null,
+										"No puedes generar una playlist llamada " + playList.get(i).getTitulo());
 								seleccion = true;
-							} 
+							}
 						}
-						if(seleccion == false) {
+						if (seleccion == false) {
 							gestion.crearPlayList(respuesta);
 							ventana.cambiarDePanel(14, 0);
 						}
@@ -186,10 +192,61 @@ public class MenuPlayList extends JPanel {
 
 		JButton btnImportar = new JButton("Importar");
 		btnImportar.setBounds(470, 325, 174, 50);
+		btnImportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File fichero = abrirArchivo();
+				String nombrefichero = fichero.getName().split("/")[1];
+				if(!nombrefichero.split(".")[1].equalsIgnoreCase("txt")) {
+					JOptionPane.showMessageDialog(null, "formato de fichero incorrecto");
+				}else {
+					importar(nombrefichero.split(".")[1]);
+				}
+			}
+		});
 		add(btnImportar);
 
 		JButton btnExportar = new JButton("Exportar");
 		btnExportar.setBounds(470, 394, 174, 50);
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestion.guardarPlayList(playList.get(contador));
+				gestion.recogerCancionesDeLaBaseDeDatos();
+				gestion.escribirFichero();
+			}
+		});
 		add(btnExportar);
+	}
+
+	private File abrirArchivo() {
+		/** llamamos el metodo que permite cargar la ventana */
+		JFileChooser file = new JFileChooser();
+		file.showOpenDialog(this);
+		/** abrimos el archivo seleccionado */
+		file.getSelectedFile().getName();
+		return file.getSelectedFile();// El texto se almacena en el JTextArea
+	}
+
+	private void importar(String fichero) {
+		boolean encontrado = false;
+		for (int i = 0; i < playList.size(); i++) {
+			if(playList.get(i).getTitulo().equalsIgnoreCase(fichero)) {
+				encontrado = true;
+			}
+		}
+		if(encontrado) {
+			
+		}else {
+			if (gestionInfo.devolverUsuario().getPremium().equalsIgnoreCase("Free")){
+				if(gestionInfo.cantidadDePlayList() >= 3) {
+					JOptionPane.showMessageDialog(null, "Compre premium para mas de 3 playlist");
+				}else {
+					
+				}
+				
+			}else {
+				 
+			}
+		}
+		
 	}
 }

@@ -23,6 +23,7 @@ public class Menu extends JPanel {
 		setBackground(new Color(125, 255, 190));
 		setLayout(null);
 		setSize(ventana.getSize());
+		gestion.limpiar();
 		
 
 		JPanel panel = new JPanel();

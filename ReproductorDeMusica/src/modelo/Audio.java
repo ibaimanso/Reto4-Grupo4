@@ -31,6 +31,10 @@ public class Audio {
 		this.audio = audio;
 	}
 
+	public Audio() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getIdAudio() {
 	    return idAudio;
 	}

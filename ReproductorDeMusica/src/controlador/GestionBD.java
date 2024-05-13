@@ -597,6 +597,24 @@ public class GestionBD {
 		}
 		return playlist;
 	}
+	
+	public int contarCantidadDeCancionEnPlayList(PlayList playlist) {
+		int num = 0;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT COUNT(IDList) FROM `playlist_canciones` WHERE IDCliente like '"+ playlist.getIDList() +"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				num = resultadoConsulta.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			num = 0;
+		}
+		return num;
+	}
 
 	public void crearPlayList(String nombre, Cliente cliente) {
 		try {
