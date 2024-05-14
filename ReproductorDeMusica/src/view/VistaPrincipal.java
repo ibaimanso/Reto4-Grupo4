@@ -38,6 +38,7 @@ public class VistaPrincipal extends JFrame{
 		setLocationRelativeTo(null);
 		// cambiarDePanel(0);
 		setSize(720,660);
+		setLocationRelativeTo(null);
 		setResizable(false);
 		
 		addWindowListener(new WindowListener() {

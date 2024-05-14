@@ -27,8 +27,7 @@ public class MenuPanelAdmin extends JPanel{
 	public MenuPanelAdmin(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
 		setBackground(new Color(0, 255, 127));
-		// setSize(720,600);
-		setSize(new Dimension(720, 600));
+		setSize(ventana.getSize());
 		setLayout(null);
 		
 		

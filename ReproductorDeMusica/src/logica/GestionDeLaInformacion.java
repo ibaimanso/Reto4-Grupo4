@@ -255,11 +255,18 @@ public class GestionDeLaInformacion {
 		gestionBD.editarArtistaAdministrador(nombre, id, desc, tipo);
 		return true;
 	}
+	public boolean eliminarCancionAdministrador(String id) {
+		gestionBD.eliminarCancionAdministrador(id);
+		return true;
+	}
 	public boolean eliminarArtistaAdministrador(String id) {
 		gestionBD.eliminarArtistaAdministrador(id);
 		return true;
 	}
-	
+	public boolean eliminarAlbumAdministrador(String id) {
+		gestionBD.eliminarAlbumAdministrador(id);
+		return true;
+	}
 
 	public boolean añadirMusicoABaseDeDatos(String nombre, String desc, String tipo) {
 		gestionBD.insertNuevoMusico(nombre, desc, tipo);
@@ -286,16 +293,16 @@ public class GestionDeLaInformacion {
 		podcasters = gestionBD.llenarListaPodcaster();
 	}
 
-//	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
-//		gestionBD.editarAlbumAdministrador(id, nombre, año, genero);
-//		
-//		return true;
-//	}
-//	public boolean editarCancionAdministrador(String ldAudio, String textidcancion, String nombreAudio, String textduracion,String  Idalbum) {
-//		gestionBD.editarCancionesAdministrador(ldAudio, textidcancion, nombreAudio, textduracion,Idalbum);
-//		
-//		return true;
-//	}
+	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
+		gestionBD.editarAlbumAdministrador(id, nombre, año, genero);
+		
+		return true;
+	}
+	public boolean editarCancionAdministrador(String ldAudio, String textidcancion, String nombreAudio, String textduracion,String  Idalbum) {
+		gestionBD.editarCancionesAdministrador(ldAudio, textidcancion, nombreAudio, textduracion,Idalbum);
+		
+		return true;
+	}
 	public void recogerAlbumsDeLaBaseDeDatosAdmin() {
 		albums = new ArrayList<Album>();
 		this.albums = gestionBD.llenarListaDeAlbumsAdmin();

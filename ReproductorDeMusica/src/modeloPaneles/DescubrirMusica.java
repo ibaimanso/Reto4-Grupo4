@@ -42,7 +42,8 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		musicos = gestion.devolverMusicos();
 		contador = 0;
 
-		setSize(new Dimension(704, 603));
+		//setSize(new Dimension(704, 603));
+		setSize(ventana.getSize());
 		
 		JPanel panel1 = new JPanel();
 		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -193,11 +194,12 @@ public class DescubrirMusica extends JPanel implements Paneles {
 		add(btnSiguiente);
 		
 		textArea = new JTextArea(musicos.get(contador).getDescripcion());
+		textArea.setWrapStyleWord(true);
 		textArea.setBackground(new Color(0, 255, 127));
 		textArea.setFont(new Font("Franklin Gothic Medium", Font.PLAIN, 18));
 		textArea.setLineWrap(true);
 		textArea.setEditable(false);
-		textArea.setBounds(420, 333, 238, 97);
+		textArea.setBounds(420, 320, 238, 164);
 		add(textArea);
 
 	}

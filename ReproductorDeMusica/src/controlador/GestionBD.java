@@ -457,15 +457,38 @@ public class GestionBD {
 //		}
 //		return podcasts;
 //	}
-	public boolean eliminarAlbumAdministrador(String nombre, String id, String genero, String año) {
+	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
 		boolean correcto = false;
 
 		try {
 			Statement consulta = conexion.createStatement();
 
 			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
-					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" +
-					"WHERE IDAlbum="+ "'" + id + "'";
+					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum="
+					+ "'" + id + "'";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
+			System.out.println(update);
+			consulta.close();
+			
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return correcto;
+	}
+	
+	public boolean eliminarAlbumAdministrador(String id) {
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "DELETE FROM album WHERE IDAlbum=" + "'" + id + "';";
+
 
 			consulta.executeUpdate(update);
 			JOptionPane.showMessageDialog(null, "Album eliminado correctamente");
@@ -480,27 +503,53 @@ public class GestionBD {
 	}
 
 
-//	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
-//	boolean correcto = false;
-//
-////		try {
-//			Statement consulta = conexion.createStatement();
-//
-//			String update = "UPDATE Audio SET IDAudio=" + "'" + ldAudio + "'" + ", nombre=" + "'" + nombreAudio + "'" + ", Duracion="
-//					+ "'" + textduracion + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum=" + "'" + id + "'";
-//
-//			consulta.executeUpdate(update);
-//			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
-//			consulta.close();
-//			correcto = true;
-//		} catch (Exception e) {
-//			JOptionPane.showMessageDialog(null, "Campos inválidos");
-//			e.printStackTrace();
-//		}
-//
-//		return correcto;
-//	}
+	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
+	    boolean correcto = false;
 
+	        try {
+	            Statement consulta = conexion.createStatement();
+
+	            String update =  "UPDATE audio AS a " +
+	                    "JOIN canciones AS c ON a.IDAudio = c.IDAudio " +
+	                    "SET " +
+	                    "a.IDAudio = "+"'"+ ldAudio+"'"+
+	                    "a.Nombre = "+"'"+nombreAudio +"'" +
+	                    "a.Duracion = "+"'"+textduracion +"'" +
+	                    "c.IDCancion = "+"'"+textidcancion +"'" +
+	                    "c.IDAlbum = "+"'"+Idalbum +"'" ;
+
+	            consulta.executeUpdate(update);
+	            JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
+	            consulta.close();
+	            correcto = true;
+	            System.out.println(update);
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(null, "Campos inválidos");
+	            e.printStackTrace();
+	        }
+
+	        return correcto;
+	    }
+public boolean eliminarCancionAdministrador(String id) {
+		
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "DELETE FROM audio WHERE IDAudio=" + "'" + id + "';";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Cancion eliminado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return true;
+	}
 	public ArrayList<Album> llenarListaDeAlbumsAdmin() {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		try {

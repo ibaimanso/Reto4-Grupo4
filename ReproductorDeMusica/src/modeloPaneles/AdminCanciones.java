@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import interfaces.Paneles;
@@ -38,14 +39,14 @@ public class AdminCanciones extends JPanel implements Paneles {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Cancion> canciones;
 	private Cancion cancion;
-	private JTextField nombreAudio;
+	private JTextField txtNombre;
 	private JLabel idaudio;
 	private int contador;
 	private JTextField textduracion;
-	private JTextField Idalbum;
-	private JTextField textidcancion;
-	private JTextField ldAudio;
-
+	private JLabel lblIDAudio;
+	private JLabel lblIDCancion;
+	private JLabel lblIDAlbum;
+	
 	public AdminCanciones(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setLayout(null);
 		gestion.recogerCancionesDeLaBaseDeDatosAdmin();
@@ -55,6 +56,57 @@ public class AdminCanciones extends JPanel implements Paneles {
 		setBackground(new Color(0, 255, 127));
 		setSize(ventana.getSize());
 		// setSize(new Dimension(709, 600));
+		
+
+		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(127, 255, 0));
+		panel1.setBounds(0, 0, 754, 142);
+		add(panel1);
+		panel1.setLayout(null);
+
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
+		lblNewLabel.setBounds(144, 11, 313, 118);
+		panel1.add(lblNewLabel);
+
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(0, 13, 167, 108);
+		panel1.add(lblLogo);
+		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
+
+		JLabel lblClase1 = new JLabel();
+		lblClase1.setBounds(455, 600, 13, 0);
+		add(lblClase1);
+		JButton btnLimpiar = new JButton("Limpiar");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNombre.setText("");
+				lblIDCancion.setText("");
+				textduracion.setText("");
+				lblIDAlbum.setText("");
+				lblIDAudio.setText("");
+				
+			}
+		});
+		btnLimpiar.setBounds(410, 491, 226, 23);
+		add(btnLimpiar);
+		
+		JButton bntCerrarSesion = new JButton("");
+		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
+		bntCerrarSesion.setFocusPainted(false);
+		bntCerrarSesion.setBorderPainted(false);
+		bntCerrarSesion.setContentAreaFilled(false);
+		bntCerrarSesion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(11, 0);
+			}
+		});
+		bntCerrarSesion.setBounds(580, 527, 153, 62);
+		add(bntCerrarSesion);
+
+		
+		
 
 		/**
 		 * Crear un panel para contener los JLabels
@@ -97,19 +149,7 @@ public class AdminCanciones extends JPanel implements Paneles {
 			 */
 			panelItem.setName("" + i);
 
-			JButton btnLimpiar = new JButton("Limpiar");
-			btnLimpiar.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					nombreAudio.setText("");
-					textidcancion.setText("");
-					textduracion.setText("");
-					Idalbum.setText("");
-					ldAudio.setText("");
-					
-				}
-			});
-			btnLimpiar.setBounds(423, 491, 226, 23);
-			add(btnLimpiar);
+			
 			
 			/**
 			 * Añadirmos un borde al panelItem para hacerlo mas visual
@@ -129,27 +169,18 @@ public class AdminCanciones extends JPanel implements Paneles {
 			panel.add(panelItem);
 		}
 		
-//		JButton btnNewButton = new JButton("Editar");
-//		btnNewButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				gestion.editarCancionAdministrador(ldAudio.getText(), textidcancion.getText(), nombreAudio.getText(), textduracion.getText(),Idalbum.getText());
-//				
-//			}
-//		});
-//		btnNewButton.setBounds(423, 186, 226, 23);
-//		add(btnNewButton);
-		
-		nombreAudio = new JTextField(canciones.get(contador).getNombreAudio());
-		nombreAudio.setBounds(410, 311, 106, 20);
-		add(nombreAudio);
-		nombreAudio.setColumns(10);
+	
+		txtNombre = new JTextField(canciones.get(contador).getNombreAudio());
+		txtNombre.setBounds(410, 311, 106, 20);
+		add(txtNombre);
+		txtNombre.setColumns(10);
 
 		JLabel lblTitulo = new JLabel("Nombre:");
 		lblTitulo.setBounds(410, 286, 58, 14);
 		add(lblTitulo);
 
 		JLabel lblID = new JLabel("ID Audio:");
-		lblID.setBounds(526, 243, 111, 14);
+		lblID.setBounds(410, 236, 111, 14);
 		add(lblID);
 
 		JButton btnNewButton_1 = new JButton("Seleccione archivo...\r\n");
@@ -188,25 +219,15 @@ public class AdminCanciones extends JPanel implements Paneles {
 		btnNewButton_1.setBounds(465, 419, 173, 20);
 		add(btnNewButton_1);
 
-		JButton bntCerrarSesion = new JButton("");
-		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
-		bntCerrarSesion.setFocusPainted(false);
-		bntCerrarSesion.setBorderPainted(false);
-		bntCerrarSesion.setContentAreaFilled(false);
-		bntCerrarSesion.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0, 0);
-			}
-		});
-
+		
 		JLabel lblImagen = new JLabel("Imagen");
 		lblImagen.setBounds(410, 422, 46, 14);
 		add(lblImagen);
 
 		JScrollPane scrollArtista = new JScrollPane(panel);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(350, 490);
-		scrollArtista.setLocation(34, 65);
+		scrollArtista.setSize(350, 387);
+		scrollArtista.setLocation(34, 168);
 		add(scrollArtista);
 
 		JLabel ID_audio = new JLabel("");
@@ -216,11 +237,6 @@ public class AdminCanciones extends JPanel implements Paneles {
 		JLabel lblIdCanciones = new JLabel("ID Canciones:");
 		lblIdCanciones.setBounds(526, 286, 205, 14);
 		add(lblIdCanciones);
-
-		textidcancion = new JTextField(canciones.get(contador).getDuracion());
-		textidcancion.setColumns(10);
-		textidcancion.setBounds(531, 311, 106, 20);
-		add(textidcancion);
 
 		JButton btnNewButton_1_1 = new JButton("Seleccione archivo...\r\n");
 		btnNewButton_1_1.setBounds(465, 449, 173, 20);
@@ -242,28 +258,67 @@ public class AdminCanciones extends JPanel implements Paneles {
 		JLabel lblIdalbum = new JLabel("IDAlbum");
 		lblIdalbum.setBounds(536, 342, 67, 14);
 		add(lblIdalbum);
-
-		Idalbum = new JTextField(canciones.get(contador).getIdAlbum());
-		Idalbum.setColumns(10);
-		Idalbum.setBounds(536, 363, 106, 20);
-		add(Idalbum);
-
-		ldAudio = new JTextField(canciones.get(contador).getIdAudio());
-		ldAudio.setColumns(10);
-		ldAudio.setBounds(526, 266, 106, 20);
-		add(ldAudio);
+		
+		JButton btnNewButton = new JButton("Editar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestion.editarCancionAdministrador(lblIdCanciones.getText(),lblIdCanciones.getText()
+						,txtNombre.getText(), textduracion.getText(), lblIdalbum.getText());
+			}
+		});
+		btnNewButton.setBounds(411, 168, 226, 23);
+		add(btnNewButton);
+		
+		JButton btnEliminar = new JButton("Eliminar");
+		btnEliminar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestion.eliminarCancionAdministrador(lblIDAudio.getText());
+			}
+		});
+		btnEliminar.setBounds(410, 202, 226, 23);
+		add(btnEliminar);
+		
+		lblIDAudio = new JLabel(canciones.get(contador).getIdAudio());
+		lblIDAudio.setBounds(410, 255, 111, 20);
+		add(lblIDAudio);
+		
+		lblIDCancion = new JLabel(canciones.get(contador).getIdCancion());
+		lblIDCancion.setBounds(526, 311, 111, 20);
+		add(lblIDCancion);
+		
+		JButton btnNewButton_2 = new JButton("Artista");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(8, 0);
+			}
+		});
+		btnNewButton_2.setBounds(410, 532, 98, 23);
+		add(btnNewButton_2);
+		
+		JButton btnNewButton_2_1 = new JButton("Albumes");
+		btnNewButton_2_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(12, 0);
+			}
+		});
+		btnNewButton_2_1.setBounds(518, 532, 98, 23);
+		add(btnNewButton_2_1);
+		
+		 lblIDAlbum = new JLabel(canciones.get(contador).getIdAlbum());
+		lblIDAlbum.setBounds(526, 363, 111, 20);
+		add(lblIDAlbum);
 	}
 
 	@Override
 	public void cambiarContenidoDeLabels() {
-		ldAudio.setText(canciones.get(contador).getIdAudio());
-		textidcancion.setText(canciones.get(contador).getIdCancion());
+		lblIDAudio.setText(canciones.get(contador).getIdAudio());
+		lblIDCancion.setText(canciones.get(contador).getIdCancion());
 
-		nombreAudio.setText(canciones.get(contador).getNombreAudio());
+		txtNombre.setText(canciones.get(contador).getNombreAudio());
 
 		textduracion.setText(Integer.toString(canciones.get(contador).getDuracion()));
 
-		Idalbum.setText(canciones.get(contador).getIdAlbum());
+		lblIDAlbum.setText(canciones.get(contador).getIdAlbum());
 
 	}
 }

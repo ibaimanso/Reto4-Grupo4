@@ -37,7 +37,7 @@ public class PanelDescubrirPodcast extends JPanel {
 	public PanelDescubrirPodcast(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
 		setBackground(new Color(0, 255, 127));
-		setSize(new Dimension(716, 603));
+		setSize(ventana.getSize());
 		setLayout(null);
 		gestion.recogerPodcastersDeLaBaseDeDatos();
 		podcasters = gestion.devolverPodcasters();

@@ -43,7 +43,7 @@ public class PanelArtista extends JPanel implements Paneles {
 		musico = gestion.devolverMusico();
 		contador = 0;
 
-		setSize(new Dimension(704, 603));
+		setSize(ventana.getSize());
 
 		JPanel panel1 = new JPanel();
 
@@ -202,6 +202,7 @@ public class PanelArtista extends JPanel implements Paneles {
 		add(btnSiguiente);
 
 		JTextArea txtDescripcion = new JTextArea(musico.getDescripcion());
+		txtDescripcion.setWrapStyleWord(true);
 		txtDescripcion.setBackground(new Color(0, 255, 127));
 		txtDescripcion.setEditable(false);
 		txtDescripcion.setFont(new Font("Franklin Gothic Book", Font.PLAIN, 16));

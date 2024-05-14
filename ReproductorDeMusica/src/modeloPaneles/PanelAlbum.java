@@ -42,7 +42,8 @@ public class PanelAlbum extends JPanel {
 		album = gestion.devolverAlbum();
 		contador = 0;
 
-		setSize(new Dimension(704, 603));
+		//setSize(new Dimension(704, 603));
+		setSize(ventana.getSize());
 		
 		JPanel panel1 = new JPanel();
 		

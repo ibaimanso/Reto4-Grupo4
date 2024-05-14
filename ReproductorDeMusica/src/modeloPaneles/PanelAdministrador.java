@@ -24,13 +24,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
-import javax.swing.border.LineBorder;
 
 public class PanelAdministrador extends JPanel {
 	/**
@@ -39,7 +40,7 @@ public class PanelAdministrador extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JLabel txtID;
-	private JTextField txtDescripcion;
+	private JTextArea txtDescripcion;
 	private ArrayList<Musico> musicos;
 	private int contador;
 
@@ -50,8 +51,8 @@ public class PanelAdministrador extends JPanel {
 		contador = 0;
 
 		setBackground(new Color(0, 255, 127));
-		// setSize(720,600);
-		setSize(new Dimension(709, 600));
+		setSize(ventana.getSize());
+		//setSize(new Dimension(709, 600));
 
 		setLayout(null);
 
@@ -186,11 +187,11 @@ public class PanelAdministrador extends JPanel {
 		add(lblombre);
 
 		JLabel lblID = new JLabel("ID:");
-		lblID.setBounds(578, 286, 46, 14);
+		lblID.setBounds(549, 286, 46, 14);
 		add(lblID);
 
 		txtID = new JLabel(musicos.get(contador).getId());
-		txtID.setBounds(565, 311, 98, 20);
+		txtID.setBounds(549, 311, 98, 20);
 		add(txtID);
 
 		JLabel lblClase = new JLabel("Clase:");
@@ -198,17 +199,15 @@ public class PanelAdministrador extends JPanel {
 		add(lblClase);
 
 		JLabel lblDescripcion = new JLabel("Descripcion:");
-		lblDescripcion.setBounds(575, 341, 88, 14);
+		lblDescripcion.setBounds(546, 341, 88, 14);
 		add(lblDescripcion);
 
-		txtDescripcion = new JTextField(musicos.get(contador).getDescripcion());
+		txtDescripcion = new JTextArea(musicos.get(contador).getDescripcion());
+		txtDescripcion.setWrapStyleWord(true);
+		txtDescripcion.setLineWrap(true);
 		txtDescripcion.setColumns(10);
-		txtDescripcion.setBounds(585, 366, 98, 70);
+		txtDescripcion.setBounds(546, 366, 153, 80);
 		add(txtDescripcion);
-
-		JLabel lblImagen = new JLabel("Imagen");
-		lblImagen.setBounds(410, 422, 46, 14);
-		add(lblImagen);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(48, 173, 280, 375);
@@ -239,7 +238,7 @@ public class PanelAdministrador extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0, 0);
+				ventana.cambiarDePanel(11, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
@@ -269,42 +268,6 @@ public class PanelAdministrador extends JPanel {
 			}
 		});
 		add(comboBoxTipo);
-		
-		JButton btnNewButton_1 = new JButton("Seleccione archivo...\r\n");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-		         /**
-                 * El selector de archivos para guardarlos en el proyecto
-                 */
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Seleccione un archivo .ppg");
-                /**
-                 * Filtro para solo elegir archivos .jpg
-                 */
-                fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .jpg", "jpg"));
-
-                int userSelection = fileChooser.showOpenDialog(null);
-
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    Path sourcePath = selectedFile.toPath();
-                    /**
-                     * En que parte debe dejar el archivo subido
-                     */
-                    Path destinationPath = new File("multimedia/imagenesInsertadas").toPath();
-                    
-                    try {
-                        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println("Archivo subido correctamente a la carpeta 'imagenes/portadasMu'.");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                
-            }
-        });
-		btnNewButton_1.setBounds(455, 421, 117, 20);
-		add(btnNewButton_1);
 
 	}
 

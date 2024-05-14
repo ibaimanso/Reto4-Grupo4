@@ -158,7 +158,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
+				gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
 			}
 		});
 		btnNewButton.setBounds(423, 186, 226, 23);
@@ -179,6 +179,9 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				gestion.eliminarAlbumAdministrador(txtID.getText());
+				
 				
 			}
 		});
@@ -224,15 +227,16 @@ public class AdminAlbumes extends JPanel implements Paneles{
 				
 			}
 		});
-		btnAadir_1.setBounds(401, 532, 81, 23);
+		btnAadir_1.setBounds(423, 532, 88, 23);
 		add(btnAadir_1);
 
-		JButton btnAadir_1_1 = new JButton("Audios");
+		JButton btnAadir_1_1 = new JButton("Artistas");
 		btnAadir_1_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(8, 0);
 			}
 		});
-		btnAadir_1_1.setBounds(511, 532, 81, 23);
+		btnAadir_1_1.setBounds(521, 532, 90, 23);
 		add(btnAadir_1_1);
 
 		JButton bntCerrarSesion = new JButton("");
@@ -242,7 +246,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(0, 0);
+				ventana.cambiarDePanel(11, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
