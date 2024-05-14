@@ -11,8 +11,9 @@ import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
-import modelo.Podcaster;
 import modelo.PlayList;
+import modelo.Podcast;
+import modelo.Podcaster;
 
 public class GestionDeLaInformacion {
 
@@ -27,11 +28,13 @@ public class GestionDeLaInformacion {
 	private ArrayList<Podcaster> podcasters;
 	private PlayList playList;
 	private ArrayList<PlayList> playlists;
+	private ArrayList<Podcast> podcasts;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
 		musicos = gestionBD.llenarListaMusico();
 		podcasters = gestionBD.llenarListaPodcaster();
+		//podcasts = gestionBD.llenarListaPodcast();
 		
 	}
 
@@ -233,15 +236,29 @@ public class GestionDeLaInformacion {
 		gestionBD.editarArtistaAdministrador(nombre, id, desc, tipo);
 		return true;
 	}
+	public boolean eliminarArtistaAdministrador(String id) {
+		gestionBD.eliminarArtistaAdministrador(id);
+		return true;
+	}
+	
 
 	public boolean añadirMusicoABaseDeDatos(String nombre, String desc, String tipo) {
 		gestionBD.insertNuevoMusico(nombre, desc, tipo);
 
 		return true;
 
+}
+	/**
+	 * Metodo para recoger llenarListaPodcast de GestionBD
+	 * @return
+	 */
+//	public void recogerPodcastDeLaBaseDeDatos(String id) {
+//		podcasts = gestionBD.llenarListaPodcast();
+//	}
+
+	public ArrayList<Podcast> devolverPodcasts() {
+		return this.podcasts;
 	}
-
-
 	public ArrayList<Podcaster> devolverPodcasters() {
 		return this.podcasters;
 	}

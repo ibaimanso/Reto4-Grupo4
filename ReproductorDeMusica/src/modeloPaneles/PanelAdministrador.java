@@ -30,6 +30,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
+import javax.swing.border.LineBorder;
 
 public class PanelAdministrador extends JPanel {
 	/**
@@ -55,6 +56,7 @@ public class PanelAdministrador extends JPanel {
 		setLayout(null);
 
 		JPanel panel1 = new JPanel();
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3));
 		panel1.setBackground(new Color(127, 255, 0));
 		panel1.setBounds(0, 0, 754, 142);
 		add(panel1);
@@ -165,6 +167,9 @@ public class PanelAdministrador extends JPanel {
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				gestion.eliminarArtistaAdministrador(txtID.getText());
+				
 			}
 		});
 		btnEliminar.setBounds(423, 235, 226, 23);
