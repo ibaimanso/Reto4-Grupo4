@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -141,25 +143,27 @@ public class MenuPlayList extends JPanel {
 		JButton btnNuevo = new JButton("Nueva Playlist");
 		btnNuevo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free") && gestion.cantidadDePlayList() >= 3) {
+				if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free")
+						&& gestion.cantidadDePlayList() >= 3) {
 					JOptionPane.showMessageDialog(null, "Mas de tres playlist creadas");
 				} else {
 					String respuesta = JOptionPane.showInputDialog(null, "Inserte nombre: ", "Crear PlayList",
 							JOptionPane.QUESTION_MESSAGE);
 					if (respuesta == null) {
 						JOptionPane.showMessageDialog(null, "Inserte algun campo");
-					}else if (respuesta.equalsIgnoreCase("Favoritos")) {
+					} else if (respuesta.equalsIgnoreCase("Favoritos")) {
 
 						JOptionPane.showMessageDialog(null, "No puedes generar favoritos");
 					} else {
 						boolean seleccion = false;
 						for (int i = 0; i < playList.size(); i++) {
 							if (respuesta.equalsIgnoreCase(playList.get(i).getTitulo())) {
-								JOptionPane.showMessageDialog(null, "No puedes generar una playlist llamada " + playList.get(i).getTitulo());
+								JOptionPane.showMessageDialog(null,
+										"No puedes generar una playlist llamada " + playList.get(i).getTitulo());
 								seleccion = true;
-							} 
+							}
 						}
-						if(seleccion == false) {
+						if (seleccion == false) {
 							gestion.crearPlayList(respuesta);
 							ventana.cambiarDePanel(14, 0);
 						}
@@ -186,10 +190,62 @@ public class MenuPlayList extends JPanel {
 
 		JButton btnImportar = new JButton("Importar");
 		btnImportar.setBounds(470, 325, 174, 50);
+		btnImportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				File fichero = abrirArchivo();
+				if (fichero == null) {
+					JOptionPane.showMessageDialog(null, "Fichero no seleccionado");
+				} else {
+					String nombrefichero = fichero.getName();
+					if (!nombrefichero.split("\\.")[1].equalsIgnoreCase("txt")) {
+						JOptionPane.showMessageDialog(null, "formato de fichero incorrecto");
+					} else {
+						gestion.insertarFichero(fichero);
+						boolean encontrado = false;
+						for (int i = 0; i < playList.size(); i++) {
+							if (playList.get(i).getTitulo().equalsIgnoreCase(nombrefichero.split("\\.")[0])) {
+								encontrado = true;
+								gestion.guardarPlayList(playList.get(i));
+							}
+						}
+						if (encontrado == true) {
+							gestion.insertarCacionesEnPlayList();
+						} else {
+							if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free")) {
+								if (gestion.cantidadDePlayList() >= 3) {
+									JOptionPane.showMessageDialog(null, "Compre premium para mas de 3 playlist");
+								} else {
+									gestion.nuevaPlayList(nombrefichero.split("\\.")[0]);
+									ventana.cambiarDePanel(14, 0);
+								}
+							} else {
+								gestion.nuevaPlayList(nombrefichero.split("\\.")[0]);
+								ventana.cambiarDePanel(14, 0);
+							}
+						}
+					}
+				}
+			}
+		});
 		add(btnImportar);
 
 		JButton btnExportar = new JButton("Exportar");
 		btnExportar.setBounds(470, 394, 174, 50);
+		btnExportar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestion.guardarPlayList(playList.get(contador));
+				gestion.recogerCancionesDeLaBaseDeDatos();
+				gestion.escribirFichero();
+			}
+		});
 		add(btnExportar);
+	}
+
+	private File abrirArchivo() {
+		/** llamamos el metodo que permite cargar la ventana */
+		JFileChooser file = new JFileChooser();
+		file.showOpenDialog(this);
+		/** abrimos el archivo seleccionado */
+		return file.getSelectedFile();// El texto se almacena en el JTextArea
 	}
 }

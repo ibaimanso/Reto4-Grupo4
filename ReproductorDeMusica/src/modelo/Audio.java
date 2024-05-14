@@ -1,18 +1,15 @@
 package modelo;
 
 import java.io.File;
-import java.sql.Blob;
 
 import javax.swing.ImageIcon;
 
 public class Audio {
-	
+
 	private String idAudio, nombreAudio;
 	private int duracion;
 	private ImageIcon imagen;
 	private File audio;
-	
-	
 
 	public Audio(String idAudio, String nombreAudio, int duracion, ImageIcon imagen) {
 		super();
@@ -31,28 +28,32 @@ public class Audio {
 		this.audio = audio;
 	}
 
+	public Audio() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getIdAudio() {
-	    return idAudio;
+		return idAudio;
 	}
 
 	public void setIdAudio(String idAudio) {
-	    this.idAudio = idAudio;
+		this.idAudio = idAudio;
 	}
 
 	public String getNombreAudio() {
-	    return nombreAudio;
+		return nombreAudio;
 	}
 
 	public void setNombreAudio(String nombreAudio) {
-	    this.nombreAudio = nombreAudio;
+		this.nombreAudio = nombreAudio;
 	}
 
 	public int getDuracion() {
-	    return duracion;
+		return duracion;
 	}
 
 	public void setDuracion(int duracion) {
-	    this.duracion = duracion;
+		this.duracion = duracion;
 	}
 
 	public ImageIcon getImagen() {
@@ -71,6 +72,4 @@ public class Audio {
 		this.audio = audio;
 	}
 
-	}
-
-
+}

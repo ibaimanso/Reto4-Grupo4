@@ -755,6 +755,24 @@ public class GestionBD {
 		}
 		return playlist;
 	}
+	
+	public int contarCantidadDeCancionEnPlayList(PlayList playlist) {
+		int num = 0;
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT COUNT(IDList) FROM `playlist_canciones` WHERE IDList like '"+ playlist.getIDList() +"'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				num = resultadoConsulta.getInt(1);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			num = 0;
+		}
+		return num;
+	}
 
 	public void crearPlayList(String nombre, Cliente cliente) {
 		try {
@@ -792,6 +810,20 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String insert = "delete FROM `playlist_canciones` WHERE IDList = "+ playList.getIDList() +"";
+			consulta.executeUpdate(insert);
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+	}
+	
+	public void insertarCancionesEnPlayList(String id, String cancion) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "INSERT INTO `playlist_canciones` (`IDList`, `IDCancion`, `fechaPlaylist_Cancion`) VALUES ('"+id+"', '"+cancion+"', current_timestamp());";
 			consulta.executeUpdate(insert);
 			consulta.close();
 		

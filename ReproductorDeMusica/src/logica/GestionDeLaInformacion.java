@@ -6,6 +6,8 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import controlador.GestionBD;
 import modelo.Album;
 import modelo.Cancion;
@@ -18,6 +20,7 @@ import modelo.Podcaster;
 public class GestionDeLaInformacion {
 
 	private GestionBD gestionBD;
+	private GestionFicheros gestionFI;
 	private Cliente cliente;
 	private Musico musico;
 	private ArrayList<Musico> musicos;
@@ -35,7 +38,19 @@ public class GestionDeLaInformacion {
 		musicos = gestionBD.llenarListaMusico();
 		podcasters = gestionBD.llenarListaPodcaster();
 		//podcasts = gestionBD.llenarListaPodcast();
-		
+		gestionFI = new GestionFicheros();
+	}
+	
+	public void limpiar() {
+		musico = new Musico();
+		musicos = new ArrayList<Musico>();
+		album = new Album();
+		albums = new ArrayList<Album>();
+		canciones = new ArrayList<Cancion>();
+		podcasters = new ArrayList<Podcaster>();
+		playList = new PlayList();
+		playlists = new ArrayList<PlayList>();
+
 	}
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
@@ -151,7 +166,7 @@ public class GestionDeLaInformacion {
 	}
 
 	public void recogerCancionesDeLaBaseDeDatos() {
-		if (playList != null) {
+		if (playList.getIDList() != null) {
 			this.canciones = new ArrayList<Cancion>();
 			this.canciones = gestionBD.llenarListaDeCancionesPorPlayList(this.playList);
 		} else {
@@ -161,7 +176,7 @@ public class GestionDeLaInformacion {
 	}
 
 	public void recogerCancionesDeLaBaseDeDatosConAudio() {
-		if (playList != null) {
+		if (playList.getIDList() != null) {
 			this.canciones = new ArrayList<Cancion>();
 			this.canciones = gestionBD.llenarListaDeCancionesConAudioPorPlayList(this.playList);
 		} else {
@@ -207,6 +222,10 @@ public class GestionDeLaInformacion {
 	
 	public int cantidadDePlayList() {
 		return gestionBD.contarPlayList(cliente);
+	}
+	
+	public int cantidadDeCancionesEnPlayList() {
+		return gestionBD.contarCantidadDeCancionEnPlayList(playList);
 	}
 	
 	public void crearPlayList(String nombre) {
@@ -290,6 +309,48 @@ public class GestionDeLaInformacion {
 	public void recogerCancionesDeLaBaseDeDatosAdmin() {
 	canciones = new ArrayList<Cancion>();
 	this.canciones = gestionBD.llenarListaDeCancionesAdmin();
+	}
+	
+	//Metodos de gestion de archivos
+	public void escribirFichero() {
+		gestionFI.escribirFichero(canciones, playList.getTitulo());
+	}
+	
+	public void insertarFichero(File fichero) {
+		canciones = gestionFI.leerFichero(fichero);
+	}
+
+	public void insertarCacionesEnPlayList() {
+		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() < 3) {
+			for (int i = 0; i < 3 - cantidadDeCancionesEnPlayList(); i++) {
+				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
+			}
+		}else {
+			for (int i = 0; i < canciones.size(); i++) {
+				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
+			}
+		}
+	}
+	
+	public void nuevaPlayList(String nombre) {
+		crearPlayList(nombre);
+		ArrayList<PlayList> pl = gestionBD.llenarListaDePlaylists(this.cliente);
+		for (int i = 0; i < pl.size(); i++) {
+			if(pl.get(i).getTitulo().equalsIgnoreCase(nombre)) {
+				System.out.println(pl.get(i).getTitulo());
+				guardarPlayList(pl.get(i));
+				insertarCacionesEnPlayList();
+			}
+		}
+	}
+
+	public void insertarCacionEnPlayList(Cancion cancion) {
+		recogerPlayListsDeLaBaseDeDatos();
+		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() >= 3) {
+			JOptionPane.showMessageDialog(null, "No se pueden guardar en favoritos mas de 3 canciones");
+		}else {
+			gestionBD.insertarCancionesEnPlayList(playlists.get(0).getIDList(), cancion.getIdCancion());
+		}
 	}
 
 	
