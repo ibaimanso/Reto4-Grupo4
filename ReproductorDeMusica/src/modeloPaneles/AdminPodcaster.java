@@ -8,6 +8,11 @@ import view.VistaPrincipal;
 
 public class AdminPodcaster extends JPanel implements Paneles {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public AdminPodcaster(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 	
 	}

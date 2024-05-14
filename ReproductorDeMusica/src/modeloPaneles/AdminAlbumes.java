@@ -32,6 +32,10 @@ import view.VistaPrincipal;
 
 public class AdminAlbumes extends JPanel implements Paneles{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JTextField txtGenero;
 	private JTextField txtAño;

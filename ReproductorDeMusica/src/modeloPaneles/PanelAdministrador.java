@@ -247,8 +247,8 @@ public class PanelAdministrador extends JPanel {
 		btnLimpiar.setBounds(423, 491, 226, 23);
 		add(btnLimpiar);
 
-		JComboBox comboBoxTipo = new JComboBox();
-		comboBoxTipo.setModel(new DefaultComboBoxModel(new String[] { "solista", "grupo" }));
+		JComboBox<Object> comboBoxTipo = new JComboBox<Object>();
+		comboBoxTipo.setModel(new DefaultComboBoxModel<Object>(new String[] { "solista", "grupo" }));
 		comboBoxTipo.setBounds(410, 366, 106, 22);
 		comboBoxTipo.addActionListener(new ActionListener() {
 			@Override
