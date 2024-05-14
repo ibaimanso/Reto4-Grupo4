@@ -19,7 +19,9 @@ import modeloPaneles.PanelAlbum;
 import modeloPaneles.PanelArtista;
 import modeloPaneles.PanelDescubrirPodcast;
 import modeloPaneles.PanelPlayList;
+import modeloPaneles.PanelPodcast;
 import modeloPaneles.PanelReproducion;
+import modeloPaneles.PanelReproducionPodcasts;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
 
@@ -137,6 +139,12 @@ public class VistaPrincipal extends JFrame{
 			break;
 		case 15:
 			setContentPane(new PanelPlayList(this, gestion));
+			break;
+		case 16:
+			setContentPane(new PanelPodcast(this, gestion));
+			break;
+		case 17:
+			setContentPane(new PanelReproducionPodcasts(this, gestion, cont));
 			break;
 		
 	

@@ -302,8 +302,79 @@ public class GestionBD {
 		return canciones;
 	}
 
+	public ArrayList<Podcast> llenarListaDePodcasts(Podcaster podcaster) {
+		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, pod.IDPodcast, pod.Colaboradores FROM `audio` as au join podcast as pod on au.IDAudio = pod.IDAudio where pod.IDPodcaster like '"
+					+ podcaster.getId() + "'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				if (resultadoConsulta.getBlob(4) == null) {
+					podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
+				} else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					ImageIcon imagen = new ImageIcon(arrayImagen);
+					podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
+				}
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+			podcasts = null;
+		}
+		return podcasts;
+	}
+
+	public ArrayList<Podcast> llenarListaDePodcastsConAudio(Podcaster podcaster) {
+		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, pod.IDPodcast, pod.Colaboradores FROM `audio` as au join podcast as pod on au.IDAudio = pod.IDAudio where pod.IDPodcaster like '"
+					+ podcaster.getId() + "'";
+			ResultSet resultadoConsulta = consulta.executeQuery(query);
+			while (resultadoConsulta.next()) {
+				ImageIcon imagen = new ImageIcon();
+				if (resultadoConsulta.getBlob(4) == null) {
+					imagen = null;
+				} else {
+					Blob imagenBlob = resultadoConsulta.getBlob(4);
+					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+					imagen = new ImageIcon(arrayImagen);
+				}
+
+				File cancion = null;
+				if (resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				} else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
+					FileOutputStream out = new FileOutputStream(cancion);
+					out.write(arrayCancion);
+					out.close();
+
+				}
+				podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
+						resultadoConsulta.getString(7)));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			podcasts = null;
+		}
+		return podcasts;
+	}
+
 	public boolean eliminarArtistaAdministrador(String id) {
-		
+
 		boolean correcto = false;
 
 		try {
@@ -320,8 +391,9 @@ public class GestionBD {
 			e.printStackTrace();
 		}
 
-		return true;
+		return correcto;
 	}
+
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		boolean correcto = false;
 
@@ -341,9 +413,9 @@ public class GestionBD {
 			e.printStackTrace();
 		}
 
-		return true;
+		return correcto;
 	}
-	
+
 	public boolean eliminarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		boolean correcto = false;
 
@@ -363,8 +435,9 @@ public class GestionBD {
 			e.printStackTrace();
 		}
 
-		return true;
+		return correcto;
 	}
+
 	public boolean insertNuevoMusico(String nombre, String desc, String tipo) {
 		boolean correcto = false;
 		try {
@@ -416,14 +489,11 @@ public class GestionBD {
 		return podcaster;
 	}
 
-	
 	/**
 	 * ArrayList para llenar la lista de podcast no funciona
 	 */
 //	public ArrayList<Podcast> llenarListaPodcast(Podcast podcast) {
 
-
-	
 //		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
 //		try {
 //			Statement consulta = conexion.createStatement();
@@ -463,9 +533,8 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
-					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" +
-					"WHERE IDAlbum="+ "'" + id + "'";
+			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'" + ", Año="
+					+ "'" + año + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum=" + "'" + id + "'";
 
 			consulta.executeUpdate(update);
 			JOptionPane.showMessageDialog(null, "Album eliminado correctamente");
@@ -478,7 +547,6 @@ public class GestionBD {
 
 		return correcto;
 	}
-
 
 //	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
 //	boolean correcto = false;
@@ -572,10 +640,6 @@ public class GestionBD {
 						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
 						resultadoConsulta.getString(7)));
 			}
-				
-				
-
-			
 
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
@@ -755,18 +819,19 @@ public class GestionBD {
 		}
 		return playlist;
 	}
-	
+
 	public int contarCantidadDeCancionEnPlayList(PlayList playlist) {
 		int num = 0;
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT COUNT(IDList) FROM `playlist_canciones` WHERE IDList like '"+ playlist.getIDList() +"'";
+			String query = "SELECT COUNT(IDList) FROM `playlist_canciones` WHERE IDList like '" + playlist.getIDList()
+					+ "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				num = resultadoConsulta.getInt(1);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			num = 0;
@@ -778,27 +843,28 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "INSERT INTO `playlist` (`Titulo`, `IDCliente`) VALUES ('"+ nombre +"', '"+ cliente.getIdCliente() +"');";
+			String insert = "INSERT INTO `playlist` (`Titulo`, `IDCliente`) VALUES ('" + nombre + "', '"
+					+ cliente.getIdCliente() + "');";
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "PlayList creada correctamente");
-			
+
 			consulta.close();
-		
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public void borrarPlayList(PlayList playList) {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "delete FROM `playlist` WHERE IDList = "+ playList.getIDList() +"";
+			String insert = "delete FROM `playlist` WHERE IDList = " + playList.getIDList() + "";
 			consulta.executeUpdate(insert);
 			consulta.close();
-		
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
@@ -809,24 +875,25 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "delete FROM `playlist_canciones` WHERE IDList = "+ playList.getIDList() +"";
+			String insert = "delete FROM `playlist_canciones` WHERE IDList = " + playList.getIDList() + "";
 			consulta.executeUpdate(insert);
 			consulta.close();
-		
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void insertarCancionesEnPlayList(String id, String cancion) {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "INSERT INTO `playlist_canciones` (`IDList`, `IDCancion`, `fechaPlaylist_Cancion`) VALUES ('"+id+"', '"+cancion+"', current_timestamp());";
+			String insert = "INSERT INTO `playlist_canciones` (`IDList`, `IDCancion`, `fechaPlaylist_Cancion`) VALUES ('"
+					+ id + "', '" + cancion + "', current_timestamp());";
 			consulta.executeUpdate(insert);
 			consulta.close();
-		
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();

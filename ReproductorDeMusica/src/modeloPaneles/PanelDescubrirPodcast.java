@@ -162,6 +162,12 @@ public class PanelDescubrirPodcast extends JPanel {
 		
 		JButton btnNewButton = new JButton("Ir al podcaster");
 		btnNewButton.setBounds(441, 458, 187, 48);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestion.guardarPodcaster(podcasters.get(contador));
+				ventana.cambiarDePanel(16, 0);
+			}
+		});
 		add(btnNewButton);
 		
 		JButton bntCerrarSesion = new JButton("");

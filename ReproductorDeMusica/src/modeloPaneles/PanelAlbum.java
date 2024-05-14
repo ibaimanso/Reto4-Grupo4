@@ -201,8 +201,7 @@ public class PanelAlbum extends JPanel {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(contador);
-				gestion.guardarCancion(canciones.get(contador));
+				//gestion.guardarCancion(canciones.get(contador));
 				ventana.cambiarDePanel(9, contador);
 			}
 		});
