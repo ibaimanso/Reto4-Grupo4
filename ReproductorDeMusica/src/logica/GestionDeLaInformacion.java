@@ -31,16 +31,14 @@ public class GestionDeLaInformacion {
 	private ArrayList<Podcaster> podcasters;
 	private PlayList playList;
 	private ArrayList<PlayList> playlists;
+	private Podcaster podcaster;
 	private ArrayList<Podcast> podcasts;
 
 	public GestionDeLaInformacion() {
 		gestionBD = new GestionBD();
-		musicos = gestionBD.llenarListaMusico();
-		podcasters = gestionBD.llenarListaPodcaster();
-		//podcasts = gestionBD.llenarListaPodcast();
 		gestionFI = new GestionFicheros();
 	}
-	
+
 	public void limpiar() {
 		musico = new Musico();
 		musicos = new ArrayList<Musico>();
@@ -185,15 +183,14 @@ public class GestionDeLaInformacion {
 		}
 	}
 
-	
 	public void borrarAudiosDelSistema() {
 		File directory = new File("./canciones");
-		 
-        for (File file: Objects.requireNonNull(directory.listFiles())) {
-            if (!file.isDirectory()) {
-                file.delete();
-        }
-       }
+
+		for (File file : Objects.requireNonNull(directory.listFiles())) {
+			if (!file.isDirectory()) {
+				file.delete();
+			}
+		}
 	}
 
 	public ArrayList<Cancion> recogerAnunciosDeLaBaseDeDatosConAudio() {
@@ -219,15 +216,15 @@ public class GestionDeLaInformacion {
 	public void recogerPlayListsDeLaBaseDeDatos() {
 		this.playlists = gestionBD.llenarListaDePlaylists(this.cliente);
 	}
-	
+
 	public int cantidadDePlayList() {
 		return gestionBD.contarPlayList(cliente);
 	}
-	
+
 	public int cantidadDeCancionesEnPlayList() {
 		return gestionBD.contarCantidadDeCancionEnPlayList(playList);
 	}
-	
+
 	public void crearPlayList(String nombre) {
 		gestionBD.crearPlayList(nombre, cliente);
 	}
@@ -236,11 +233,10 @@ public class GestionDeLaInformacion {
 		gestionBD.borrarPlayList(playList);
 		gestionBD.borrarCancionesDePlayList(playList);
 	}
-	
+
 	public void borrarPlayListAdmin(PlayList playList) {
 		gestionBD.borrarCancionesDePlayList(playList);
 	}
-	
 
 	/**
 	 * Funciones del panel De adminstración
@@ -255,42 +251,70 @@ public class GestionDeLaInformacion {
 		gestionBD.editarArtistaAdministrador(nombre, id, desc, tipo);
 		return true;
 	}
+
 	public boolean eliminarCancionAdministrador(String id) {
 		gestionBD.eliminarCancionAdministrador(id);
 		return true;
 	}
+
+
+
 	public boolean eliminarArtistaAdministrador(String id) {
 		gestionBD.eliminarArtistaAdministrador(id);
 		return true;
 	}
+
 	public boolean eliminarAlbumAdministrador(String id) {
 		gestionBD.eliminarAlbumAdministrador(id);
 		return true;
 	}
+
 
 	public boolean añadirMusicoABaseDeDatos(String nombre, String desc, String tipo) {
 		gestionBD.insertNuevoMusico(nombre, desc, tipo);
 
 		return true;
 
-}
+	}
+
 	/**
 	 * Metodo para recoger llenarListaPodcast de GestionBD
+	 * 
 	 * @return
 	 */
 //	public void recogerPodcastDeLaBaseDeDatos(String id) {
 //		podcasts = gestionBD.llenarListaPodcast();
 //	}
-
-	public ArrayList<Podcast> devolverPodcasts() {
-		return this.podcasts;
+	
+	public void guardarPodcaster(Podcaster p) {
+		 this.podcaster = p;
 	}
+	
+	public Podcaster devolverPodcaster() {
+		return this.podcaster;
+	}
+	
 	public ArrayList<Podcaster> devolverPodcasters() {
 		return this.podcasters;
 	}
 
 	public void recogerPodcastersDeLaBaseDeDatos() {
 		podcasters = gestionBD.llenarListaPodcaster();
+	}
+	
+	public ArrayList<Podcast> devolverPodcasts() {
+		return this.podcasts;
+	}
+
+	public void recogerPodcastsDeLaBaseDeDatos() {
+		this.podcasts = new ArrayList<Podcast>();
+		this.podcasts = gestionBD.llenarListaDePodcasts(this.podcaster);
+	}
+
+	public void recogerPodcastsDeLaBaseDeDatosConAudio() {
+		this.podcasts = new ArrayList<Podcast>();
+		this.podcasts = gestionBD.llenarListaDePodcastsConAudio(this.podcaster);
+
 	}
 
 	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
@@ -307,43 +331,45 @@ public class GestionDeLaInformacion {
 		albums = new ArrayList<Album>();
 		this.albums = gestionBD.llenarListaDeAlbumsAdmin();
 	}
+
 	public boolean añadirAlbumABaseDeDatos(String nombre, String desc, String tipo) {
 		gestionBD.insertNuevoMusico(nombre, desc, tipo);
 
 		return true;
 
 	}
+
 	public void recogerCancionesDeLaBaseDeDatosAdmin() {
-	canciones = new ArrayList<Cancion>();
-	this.canciones = gestionBD.llenarListaDeCancionesAdmin();
+		canciones = new ArrayList<Cancion>();
+		this.canciones = gestionBD.llenarListaDeCancionesAdmin();
 	}
-	
-	//Metodos de gestion de archivos
+
+	// Metodos de gestion de archivos
 	public void escribirFichero() {
 		gestionFI.escribirFichero(canciones, playList.getTitulo());
 	}
-	
+
 	public void insertarFichero(File fichero) {
 		canciones = gestionFI.leerFichero(fichero);
 	}
 
 	public void insertarCacionesEnPlayList() {
-		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() < 3) {
+		if (cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() < 3) {
 			for (int i = 0; i < 3 - cantidadDeCancionesEnPlayList(); i++) {
 				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
 			}
-		}else {
+		} else {
 			for (int i = 0; i < canciones.size(); i++) {
 				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
 			}
 		}
 	}
-	
+
 	public void nuevaPlayList(String nombre) {
 		crearPlayList(nombre);
 		ArrayList<PlayList> pl = gestionBD.llenarListaDePlaylists(this.cliente);
 		for (int i = 0; i < pl.size(); i++) {
-			if(pl.get(i).getTitulo().equalsIgnoreCase(nombre)) {
+			if (pl.get(i).getTitulo().equalsIgnoreCase(nombre)) {
 				System.out.println(pl.get(i).getTitulo());
 				guardarPlayList(pl.get(i));
 				insertarCacionesEnPlayList();
@@ -353,12 +379,11 @@ public class GestionDeLaInformacion {
 
 	public void insertarCacionEnPlayList(Cancion cancion) {
 		recogerPlayListsDeLaBaseDeDatos();
-		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() >= 3) {
+		if (cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() >= 3) {
 			JOptionPane.showMessageDialog(null, "No se pueden guardar en favoritos mas de 3 canciones");
-		}else {
+		} else {
 			gestionBD.insertarCancionesEnPlayList(playlists.get(0).getIDList(), cancion.getIdCancion());
 		}
 	}
 
-	
 }
