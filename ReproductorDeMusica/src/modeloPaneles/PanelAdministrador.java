@@ -161,6 +161,7 @@ public class PanelAdministrador extends JPanel {
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnEliminar.setBounds(423, 235, 226, 23);

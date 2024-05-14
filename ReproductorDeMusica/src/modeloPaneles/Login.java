@@ -79,7 +79,7 @@ public class Login extends JPanel {
 				} else if (txtfieldUsuario.getText().equals("admin") && textFieldContraseña.getText().equals("admin")) {
 					JOptionPane.showMessageDialog(null, "Bienvenido Administrador!");
 
-					ventana.cambiarDePanel(8, 0);
+					ventana.cambiarDePanel(11, 0);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Usuario o contraseña erronea");

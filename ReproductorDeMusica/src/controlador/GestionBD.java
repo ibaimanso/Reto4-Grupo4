@@ -185,22 +185,27 @@ public class GestionBD {
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 
-				if(resultadoConsulta.getBlob(5) == null) {
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), null, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-				}else {
-
 				if (resultadoConsulta.getBlob(5) == null) {
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
 							resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
-							resultadoConsulta.getString(6)));
+							resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
 				} else {
-					Blob imagenBlob = resultadoConsulta.getBlob(5);
-					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
-					ImageIcon imagen = new ImageIcon(arrayImagen);
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+
+					if (resultadoConsulta.getBlob(5) == null) {
+						albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+								resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
+								resultadoConsulta.getString(6)));
+					} else {
+						Blob imagenBlob = resultadoConsulta.getBlob(5);
+						byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+						ImageIcon imagen = new ImageIcon(arrayImagen);
+						albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+								resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
+								resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+					}
 				}
 			}
-			}} catch (Exception e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 			albums = null;
@@ -224,22 +229,27 @@ public class GestionBD {
 		}
 		return canciones;
 	}
-	
+
 	public ArrayList<Cancion> llenarListaDeCanciones(Album album) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"
+					+ album.getIdAlbum() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				if(resultadoConsulta.getBlob(4) == null) {
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
-				}else {
+				if (resultadoConsulta.getBlob(4) == null) {
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
 				}
 			}
 		} catch (Exception e) {
@@ -249,37 +259,40 @@ public class GestionBD {
 		}
 		return canciones;
 	}
-	
+
 	public ArrayList<Cancion> llenarListaDeCancionesConAudio(Album album) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"+ album.getIdAlbum() +"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio where can.IDAlbum like '"
+					+ album.getIdAlbum() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				ImageIcon imagen = new ImageIcon();
-				if(resultadoConsulta.getBlob(4) == null) {
+				if (resultadoConsulta.getBlob(4) == null) {
 					imagen = null;
-				}else {
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					imagen = new ImageIcon(arrayImagen);
 				}
-				
+
 				File cancion = null;
-				if(resultadoConsulta.getBlob(5) == null) {
+				if (resultadoConsulta.getBlob(5) == null) {
 					cancion = null;
-				}else {
+				} else {
 					Blob cancionBlob = resultadoConsulta.getBlob(5);
 					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
 					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
 					FileOutputStream out = new FileOutputStream(cancion);
-				    out.write(arrayCancion);
-				    out.close();
-					
+					out.write(arrayCancion);
+					out.close();
+
 				}
-				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
+						resultadoConsulta.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -287,7 +300,7 @@ public class GestionBD {
 		}
 		return canciones;
 	}
-	
+
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		boolean correcto = false;
 
@@ -295,8 +308,30 @@ public class GestionBD {
 			Statement consulta = conexion.createStatement();
 
 			String update = "UPDATE musico SET IDMusico=" + "'" + id + "'" + ", NombreArtistico=" + "'" + nombre + "'"
-					+ ", Caracteristica=" + "'" + tipo + "'" + ", Descripcion=" + "'" + desc + "'" +
-					"WHERE IDMusico="+ "'" + id + "'";
+					+ ", Caracteristica=" + "'" + tipo + "'" + ", Descripcion=" + "'" + desc + "'" + "WHERE IDMusico="
+					+ "'" + id + "'";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Musico actualizado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return true;
+	}
+	
+	public boolean eliminarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "DELETE musico SET IDMusico=" + "'" + id + "'" + ", NombreArtistico=" + "'" + nombre + "'"
+					+ ", Caracteristica=" + "'" + tipo + "'" + ", Descripcion=" + "'" + desc + "'" + "WHERE IDMusico="
+					+ "'" + id + "'";
 
 			consulta.executeUpdate(update);
 			JOptionPane.showMessageDialog(null, "Musico actualizado correctamente");
@@ -314,15 +349,15 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "insert into musico (NombreArtistico, Caracteristica, Descripcion) VALUES ('"
-				+ nombre + "','" + tipo + "','" + desc + "')";
+			String insert = "insert into musico (NombreArtistico, Caracteristica, Descripcion) VALUES ('" + nombre
+					+ "','" + tipo + "','" + desc + "')";
 
 			System.out.println(insert);
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Usuario creado correctamente");
-			
+
 			consulta.close();
-		
+
 			correcto = true;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
@@ -330,8 +365,8 @@ public class GestionBD {
 		}
 		return correcto;
 	}
-	public ArrayList<Podcaster> llenarListaPodcaster() {
 
+	public ArrayList<Podcaster> llenarListaPodcaster() {
 
 		ArrayList<Podcaster> podcaster = new ArrayList<Podcaster>();
 		try {
@@ -359,27 +394,28 @@ public class GestionBD {
 		}
 		return podcaster;
 	}
-	public boolean editarAlbumAdministrador(String nombre, String id, String genero, String año) {
-		boolean correcto = false;
 
-		try {
-			Statement consulta = conexion.createStatement();
+//	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
+//	boolean correcto = false;
+//
+////		try {
+//			Statement consulta = conexion.createStatement();
+//
+//			String update = "UPDATE Audio SET IDAudio=" + "'" + ldAudio + "'" + ", nombre=" + "'" + nombreAudio + "'" + ", Duracion="
+//					+ "'" + textduracion + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum=" + "'" + id + "'";
+//
+//			consulta.executeUpdate(update);
+//			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
+//			consulta.close();
+//			correcto = true;
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "Campos inválidos");
+//			e.printStackTrace();
+//		}
+//
+//		return correcto;
+//	}
 
-			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
-					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" +
-					"WHERE IDAlbum="+ "'" + id + "'";
-
-			consulta.executeUpdate(update);
-			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
-			consulta.close();
-			correcto = true;
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Campos inválidos");
-			e.printStackTrace();
-		}
-
-		return correcto;
-	}
 	public ArrayList<Album> llenarListaDeAlbumsAdmin() {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		try {
@@ -389,46 +425,73 @@ public class GestionBD {
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 
-				if(resultadoConsulta.getBlob(5) == null) {
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), null, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-				}else {
-
 				if (resultadoConsulta.getBlob(5) == null) {
 					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
 							resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
-							resultadoConsulta.getString(6)));
+							resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
 				} else {
-					Blob imagenBlob = resultadoConsulta.getBlob(5);
-					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
-					ImageIcon imagen = new ImageIcon(arrayImagen);
-					albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen, resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
-				
+
+					if (resultadoConsulta.getBlob(5) == null) {
+						albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+								resultadoConsulta.getString(3), resultadoConsulta.getString(4), null,
+								resultadoConsulta.getString(6)));
+					} else {
+						Blob imagenBlob = resultadoConsulta.getBlob(5);
+						byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+						ImageIcon imagen = new ImageIcon(arrayImagen);
+						albums.add(new Album(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+								resultadoConsulta.getString(3), resultadoConsulta.getString(4), imagen,
+								resultadoConsulta.getString(6), contarCanciones(resultadoConsulta.getString(1))));
+
+					}
 				}
 			}
-			}} catch (Exception e) {
+		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
 			albums = null;
 		}
 		return albums;
 	}
+
 	public ArrayList<Cancion> llenarListaDeCancionesAdmin() {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT * FROM canciones";
+			String query = " SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				if(resultadoConsulta.getBlob(4) == null) {
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
-				}else {
+				ImageIcon imagen = new ImageIcon();
+				if (resultadoConsulta.getBlob(4) == null) {
+					imagen = null;
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
-					ImageIcon imagen = new ImageIcon(arrayImagen);
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+					imagen = new ImageIcon(arrayImagen);
 				}
+
+				File cancion = null;
+				if (resultadoConsulta.getBlob(5) == null) {
+					cancion = null;
+				} else {
+					Blob cancionBlob = resultadoConsulta.getBlob(5);
+					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
+					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
+					FileOutputStream out = new FileOutputStream(cancion);
+					out.write(arrayCancion);
+					out.close();
+
+				}
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
+						resultadoConsulta.getString(7)));
 			}
+				
+				
+
+			
+
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
@@ -436,21 +499,21 @@ public class GestionBD {
 		}
 		return canciones;
 	}
-	
+
 	public boolean insertNuevoAlbum(String nombre, String id, String genero, String año) {
 		boolean correcto = false;
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String insert = "insert into album (Titulo, Año, Genero) VALUES ('"
-				+ nombre + "','" + año + "','" + genero + "')";
+			String insert = "insert into album (Titulo, Año, Genero) VALUES ('" + nombre + "','" + año + "','" + genero
+					+ "')";
 
 			System.out.println(insert);
 			consulta.executeUpdate(insert);
 			JOptionPane.showMessageDialog(null, "Album creado correctamente");
-			
+
 			consulta.close();
-		
+
 			correcto = true;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
@@ -468,27 +531,29 @@ public class GestionBD {
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				ImageIcon imagen = new ImageIcon();
-				if(resultadoConsulta.getBlob(4) == null) {
+				if (resultadoConsulta.getBlob(4) == null) {
 					imagen = null;
-				}else {
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					imagen = new ImageIcon(arrayImagen);
 				}
-				
+
 				File cancion = null;
-				if(resultadoConsulta.getBlob(5) == null) {
+				if (resultadoConsulta.getBlob(5) == null) {
 					cancion = null;
-				}else {
+				} else {
 					Blob cancionBlob = resultadoConsulta.getBlob(5);
 					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
 					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
 					FileOutputStream out = new FileOutputStream(cancion);
-				    out.write(arrayCancion);
-				    out.close();
-					
+					out.write(arrayCancion);
+					out.close();
+
 				}
-				anuncios.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+				anuncios.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
+						resultadoConsulta.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -502,12 +567,13 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT * FROM `playlist` WHERE IDCliente like '"+ cliente.getIdCliente() +"'";
+			String query = "SELECT * FROM `playlist` WHERE IDCliente like '" + cliente.getIdCliente() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				playlist.add(new PlayList(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3)));
+				playlist.add(new PlayList(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getString(3)));
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			playlist = null;
@@ -520,16 +586,21 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"+ playList.getIDList()+"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"
+					+ playList.getIDList() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
-				if(resultadoConsulta.getBlob(4) == null) {
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
-				}else {
+				if (resultadoConsulta.getBlob(4) == null) {
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), null, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					ImageIcon imagen = new ImageIcon(arrayImagen);
-					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5), resultadoConsulta.getString(6)));
+					canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+							resultadoConsulta.getInt(3), imagen, resultadoConsulta.getString(5),
+							resultadoConsulta.getString(6)));
 				}
 			}
 		} catch (Exception e) {
@@ -539,39 +610,40 @@ public class GestionBD {
 		}
 		return canciones;
 	}
-	
 
-	
 	public ArrayList<Cancion> llenarListaDeCancionesConAudioPorPlayList(PlayList playList) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"+ playList.getIDList()+"'";
+			String query = "SELECT au.IDAudio, au.Nombre, au.Duracion, au.Imagen, au.pista, can.IDCancion, can.IDAlbum FROM `audio` as au join canciones as can on au.IDAudio = can.IDAudio join playlist_canciones as play on play.IDCancion = can.IDCancion where play.IDList like '"
+					+ playList.getIDList() + "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				ImageIcon imagen = new ImageIcon();
-				if(resultadoConsulta.getBlob(4) == null) {
+				if (resultadoConsulta.getBlob(4) == null) {
 					imagen = null;
-				}else {
+				} else {
 					Blob imagenBlob = resultadoConsulta.getBlob(4);
 					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
 					imagen = new ImageIcon(arrayImagen);
 				}
-				
+
 				File cancion = null;
-				if(resultadoConsulta.getBlob(5) == null) {
+				if (resultadoConsulta.getBlob(5) == null) {
 					cancion = null;
-				}else {
+				} else {
 					Blob cancionBlob = resultadoConsulta.getBlob(5);
 					byte[] arrayCancion = cancionBlob.getBytes(1, (int) cancionBlob.length());
 					cancion = File.createTempFile("aud--", ".wav", new File("./canciones"));
 					FileOutputStream out = new FileOutputStream(cancion);
-				    out.write(arrayCancion);
-				    out.close();
-					
+					out.write(arrayCancion);
+					out.close();
+
 				}
-				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6), resultadoConsulta.getString(7)));
+				canciones.add(new Cancion(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+						resultadoConsulta.getInt(3), imagen, cancion, resultadoConsulta.getString(6),
+						resultadoConsulta.getString(7)));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -585,12 +657,13 @@ public class GestionBD {
 		try {
 			Statement consulta = conexion.createStatement();
 
-			String query = "SELECT COUNT(IDCliente) FROM `playlist` WHERE IDCliente like '"+ cliente.getIdCliente() +"'";
+			String query = "SELECT COUNT(IDCliente) FROM `playlist` WHERE IDCliente like '" + cliente.getIdCliente()
+					+ "'";
 			ResultSet resultadoConsulta = consulta.executeQuery(query);
 			while (resultadoConsulta.next()) {
 				playlist = resultadoConsulta.getInt(1);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			playlist = 0;
@@ -599,5 +672,3 @@ public class GestionBD {
 	}
 
 }
-
-

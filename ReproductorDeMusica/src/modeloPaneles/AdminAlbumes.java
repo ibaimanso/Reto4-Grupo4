@@ -158,7 +158,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
+				//gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
 			}
 		});
 		btnNewButton.setBounds(423, 186, 226, 23);
@@ -168,7 +168,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		btnAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-//				gestion.añadirMusicoABaseDeDatos(txtNombre.getText(), txtDescripcion.getText(), lblClase1.getText());
+			//	gestion.añadirMusicoABaseDeDatos(txtNombre.getText(), txtDescripcion.getText(), lblClase1.getText());
 
 			}
 		});
@@ -179,6 +179,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 			}
 		});
 		btnEliminar.setBounds(423, 235, 226, 23);
@@ -216,14 +217,14 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		lblImagen.setBounds(410, 422, 46, 14);
 		add(lblImagen);
 
-		JButton btnAadir_1 = new JButton("Artistas");
+		JButton btnAadir_1 = new JButton("canciones");
 		btnAadir_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(8, 0);
+				ventana.cambiarDePanel(13, 0);
 				
 			}
 		});
-		btnAadir_1.setBounds(420, 532, 81, 23);
+		btnAadir_1.setBounds(401, 532, 81, 23);
 		add(btnAadir_1);
 
 		JButton btnAadir_1_1 = new JButton("Audios");
@@ -294,6 +295,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
         });
 		btnNewButton_1.setBounds(455, 421, 117, 20);
 		add(btnNewButton_1);
+		
 		
 		txtGenero = new JTextField(albums.get(contador).getGenero());
 		txtGenero.setColumns(10);

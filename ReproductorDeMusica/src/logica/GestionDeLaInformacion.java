@@ -232,11 +232,16 @@ public class GestionDeLaInformacion {
 		podcasters = gestionBD.llenarListaPodcaster();
 	}
 
-	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
-		gestionBD.editarAlbumAdministrador(id, nombre, año, genero);
-		
-		return true;
-	}
+//	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
+//		gestionBD.editarAlbumAdministrador(id, nombre, año, genero);
+//		
+//		return true;
+//	}
+//	public boolean editarCancionAdministrador(String ldAudio, String textidcancion, String nombreAudio, String textduracion,String  Idalbum) {
+//		gestionBD.editarCancionesAdministrador(ldAudio, textidcancion, nombreAudio, textduracion,Idalbum);
+//		
+//		return true;
+//	}
 	public void recogerAlbumsDeLaBaseDeDatosAdmin() {
 		albums = new ArrayList<Album>();
 		this.albums = gestionBD.llenarListaDeAlbumsAdmin();

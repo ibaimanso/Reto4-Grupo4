@@ -120,7 +120,7 @@ public class VistaPrincipal extends JFrame{
 			setContentPane(new PanelAdministrador(this, gestion));
 			break;
 		case 9:
-			setContentPane(new PanelReproducion(this, gestion, i));
+			setContentPane(new PanelReproducion(this, gestion, cont));
 			break;
 		case 10:
 			setContentPane(new PanelDescubrirPodcast(this, gestion));
@@ -143,6 +143,7 @@ public class VistaPrincipal extends JFrame{
 		case 16:
 			//setContentPane(new PanelPlayList(this, gestion));
 			break;
+		
 	
 		}
 	}

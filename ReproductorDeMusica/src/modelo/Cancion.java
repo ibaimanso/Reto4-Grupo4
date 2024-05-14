@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class Cancion extends Audio{
 	
-	String idCancion, idAlbum;
+	private String idCancion, idAlbum;
 
 	public Cancion(String idAudio, String nombreAudio, int duracion, ImageIcon imagen, String idCancion,
 			String idAlbum) {
@@ -37,6 +37,7 @@ public class Cancion extends Audio{
 	public void setIdAlbum(String idAlbum) {
 		this.idAlbum = idAlbum;
 	} 
+	
 	
 	
 }
