@@ -14,7 +14,6 @@ import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
-import java.awt.Dimension;
 
 public class Menu extends JPanel {
 
@@ -110,7 +109,7 @@ public class Menu extends JPanel {
 		btnPlayList.setMargin(new Insets(10, 20, 10, 20));
 		btnPlayList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(10, 0);
+				ventana.cambiarDePanel(14, 0);
 			}
 		});
 		panel_1.add(btnPlayList);

@@ -1,8 +1,6 @@
 package view;
 
 import java.awt.Toolkit;
-
-import java.awt.Window;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -20,7 +18,7 @@ import modeloPaneles.PanelAdministrador;
 import modeloPaneles.PanelAlbum;
 import modeloPaneles.PanelArtista;
 import modeloPaneles.PanelDescubrirPodcast;
-
+import modeloPaneles.PanelPlayList;
 import modeloPaneles.PanelReproducion;
 import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
@@ -135,13 +133,10 @@ public class VistaPrincipal extends JFrame{
 			setContentPane(new AdminCanciones(this, gestion));
 			break;
 		case 14:
-			setContentPane(new PanelReproducion(this, gestion, cont));
-			break;
-		case 15:
 			setContentPane(new MenuPlayList(this, gestion));
 			break;
-		case 16:
-			//setContentPane(new PanelPlayList(this, gestion));
+		case 15:
+			setContentPane(new PanelPlayList(this, gestion));
 			break;
 		
 	

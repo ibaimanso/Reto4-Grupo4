@@ -19,6 +19,11 @@ import view.VistaPrincipal;
 public class MenuPanelAdmin extends JPanel{
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public MenuPanelAdmin(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
 		setBackground(new Color(0, 255, 127));

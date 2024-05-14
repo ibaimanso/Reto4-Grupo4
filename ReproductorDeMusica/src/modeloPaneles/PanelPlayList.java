@@ -2,6 +2,7 @@ package modeloPaneles;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -12,28 +13,29 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
-import modelo.PlayList;
+import modelo.Cancion;
 import view.VistaPrincipal;
 
-public class MenuPlayList extends JPanel {
+public class PanelPlayList extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<PlayList> playList;
+	private ArrayList<Cancion> canciones;
+	
 	private int contador;
 
-	public MenuPlayList(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
+	public PanelPlayList(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(125, 255, 190));
 		setLayout(null);
-		setSize(ventana.getSize());
-		gestion.recogerPlayListsDeLaBaseDeDatos();
-		playList = gestion.devolverPlayLists();
+		// setSize(ventana.getSize());
+		setSize(720, 660);
+		gestion.recogerCancionesDeLaBaseDeDatos();
+		canciones = gestion.devolverCanciones();
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -49,12 +51,31 @@ public class MenuPlayList extends JPanel {
 		/**
 		 * Agregar JLabels al panel
 		 */
-		for (int i = 0; i < playList.size(); i++) {
+		for (int i = 0; i < canciones.size(); i++) {
 			JPanel panelItem = new JPanel();
 			panelItem.setLayout(new GridLayout());
 			panelItem.setSize(80, 396);
+			
+			/**
+			 *  Cargar imagen
+			 */
+			ImageIcon imageIcon = null;
+			if (canciones.get(i).getImagen() == null) {
+				imageIcon = new ImageIcon("multimedia/default_perfil.png");
+			} else {
+				imageIcon = canciones.get(i).getImagen();
+			}
+			Image image = imageIcon.getImage();
+			Image newImage = image.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+			ImageIcon newImageIcon = new ImageIcon(newImage);
+			JLabel imageLabel = new JLabel(newImageIcon);
+			panelItem.add(imageLabel);
+			
 
-			JLabel label1 = new JLabel("Nombre: " + playList.get(i).getTitulo());
+			/*
+			 *  Agregar JLabel de nombre al lado de la imagen
+			 */
+			JLabel label1 = new JLabel("Nombre: " + canciones.get(i).getNombreAudio());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
@@ -73,7 +94,7 @@ public class MenuPlayList extends JPanel {
 				public void mouseClicked(MouseEvent e) {
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
-
+					ventana.cambiarDePanel(9, contador);
 				}
 			});
 			// Agregar panelItem al panel principal
@@ -82,7 +103,7 @@ public class MenuPlayList extends JPanel {
 
 		JScrollPane scrollArtista = new JScrollPane(panel2);
 		scrollArtista.getVerticalScrollBar().setUnitIncrement(30);
-		scrollArtista.setSize(350, 370);
+		scrollArtista.setSize(580, 430);
 		scrollArtista.setLocation(34, 185);
 		add(scrollArtista);
 
@@ -115,16 +136,6 @@ public class MenuPlayList extends JPanel {
 		panel.add(lblLogo);
 		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
 
-		JButton btnSiguiente = new JButton("");
-		btnSiguiente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gestion.guardarPlayList(playList.get(contador));
-				ventana.cambiarDePanel(15, 0);
-			}
-		});
-		btnSiguiente.setBounds(481, 518, 89, 23);
-		add(btnSiguiente);
-
 		JButton bntCerrarSesion = new JButton("");
 		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));
 		bntCerrarSesion.setFocusPainted(false);
@@ -132,64 +143,12 @@ public class MenuPlayList extends JPanel {
 		bntCerrarSesion.setContentAreaFilled(false);
 		bntCerrarSesion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ventana.cambiarDePanel(3, 0);
+				ventana.cambiarDePanel(14, 0);
 			}
 		});
 		bntCerrarSesion.setBounds(580, 527, 153, 62);
 		add(bntCerrarSesion);
 
-		JButton btnNuevo = new JButton("Nueva Playlist");
-		btnNuevo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free") && gestion.cantidadDePlayList() >= 3) {
-					JOptionPane.showMessageDialog(null, "Mas de tres playlist creadas");
-				} else {
-					String respuesta = JOptionPane.showInputDialog(null, "Inserte nombre: ", "Crear PlayList",
-							JOptionPane.QUESTION_MESSAGE);
-					if (respuesta == null) {
-						JOptionPane.showMessageDialog(null, "Inserte algun campo");
-					}else if (respuesta.equalsIgnoreCase("Favoritos")) {
-
-						JOptionPane.showMessageDialog(null, "No puedes generar favoritos");
-					} else {
-						boolean seleccion = false;
-						for (int i = 0; i < playList.size(); i++) {
-							if (respuesta.equalsIgnoreCase(playList.get(i).getTitulo())) {
-								JOptionPane.showMessageDialog(null, "No puedes generar una playlist llamada " + playList.get(i).getTitulo());
-								seleccion = true;
-							} 
-						}
-						if(seleccion == false) {
-							gestion.crearPlayList(respuesta);
-							ventana.cambiarDePanel(14, 0);
-						}
-					}
-				}
-			}
-		});
-		btnNuevo.setBounds(470, 185, 174, 50);
-		add(btnNuevo);
-
-		JButton btnBorrarPlaylist = new JButton("Borrar PlayList");
-		btnBorrarPlaylist.setBounds(470, 252, 174, 50);
-		btnBorrarPlaylist.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (playList.get(contador).getTitulo().equalsIgnoreCase("Favoritos")) {
-					gestion.borrarPlayListAdmin(playList.get(contador));
-				} else {
-					gestion.borrarPlayList(playList.get(contador));
-					ventana.cambiarDePanel(14, 0);
-				}
-			}
-		});
-		add(btnBorrarPlaylist);
-
-		JButton btnImportar = new JButton("Importar");
-		btnImportar.setBounds(470, 325, 174, 50);
-		add(btnImportar);
-
-		JButton btnExportar = new JButton("Exportar");
-		btnExportar.setBounds(470, 394, 174, 50);
-		add(btnExportar);
+		
 	}
 }

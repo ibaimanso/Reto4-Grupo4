@@ -17,8 +17,9 @@ import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
-import modelo.Podcaster;
 import modelo.PlayList;
+import modelo.Podcast;
+import modelo.Podcaster;
 
 public class GestionBD {
 
@@ -301,6 +302,26 @@ public class GestionBD {
 		return canciones;
 	}
 
+	public boolean eliminarArtistaAdministrador(String id) {
+		
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "DELETE FROM musico WHERE IDMusico=" + "'" + id + "';";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Musico eliminado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return true;
+	}
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		boolean correcto = false;
 
@@ -394,6 +415,70 @@ public class GestionBD {
 		}
 		return podcaster;
 	}
+
+	
+	/**
+	 * ArrayList para llenar la lista de podcast no funciona
+	 */
+//	public ArrayList<Podcast> llenarListaPodcast(Podcast podcast) {
+
+
+	
+//		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
+//		try {
+//			Statement consulta = conexion.createStatement();
+//
+//			String query = "SELECT * FROM podcast WHERE IDPodcaster=" +"'"+podcast.getIdPodcaster()+"'" ;
+//			ResultSet resultadoConsulta = consulta.executeQuery(query);
+//			while (resultadoConsulta.next()) {
+//				if(resultadoConsulta.getBlob(4) == null) {
+//					podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3),, null, resultadoConsulta.getInt(5)));
+//				}else {
+//
+//				if (resultadoConsulta.getBlob(4) == null) {
+//					podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2),
+//							resultadoConsulta.getString(3), null,
+//							resultadoConsulta.getInt(5)));
+//				} else {
+//					Blob imagenBlob = resultadoConsulta.getBlob(5);
+//					byte[] arrayImagen = imagenBlob.getBytes(1, (int) imagenBlob.length());
+//					ImageIcon imagen = new ImageIcon(arrayImagen);
+//					podcasts.add(new Podcast(resultadoConsulta.getString(1), resultadoConsulta.getString(2), resultadoConsulta.getString(3),  imagen, resultadoConsulta.getInt(5)));
+//				}
+//			}
+//				
+//			
+//
+//			}
+//		} catch (Exception e) {
+//			JOptionPane.showMessageDialog(null, "Campos inválidos");
+//			e.printStackTrace();
+//			podcasts = null;
+//		}
+//		return podcasts;
+//	}
+	public boolean eliminarAlbumAdministrador(String nombre, String id, String genero, String año) {
+		boolean correcto = false;
+
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
+					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" +
+					"WHERE IDAlbum="+ "'" + id + "'";
+
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Album eliminado correctamente");
+			consulta.close();
+			correcto = true;
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+
+		return correcto;
+	}
+
 
 //	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
 //	boolean correcto = false;
@@ -669,6 +754,51 @@ public class GestionBD {
 			playlist = 0;
 		}
 		return playlist;
+	}
+
+	public void crearPlayList(String nombre, Cliente cliente) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "INSERT INTO `playlist` (`Titulo`, `IDCliente`) VALUES ('"+ nombre +"', '"+ cliente.getIdCliente() +"');";
+			consulta.executeUpdate(insert);
+			JOptionPane.showMessageDialog(null, "PlayList creada correctamente");
+			
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void borrarPlayList(PlayList playList) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "delete FROM `playlist` WHERE IDList = "+ playList.getIDList() +"";
+			consulta.executeUpdate(insert);
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
+	}
+
+	public void borrarCancionesDePlayList(PlayList playList) {
+		try {
+			Statement consulta = conexion.createStatement();
+
+			String insert = "delete FROM `playlist_canciones` WHERE IDList = "+ playList.getIDList() +"";
+			consulta.executeUpdate(insert);
+			consulta.close();
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
 	}
 
 }

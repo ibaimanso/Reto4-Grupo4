@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
 
 import logica.ControladorDeSonido;
 import logica.GestionDeLaInformacion;
@@ -35,6 +36,7 @@ public class PanelReproducion extends JPanel {
 	private long tiempo;
 
 	public PanelReproducion(VistaPrincipal ventana, GestionDeLaInformacion gestion, int cont) {
+		setBackground(new Color(0, 255, 127));
 		gestion.recogerCancionesDeLaBaseDeDatosConAudio();
 		canciones = gestion.devolverCanciones();
 		this.contador = cont;
@@ -45,14 +47,48 @@ public class PanelReproducion extends JPanel {
 		anuncios = gestion.recogerAnunciosDeLaBaseDeDatosConAudio();
 
 		setLayout(null);
-		setSize(new Dimension(704, 603));
+		setSize(ventana.getSize());
+		
+	JPanel panel1 = new JPanel();
+		
+		panel1.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
+		panel1.setBackground(new Color(0, 255, 0));
+		panel1.setBounds(-48, 0, 762, 140);
+		add(panel1);
+		panel1.setLayout(null);
+
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("multimedia/TipografiaAplicacion.png"));
+		lblNewLabel.setBounds(179, 9, 313, 118);
+		panel1.add(lblNewLabel);
+
+		JButton btnPerfil = new JButton("");
+		btnPerfil.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(4, 0);
+
+			}
+		});
+		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
+		btnPerfil.setBounds(590, 7, 137, 120);
+		btnPerfil.setFocusPainted(false);
+		btnPerfil.setBorderPainted(false);
+		btnPerfil.setContentAreaFilled(false);
+		panel1.add(btnPerfil);
+		
+		JLabel lblLogo = new JLabel("");
+		lblLogo.setBounds(35, 11, 167, 108);
+		panel1.add(lblLogo);
+		lblLogo.setIcon(new ImageIcon("multimedia/logoAplicacion.png"));
+
 
 		JLabel lblInformacion = new JLabel("Información");
-		lblInformacion.setBounds(89, 480, 238, 30);
+		lblInformacion.setBounds(89, 507, 238, 30);
 		add(lblInformacion);
 
 		lblNombre = new JLabel(canciones.get(contador).getNombreAudio());
-		lblNombre.setBounds(89, 505, 238, 30);
+		lblNombre.setBounds(89, 532, 238, 30);
 		add(lblNombre);
 
 		lblImagenAutor = new JLabel("");
@@ -66,7 +102,7 @@ public class PanelReproducion extends JPanel {
 		Image newImage = image.getScaledInstance(300, 300, Image.SCALE_SMOOTH);
 		ImageIcon newImageIcon = new ImageIcon(newImage);
 		lblImagenAutor.setIcon(newImageIcon);
-		lblImagenAutor.setBounds(185, 75, 300, 300);
+		lblImagenAutor.setBounds(183, 151, 300, 300);
 		lblImagenAutor.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		add(lblImagenAutor);
 
@@ -80,29 +116,16 @@ public class PanelReproducion extends JPanel {
 				ventana.cambiarDePanel(7, 0);
 			}
 		});
-		bntCerrarSesion.setBounds(38, 22, 153, 62);
+		bntCerrarSesion.setBounds(575, 151, 153, 62);
 		add(bntCerrarSesion);
 
-		JButton btnPerfil = new JButton("");
-		btnPerfil.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				ventana.cambiarDePanel(2, 0);
-			}
-		});
-		btnPerfil.setIcon(new ImageIcon("multimedia/perfil.png"));
-		btnPerfil.setBounds(590, 7, 137, 120);
-		btnPerfil.setFocusPainted(false);
-		btnPerfil.setBorderPainted(false);
-		btnPerfil.setContentAreaFilled(false);
-		add(btnPerfil);
-
+	
 		lblDuracion = new JLabel("" + canciones.get(contador).getDuracion());
-		lblDuracion.setBounds(89, 535, 238, 30);
+		lblDuracion.setBounds(89, 562, 238, 30);
 		add(lblDuracion);
 
 		lblAlbum = new JLabel("" + canciones.get(contador).getNombreAudio());
-		lblAlbum.setBounds(340, 505, 238, 30);
+		lblAlbum.setBounds(340, 532, 238, 30);
 		add(lblAlbum);
 		
 
@@ -123,7 +146,7 @@ public class PanelReproducion extends JPanel {
 				}
 			}
 		});
-		btnPlay.setBounds(292, 414, 89, 23);
+		btnPlay.setBounds(292, 473, 89, 23);
 		add(btnPlay);
 
 		btnAnterior = new JButton("<-");
@@ -132,11 +155,11 @@ public class PanelReproducion extends JPanel {
 				cancionAnterior();
 			}
 		});
-		btnAnterior.setBounds(237, 414, 45, 23);
+		btnAnterior.setBounds(237, 473, 45, 23);
 		add(btnAnterior);
 
 		btnSiguiente = new JButton("->");
-		btnSiguiente.setBounds(391, 414, 45, 23);
+		btnSiguiente.setBounds(391, 473, 45, 23);
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cancionSiguiente();
@@ -145,7 +168,7 @@ public class PanelReproducion extends JPanel {
 		add(btnSiguiente);
 
 		btnMenu = new JButton("|||");
-		btnMenu.setBounds(89, 414, 89, 23);
+		btnMenu.setBounds(89, 473, 89, 23);
 		add(btnMenu);
 		btnMenu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -171,7 +194,7 @@ public class PanelReproducion extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnMeGusta.setBounds(500, 414, 89, 23);
+		btnMeGusta.setBounds(500, 473, 89, 23);
 		add(btnMeGusta);
 	}
 
