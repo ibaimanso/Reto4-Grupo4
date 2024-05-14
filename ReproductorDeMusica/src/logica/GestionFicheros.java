@@ -46,7 +46,7 @@ public class GestionFicheros {
 			String idCancion = "";
 			String idAlbum = "";
 			while ((linea = lectorFichero.readLine()) != null) {
-				if (linea.startsWith("nombre=")) {
+				if (linea.startsWith("idCancion=")) {
 					String cancion[] = linea.split(",");
 					idCancion = cancion[0].split("=")[1];
 					idAlbum = cancion[1].split("=")[1];

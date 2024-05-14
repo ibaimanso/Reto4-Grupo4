@@ -6,13 +6,15 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.swing.JOptionPane;
+
 import controlador.GestionBD;
 import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
 import modelo.Musico;
-import modelo.Podcaster;
 import modelo.PlayList;
+import modelo.Podcaster;
 
 public class GestionDeLaInformacion {
 
@@ -216,8 +218,8 @@ public class GestionDeLaInformacion {
 		return gestionBD.contarPlayList(cliente);
 	}
 	
-	public int cantidadDeCancionesEnPlayList(PlayList p) {
-		return gestionBD.contarCantidadDeCancionEnPlayList(p);
+	public int cantidadDeCancionesEnPlayList() {
+		return gestionBD.contarCantidadDeCancionEnPlayList(playList);
 	}
 	
 	public void crearPlayList(String nombre) {
@@ -290,8 +292,40 @@ public class GestionDeLaInformacion {
 	}
 	
 	public void insertarFichero(File fichero) {
-		gestionFI.leerFichero(fichero);
+		canciones = gestionFI.leerFichero(fichero);
+	}
 
+	public void insertarCacionesEnPlayList() {
+		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() < 3) {
+			for (int i = 0; i < 3 - cantidadDeCancionesEnPlayList(); i++) {
+				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
+			}
+		}else {
+			for (int i = 0; i < canciones.size(); i++) {
+				gestionBD.insertarCancionesEnPlayList(playList.getIDList(), canciones.get(i).getIdCancion());
+			}
+		}
+	}
+	
+	public void nuevaPlayList(String nombre) {
+		crearPlayList(nombre);
+		ArrayList<PlayList> pl = gestionBD.llenarListaDePlaylists(this.cliente);
+		for (int i = 0; i < pl.size(); i++) {
+			if(pl.get(i).getTitulo().equalsIgnoreCase(nombre)) {
+				System.out.println(pl.get(i).getTitulo());
+				guardarPlayList(pl.get(i));
+				insertarCacionesEnPlayList();
+			}
+		}
+	}
+
+	public void insertarCacionEnPlayList(Cancion cancion) {
+		recogerPlayListsDeLaBaseDeDatos();
+		if(cliente.getPremium().equalsIgnoreCase("Free") && cantidadDeCancionesEnPlayList() >= 3) {
+			JOptionPane.showMessageDialog(null, "No se pueden guardar en favoritos mas de 3 canciones");
+		}else {
+			gestionBD.insertarCancionesEnPlayList(playlists.get(0).getIDList(), cancion.getIdCancion());
+		}
 	}
 
 	

@@ -29,7 +29,6 @@ public class MenuPlayList extends JPanel {
 
 	private ArrayList<PlayList> playList;
 	private int contador;
-	private GestionDeLaInformacion gestionInfo;
 
 	public MenuPlayList(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		setBackground(new Color(125, 255, 190));
@@ -37,7 +36,6 @@ public class MenuPlayList extends JPanel {
 		setSize(ventana.getSize());
 		gestion.recogerPlayListsDeLaBaseDeDatos();
 		playList = gestion.devolverPlayLists();
-		gestionInfo = gestion;
 
 		JPanel panel = new JPanel();
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 3, true));
@@ -195,11 +193,37 @@ public class MenuPlayList extends JPanel {
 		btnImportar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				File fichero = abrirArchivo();
-				String nombrefichero = fichero.getName().split("/")[1];
-				if(!nombrefichero.split(".")[1].equalsIgnoreCase("txt")) {
-					JOptionPane.showMessageDialog(null, "formato de fichero incorrecto");
-				}else {
-					importar(nombrefichero.split(".")[1]);
+				if (fichero == null) {
+					JOptionPane.showMessageDialog(null, "Fichero no seleccionado");
+				} else {
+					String nombrefichero = fichero.getName();
+					if (!nombrefichero.split("\\.")[1].equalsIgnoreCase("txt")) {
+						JOptionPane.showMessageDialog(null, "formato de fichero incorrecto");
+					} else {
+						gestion.insertarFichero(fichero);
+						boolean encontrado = false;
+						for (int i = 0; i < playList.size(); i++) {
+							if (playList.get(i).getTitulo().equalsIgnoreCase(nombrefichero.split("\\.")[0])) {
+								encontrado = true;
+								gestion.guardarPlayList(playList.get(i));
+							}
+						}
+						if (encontrado == true) {
+							gestion.insertarCacionesEnPlayList();
+						} else {
+							if (gestion.devolverUsuario().getPremium().equalsIgnoreCase("Free")) {
+								if (gestion.cantidadDePlayList() >= 3) {
+									JOptionPane.showMessageDialog(null, "Compre premium para mas de 3 playlist");
+								} else {
+									gestion.nuevaPlayList(nombrefichero.split("\\.")[0]);
+									ventana.cambiarDePanel(14, 0);
+								}
+							} else {
+								gestion.nuevaPlayList(nombrefichero.split("\\.")[0]);
+								ventana.cambiarDePanel(14, 0);
+							}
+						}
+					}
 				}
 			}
 		});
@@ -222,31 +246,6 @@ public class MenuPlayList extends JPanel {
 		JFileChooser file = new JFileChooser();
 		file.showOpenDialog(this);
 		/** abrimos el archivo seleccionado */
-		file.getSelectedFile().getName();
 		return file.getSelectedFile();// El texto se almacena en el JTextArea
-	}
-
-	private void importar(String fichero) {
-		boolean encontrado = false;
-		for (int i = 0; i < playList.size(); i++) {
-			if(playList.get(i).getTitulo().equalsIgnoreCase(fichero)) {
-				encontrado = true;
-			}
-		}
-		if(encontrado) {
-			
-		}else {
-			if (gestionInfo.devolverUsuario().getPremium().equalsIgnoreCase("Free")){
-				if(gestionInfo.cantidadDePlayList() >= 3) {
-					JOptionPane.showMessageDialog(null, "Compre premium para mas de 3 playlist");
-				}else {
-					
-				}
-				
-			}else {
-				 
-			}
-		}
-		
 	}
 }
