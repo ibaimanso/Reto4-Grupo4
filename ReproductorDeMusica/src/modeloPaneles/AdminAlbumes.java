@@ -30,8 +30,8 @@ import logica.GestionDeLaInformacion;
 import modelo.Album;
 import view.VistaPrincipal;
 
-public class AdminAlbumes extends JPanel implements Paneles{
-	
+public class AdminAlbumes extends JPanel implements Paneles {
+
 	/**
 	 * 
 	 */
@@ -42,23 +42,20 @@ public class AdminAlbumes extends JPanel implements Paneles{
 	private JLabel txtID;
 
 	private Album album;
-	
+
 	private ArrayList<Album> albums;
 
 	private int contador;
 
-
-	
 	public AdminAlbumes(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
-		
+
 		gestion.recogerAlbumsDeLaBaseDeDatosAdmin();
 		albums = gestion.devolverAlbums();
 		contador = 0;
-		
 
 		setBackground(new Color(0, 255, 127));
-		setSize(720,600);
-	//	setSize(new Dimension(709, 600));
+		setSize(720, 600);
+		// setSize(new Dimension(709, 600));
 
 		setLayout(null);
 
@@ -101,7 +98,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 			panelItem.setSize(80, 396);
 
 			/**
-			 *  Cargar imagen
+			 * Cargar imagen
 			 */
 			ImageIcon imageIcon = null;
 			if (albums.get(i).getImagen() == null) {
@@ -116,18 +113,18 @@ public class AdminAlbumes extends JPanel implements Paneles{
 			panelItem.add(imageLabel);
 
 			/*
-			 *  Agregar JLabel de nombre al lado de la imagen
+			 * Agregar JLabel de nombre al lado de la imagen
 			 */
 			JLabel label1 = new JLabel(albums.get(i).datosPanel());
 			label1.setSize(80, 396);
 			;
 			panelItem.add(label1);
 			/**
-			 *  Le damos un identificador
+			 * Le damos un identificador
 			 */
 			panelItem.setName("" + i);
 			/**
-			 *  Añadirmos un borde al panelItem para hacerlo mas visual
+			 * Añadirmos un borde al panelItem para hacerlo mas visual
 			 */
 			panelItem.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
@@ -137,8 +134,8 @@ public class AdminAlbumes extends JPanel implements Paneles{
 				public void mouseClicked(MouseEvent e) {
 					JPanel clickedPanel = (JPanel) e.getSource();
 					contador = Integer.parseInt(clickedPanel.getName());
-				cambiarContenidoDeLabels();
-					
+					cambiarContenidoDeLabels();
+
 				}
 			});
 			// Agregar panelItem al panel principal
@@ -150,19 +147,20 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		scrollArtista.setSize(350, 369);
 		scrollArtista.setLocation(34, 186);
 		add(scrollArtista);
-		
+
 		/**
 		 * Fin de scrollpane
 		 */
 
-		 txtID = new JLabel(albums.get(contador).getIdAlbum());
-		 txtID.setBounds(565, 314, 106, 14);
+		txtID = new JLabel(albums.get(contador).getIdAlbum());
+		txtID.setBounds(565, 314, 106, 14);
 		add(txtID);
-		
+
 		JButton btnNewButton = new JButton("Editar");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(), txtGenero.getText());
+				gestion.editarAlbumAdministrador(txtID.getText(), txtNombre.getText(), txtAño.getText(),
+						txtGenero.getText());
 			}
 		});
 		btnNewButton.setBounds(423, 186, 226, 23);
@@ -172,7 +170,8 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		btnAadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-			//	gestion.añadirMusicoABaseDeDatos(txtNombre.getText(), txtDescripcion.getText(), lblClase1.getText());
+				// gestion.añadirMusicoABaseDeDatos(txtNombre.getText(),
+				// txtDescripcion.getText(), lblClase1.getText());
 
 			}
 		});
@@ -183,10 +182,9 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JButton btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 				gestion.eliminarAlbumAdministrador(txtID.getText());
-				
-				
+
 			}
 		});
 		btnEliminar.setBounds(423, 235, 226, 23);
@@ -204,8 +202,6 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		JLabel lblID = new JLabel("ID:");
 		lblID.setBounds(565, 286, 46, 14);
 		add(lblID);
-
-		
 
 		JLabel lblGenero = new JLabel("Genero:");
 		lblGenero.setBounds(412, 341, 46, 14);
@@ -228,7 +224,7 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		btnAadir_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ventana.cambiarDePanel(13, 0);
-				
+
 			}
 		});
 		btnAadir_1.setBounds(423, 532, 88, 23);
@@ -267,53 +263,49 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		});
 		btnLimpiar.setBounds(423, 491, 226, 23);
 		add(btnLimpiar);
-		
+
 		JButton btnNewButton_1 = new JButton("Seleccione archivo...\r\n");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-		         /**
-                 * El selector de archivos para guardarlos en el proyecto
-                 */
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Seleccione un archivo .ppg");
-                /**
-                 * Filtro para solo elegir archivos .jpg
-                 */
-                fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .jpg", "jpg"));
+				/**
+				 * El selector de archivos para guardarlos en el proyecto
+				 */
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setDialogTitle("Seleccione un archivo .ppg");
+				/**
+				 * Filtro para solo elegir archivos .jpg
+				 */
+				fileChooser.setFileFilter(new FileNameExtensionFilter("Archivos .jpg", "jpg"));
 
-                int userSelection = fileChooser.showOpenDialog(null);
+				int userSelection = fileChooser.showOpenDialog(null);
 
-                if (userSelection == JFileChooser.APPROVE_OPTION) {
-                    File selectedFile = fileChooser.getSelectedFile();
-                    Path sourcePath = selectedFile.toPath();
-                    /**
-                     * En que parte debe dejar el archivo subido
-                     */
-                    Path destinationPath = new File("multimedia/imagenesInsertadas").toPath();
-                    
-                    try {
-                        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
-                        System.out.println("Archivo subido correctamente a la carpeta 'imagenes/portadasMu'.");
-                    } catch (IOException ex) {
-                        ex.printStackTrace();
-                    }
-                }
-                
-            }
-        });
+				if (userSelection == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					Path sourcePath = selectedFile.toPath();
+					/**
+					 * En que parte debe dejar el archivo subido
+					 */
+					Path destinationPath = new File("multimedia/imagenesInsertadas").toPath();
+
+					try {
+						Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+						System.out.println("Archivo subido correctamente a la carpeta 'imagenes/portadasMu'.");
+					} catch (IOException ex) {
+						ex.printStackTrace();
+					}
+				}
+
+			}
+		});
 		btnNewButton_1.setBounds(455, 421, 117, 20);
 		add(btnNewButton_1);
-		
-		
+
 		txtGenero = new JTextField(albums.get(contador).getGenero());
 		txtGenero.setColumns(10);
 		txtGenero.setBounds(410, 366, 106, 20);
 		add(txtGenero);
-		
-		
 
 	}
-
 
 	@Override
 	public void cambiarContenidoDeLabels() {
@@ -321,6 +313,6 @@ public class AdminAlbumes extends JPanel implements Paneles{
 		txtGenero.setText(albums.get(contador).getGenero());
 		txtAño.setText(albums.get(contador).getAño());
 		txtID.setText(albums.get(contador).getIdAlbum());
-		
+
 	}
 }

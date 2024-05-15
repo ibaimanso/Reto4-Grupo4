@@ -13,66 +13,66 @@ import modelo.Podcaster;
 public interface InterfazGestionBD {
 
 	// Conexion a la Base de Datos
-	void iniciarConexion();
+	void iniciarConexion();//
 
-	void cerrarConexion();
+	void cerrarConexion();//
 
-	boolean verificarUsuario(String cliente);
+	boolean verificarUsuario(String cliente);//
 
-	boolean login(String usuario, String contraseña);
+	boolean login(String usuario, String contraseña);//
 
-	boolean insertUsuario(Cliente cliente);
+	boolean insertUsuario(Cliente cliente);//
 
-	Cliente pedirUsuario(String usuario);
+	Cliente pedirUsuario(String usuario);//
 
-	ArrayList<Musico> llenarListaMusico();
+	ArrayList<Musico> llenarListaMusico();//
 
-	ArrayList<Album> llenarListaDeAlbums(Musico musico);
+	ArrayList<Album> llenarListaDeAlbums(Musico musico);//
 
-	int contarCanciones(String album);
+	int contarCanciones(String album);//
 
-	ArrayList<Cancion> llenarListaDeCanciones(Album album);
+	ArrayList<Cancion> llenarListaDeCanciones(Album album);//
 
-	ArrayList<Cancion> llenarListaDeCancionesConAudio(Album album);
+	ArrayList<Cancion> llenarListaDeCancionesConAudio(Album album);//
 
-	ArrayList<Podcast> llenarListaDePodcasts(Podcaster podcaster);
+	ArrayList<Podcast> llenarListaDePodcasts(Podcaster podcaster);//
 
-	ArrayList<Podcast> llenarListaDePodcastsConAudio(Podcaster podcaster);
+	ArrayList<Podcast> llenarListaDePodcastsConAudio(Podcaster podcaster);//
 
-	boolean eliminarArtistaAdministrador(String id);
+	boolean eliminarArtistaAdministrador(String id);//
 
-	boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo);
+	boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo);//
 
-	boolean insertNuevoMusico(String nombre, String desc, String tipo);
+	boolean insertNuevoMusico(String nombre, String desc, String tipo);//
 
-	ArrayList<Podcaster> llenarListaPodcaster();
+	ArrayList<Podcaster> llenarListaPodcaster();//
 
-	boolean editarAlbumAdministrador(String id, String nombre, String año, String genero);
+	boolean editarAlbumAdministrador(String id, String nombre, String año, String genero);//
 
-	boolean eliminarAlbumAdministrador(String id);
+	boolean eliminarAlbumAdministrador(String id);//
 
 	boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,
-			String textidcancion);
+			String textidcancion);//
 
-	boolean eliminarCancionAdministrador(String id);
+	boolean eliminarCancionAdministrador(String id);//
 
-	ArrayList<Album> llenarListaDeAlbumsAdmin();
+	ArrayList<Album> llenarListaDeAlbumsAdmin();//
 
-	ArrayList<Cancion> llenarListaDeCancionesAdmin();
+	ArrayList<Cancion> llenarListaDeCancionesAdmin();//
 
-	boolean insertNuevoAlbum(String nombre, String id, String genero, String año);
+	boolean insertNuevoAlbum(String nombre, String id, String genero, String año);//
 
-	ArrayList<Cancion> buscarAnuncios();
+	ArrayList<Cancion> buscarAnuncios();//
 
-	ArrayList<PlayList> llenarListaDePlaylists(Cliente cliente);
+	ArrayList<PlayList> llenarListaDePlaylists(Cliente cliente);//
 
-	ArrayList<Cancion> llenarListaDeCancionesPorPlayList(PlayList playList);
+	ArrayList<Cancion> llenarListaDeCancionesPorPlayList(PlayList playList);//
 
-	ArrayList<Cancion> llenarListaDeCancionesConAudioPorPlayList(PlayList playList);
+	ArrayList<Cancion> llenarListaDeCancionesConAudioPorPlayList(PlayList playList);//
 
-	int contarPlayList(Cliente cliente);
+	int contarPlayList(Cliente cliente);//
 
-	int contarCantidadDeCancionEnPlayList(PlayList playlist);
+	int contarCantidadDeCancionEnPlayList(PlayList playlist);//
 
 	boolean crearPlayList(String nombre, Cliente cliente);
 

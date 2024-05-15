@@ -1,7 +1,6 @@
 package modeloPaneles;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -17,12 +16,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import modelo.Podcaster;
 import view.VistaPrincipal;
-import javax.swing.JTextArea;
 
 public class PanelDescubrirPodcast extends JPanel {
 
