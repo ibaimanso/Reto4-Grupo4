@@ -22,6 +22,10 @@ import modelo.PlayList;
 import modelo.Podcast;
 import modelo.Podcaster;
 
+/**
+ * Esta clase es la encargada de sacar, insertar y actualizar la informacion de nuestra base de datos 
+ * @author Kaiet Zarzosa, Ibai Manso, Aitor Sanchez
+ */
 public class GestionBD implements InterfazGestionBD {
 
 	public GestionBD() {
