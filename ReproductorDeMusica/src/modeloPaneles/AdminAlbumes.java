@@ -30,18 +30,19 @@ import logica.GestionDeLaInformacion;
 import modelo.Album;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la gestion de los albumes de la base de datos
+ * @author Ibai Manso, Aitor Sanchez
+ */
 public class AdminAlbumes extends JPanel implements Paneles {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JTextField txtGenero;
 	private JTextField txtAño;
 	private JLabel txtID;
 
-	private Album album;
+	//private Album album;
 
 	private ArrayList<Album> albums;
 

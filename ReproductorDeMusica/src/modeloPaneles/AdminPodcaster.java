@@ -6,6 +6,10 @@ import interfaces.Paneles;
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la gestion de los Podcasters de la base de datos
+ * @author Ibai Manso, Aitor Sanchez
+ */
 public class AdminPodcaster extends JPanel implements Paneles {
 	
 	/**

@@ -23,11 +23,12 @@ import modelo.Podcast;
 import modelo.Podcaster;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las podcasts de un podcaster
+ * @author Kaiet Zarzosa, Ibai Manso
+ */
 public class PanelPodcast extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Podcast> podcasts;
 	private Podcaster podcaster;

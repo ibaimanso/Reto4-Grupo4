@@ -24,6 +24,10 @@ import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para dar a elegir al usuario un artista de la base de datos
+ * @author Ibai Manso, Kaiet Zarzosa
+ */
 public class DescubrirMusica extends JPanel implements Paneles {
 
 	private static final long serialVersionUID = 1L;

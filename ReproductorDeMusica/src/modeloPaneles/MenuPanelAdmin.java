@@ -15,12 +15,13 @@ import javax.swing.border.LineBorder;
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las funciones principales del administrador de la aplicación
+ * @author Ibai Manso
+ */
 public class MenuPanelAdmin extends JPanel{
 	
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 
 	public MenuPanelAdmin(VistaPrincipal ventana, GestionDeLaInformacion gestion) {

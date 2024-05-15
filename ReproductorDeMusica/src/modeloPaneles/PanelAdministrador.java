@@ -25,10 +25,12 @@ import logica.GestionDeLaInformacion;
 import modelo.Musico;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para uso del administrador
+ * @author Ibai Manso
+ */
 public class PanelAdministrador extends JPanel {
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JLabel txtID;

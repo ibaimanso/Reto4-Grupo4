@@ -23,6 +23,10 @@ import logica.GestionDeLaInformacion;
 import modelo.PlayList;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las playlist del usuario
+ * @author Kaiet Zarzosa
+ */
 public class MenuPlayList extends JPanel {
 
 	private static final long serialVersionUID = 1L;

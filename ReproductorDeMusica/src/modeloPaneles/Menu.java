@@ -15,6 +15,10 @@ import javax.swing.border.LineBorder;
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las funciones principales de la aplicación
+ * @author Ibai Manso
+ */
 public class Menu extends JPanel {
 
 	private static final long serialVersionUID = 1L;

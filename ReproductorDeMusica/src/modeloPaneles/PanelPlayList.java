@@ -21,6 +21,10 @@ import logica.GestionDeLaInformacion;
 import modelo.Cancion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las canciones dentro de una playlist
+ * @author Kaiet Zarzosa
+ */
 public class PanelPlayList extends JPanel {
 
 	private static final long serialVersionUID = 1L;

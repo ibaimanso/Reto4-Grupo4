@@ -25,6 +25,10 @@ import modelo.Album;
 import modelo.Musico;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las los albumes dentro de un artista
+ * @author Kaiet Zarzosa, Ibai Manso
+ */
 public class PanelArtista extends JPanel implements Paneles {
 
 	private static final long serialVersionUID = 1L;

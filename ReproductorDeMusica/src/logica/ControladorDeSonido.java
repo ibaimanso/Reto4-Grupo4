@@ -11,6 +11,7 @@ import modelo.Audio;
 
 /**
  * Clase usada para cambiar, pausar y reproducir el audio sacado de la base de datos;
+ * @author Kaiet Zarzosa
  */
 
 public class ControladorDeSonido {

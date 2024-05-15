@@ -19,6 +19,10 @@ import modelo.Cancion;
 import modelo.Cliente;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la reprodución de las canciones y su respectivo guardado en favoritos
+ * @author Kaiet Zarzosa, Ibai Manso
+ */
 public class PanelReproducion extends JPanel {
 
 	private static final long serialVersionUID = 1L;

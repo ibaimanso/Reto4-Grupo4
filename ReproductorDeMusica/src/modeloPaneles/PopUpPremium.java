@@ -12,6 +12,10 @@ import javax.swing.JPanel;
 import logica.GestionDeLaInformacion;
 import view.VistaPopUp;
 
+/**
+ * Panel utilizado para la reprodución de los podcasts
+ * @author Ibai Manso
+ */
 public class PopUpPremium extends JPanel {
 	
 	private static final long serialVersionUID = 1L;

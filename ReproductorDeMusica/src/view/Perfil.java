@@ -1,4 +1,4 @@
-package modeloPaneles;
+package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,8 +15,11 @@ import javax.swing.border.LineBorder;
 
 import logica.GestionDeLaInformacion;
 import modelo.Cliente;
-import view.VistaPrincipal;
 
+/**
+ * Ventana utilizada para mostrar info del Usuario una vez iniciado sesion
+ * @author Ibai Manso
+ */
 public class Perfil extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
@@ -55,15 +58,6 @@ public class Perfil extends JFrame {
 				ventana.cambiarDePanel(3, 0);
 			}
 		});
-		// Dejar este boton puede que se le de un uso en otro momento (en este panel no
-		// hace nada)
-
-		btnAtras.setIcon(new ImageIcon("C:\\Users\\in1dm3-v\\Downloads\\btnAtras_1__1_-removebg-preview.png"));
-		btnAtras.setBounds(650, 11, 89, 91);
-		btnAtras.setFocusPainted(false);
-		btnAtras.setBorderPainted(false);
-		btnAtras.setContentAreaFilled(false);
-		panel.add(btnAtras);
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setBackground(new Color(128, 255, 128));

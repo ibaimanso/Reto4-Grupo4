@@ -208,12 +208,16 @@ public class GestionDeLaInformacion implements InterfazGestionDeLaInformacion {
 	@Override
 	public void borrarAudiosDelSistema() {
 		File directory = new File("./canciones");
-
-		for (File file : Objects.requireNonNull(directory.listFiles())) {
-			if (!file.isDirectory()) {
-				file.delete();
+		
+		try {
+			for (File file : Objects.requireNonNull(directory.listFiles())) {
+				if (!file.isDirectory()) {
+					file.delete();
+				}
 			}
+		} catch (NullPointerException e) {
 		}
+		
 	}
 
 	@Override

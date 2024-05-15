@@ -20,6 +20,10 @@ import modelo.Cliente;
 import modelo.Podcast;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la reprodución de los podcasts
+ * @author Kaiet Zarzosa
+ */
 public class PanelReproducionPodcasts extends JPanel {
 
 	private static final long serialVersionUID = 1L;

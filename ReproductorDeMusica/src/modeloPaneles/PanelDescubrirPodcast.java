@@ -23,11 +23,12 @@ import logica.GestionDeLaInformacion;
 import modelo.Podcaster;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la eleción de las los podcasters de la base de datos
+ * @author Kaiet Zarzosa
+ */
 public class PanelDescubrirPodcast extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Podcaster> podcasters;
 	private int contador;

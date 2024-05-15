@@ -11,6 +11,10 @@ import javax.swing.JTextPane;
 import logica.GestionDeLaInformacion;
 import view.VistaPopUp;
 
+/**
+ * Panel utilizado para mostrar los terminos de uso de nuestra aplicación
+ * @author Ibai Manso
+ */
 public class CondicionesYTerminosDeUso extends JPanel{
 	
 	private static final long serialVersionUID = 1L;

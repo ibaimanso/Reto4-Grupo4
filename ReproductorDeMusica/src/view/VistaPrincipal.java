@@ -22,9 +22,13 @@ import modeloPaneles.PanelPlayList;
 import modeloPaneles.PanelPodcast;
 import modeloPaneles.PanelReproducion;
 import modeloPaneles.PanelReproducionPodcasts;
-import modeloPaneles.Perfil;
 import modeloPaneles.Registro;
 
+
+/**
+ * Marco principal de toda la aplicacion
+ * @author Kaiet Zarzosa, Ibai Manso, Aitor Sanchez
+ */
 public class VistaPrincipal extends JFrame{
 	
 	private GestionDeLaInformacion gestion;

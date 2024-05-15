@@ -18,6 +18,10 @@ import javax.swing.border.LineBorder;
 import logica.GestionDeLaInformacion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para el inicio de sesión de los usuario de la aplicación
+ * @author Ibai Manso, Aitor Sanchez
+ */
 public class Login extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public JTextField txtfieldUsuario;

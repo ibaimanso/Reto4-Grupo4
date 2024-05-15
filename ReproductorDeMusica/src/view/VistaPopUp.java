@@ -8,6 +8,10 @@ import logica.GestionDeLaInformacion;
 import modeloPaneles.CondicionesYTerminosDeUso;
 import modeloPaneles.PopUpPremium;
 
+/**
+ * Ventana utilizada para incentivar la compra del premium
+ * @author Ibai Manso
+ */
 public class VistaPopUp extends JFrame {
 
 	private static final long serialVersionUID = 1L;

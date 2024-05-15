@@ -21,10 +21,11 @@ import logica.GestionDeLaInformacion;
 import modelo.Cliente;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para el registro del usuario
+ * @author Kaiet Zarzosa, Ibai Manso, Aitor Sanchez
+ */
 public class Registro extends JPanel {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JTextField txtNombre;
 	private JTextField txtApellido;

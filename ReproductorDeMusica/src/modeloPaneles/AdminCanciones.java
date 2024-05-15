@@ -30,16 +30,17 @@ import logica.GestionDeLaInformacion;
 import modelo.Cancion;
 import view.VistaPrincipal;
 
+/**
+ * Panel utilizado para la gestion de los Canciones de la base de datos
+ * @author Ibai Manso, Aitor Sanchez
+ */
 public class AdminCanciones extends JPanel implements Paneles {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Cancion> canciones;
-	private Cancion cancion;
+	//private Cancion cancion;
 	private JTextField txtNombre;
-	private JLabel idaudio;
+	//private JLabel idaudio;
 	private int contador;
 	private JTextField textduracion;
 	private JLabel lblIDAudio;
