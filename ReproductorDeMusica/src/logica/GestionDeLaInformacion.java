@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 import controlador.GestionBD;
+import interfaces.InterfazGestionBD;
 import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
@@ -19,7 +20,7 @@ import modelo.Podcaster;
 
 public class GestionDeLaInformacion {
 
-	private GestionBD gestionBD;
+	private InterfazGestionBD gestionBD;
 	private GestionFicheros gestionFI;
 	private Cliente cliente;
 	private Musico musico;
@@ -53,7 +54,7 @@ public class GestionDeLaInformacion {
 
 	public boolean testUsuarioYContraseña(String usuario, String contraseña) {
 		boolean login = false;
-		login = gestionBD.Login(usuario, contraseña);
+		login = gestionBD.login(usuario, contraseña);
 		return login;
 	}
 

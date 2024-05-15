@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import interfaces.InterfazGestionBD;
 import modelo.Album;
 import modelo.Cancion;
 import modelo.Cliente;
@@ -21,7 +22,7 @@ import modelo.PlayList;
 import modelo.Podcast;
 import modelo.Podcaster;
 
-public class GestionBD {
+public class GestionBD implements InterfazGestionBD {
 
 	public GestionBD() {
 		iniciarConexion();
@@ -31,6 +32,7 @@ public class GestionBD {
 	private Connection conexion;
 
 	// Conexion a la Base de Datos
+	@Override
 	public void iniciarConexion() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -45,6 +47,7 @@ public class GestionBD {
 
 	// Cierre de conexion a la base de datos
 
+	@Override
 	public void cerrarConexion() {
 		System.out.println("Cerrando...");
 		try {
@@ -57,6 +60,7 @@ public class GestionBD {
 		System.out.println("Conexion cerrada");
 	}
 
+	@Override
 	public boolean verificarUsuario(String cliente) {
 		boolean correcto = true;
 		try {
@@ -80,7 +84,8 @@ public class GestionBD {
 		return correcto;
 	}
 
-	public boolean Login(String usuario, String contraseña) {
+	@Override
+	public boolean login(String usuario, String contraseña) {
 		boolean login = false;
 		try {
 			Statement consulta = conexion.createStatement();
@@ -105,6 +110,7 @@ public class GestionBD {
 
 	}
 
+	@Override
 	public boolean insertUsuario(Cliente cliente) {
 		boolean correcto = false;
 		try {
@@ -122,10 +128,12 @@ public class GestionBD {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
+			correcto = false;
 		}
 		return correcto;
 	}
 
+	@Override
 	public Cliente pedirUsuario(String usuario) {
 
 		Cliente cliente = new Cliente();
@@ -148,6 +156,7 @@ public class GestionBD {
 
 	}
 
+	@Override
 	public ArrayList<Musico> llenarListaMusico() {
 
 		ArrayList<Musico> artista = new ArrayList<Musico>();
@@ -177,6 +186,7 @@ public class GestionBD {
 		return artista;
 	}
 
+	@Override
 	public ArrayList<Album> llenarListaDeAlbums(Musico musico) {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		try {
@@ -214,6 +224,7 @@ public class GestionBD {
 		return albums;
 	}
 
+	@Override
 	public int contarCanciones(String album) {
 		int canciones = 0;
 		try {
@@ -231,6 +242,7 @@ public class GestionBD {
 		return canciones;
 	}
 
+	@Override
 	public ArrayList<Cancion> llenarListaDeCanciones(Album album) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
@@ -261,6 +273,7 @@ public class GestionBD {
 		return canciones;
 	}
 
+	@Override
 	public ArrayList<Cancion> llenarListaDeCancionesConAudio(Album album) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
@@ -302,6 +315,7 @@ public class GestionBD {
 		return canciones;
 	}
 
+	@Override
 	public ArrayList<Podcast> llenarListaDePodcasts(Podcaster podcaster) {
 		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
 		try {
@@ -332,6 +346,7 @@ public class GestionBD {
 		return podcasts;
 	}
 
+	@Override
 	public ArrayList<Podcast> llenarListaDePodcastsConAudio(Podcaster podcaster) {
 		ArrayList<Podcast> podcasts = new ArrayList<Podcast>();
 		try {
@@ -373,6 +388,7 @@ public class GestionBD {
 		return podcasts;
 	}
 
+	@Override
 	public boolean eliminarArtistaAdministrador(String id) {
 
 		boolean correcto = false;
@@ -394,6 +410,7 @@ public class GestionBD {
 		return correcto;
 	}
 
+	@Override
 	public boolean editarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
 		boolean correcto = false;
 
@@ -416,28 +433,7 @@ public class GestionBD {
 		return correcto;
 	}
 
-	public boolean eliminarArtistaAdministrador(String nombre, String id, String desc, String tipo) {
-		boolean correcto = false;
-
-		try {
-			Statement consulta = conexion.createStatement();
-
-			String update = "DELETE musico SET IDMusico=" + "'" + id + "'" + ", NombreArtistico=" + "'" + nombre + "'"
-					+ ", Caracteristica=" + "'" + tipo + "'" + ", Descripcion=" + "'" + desc + "'" + "WHERE IDMusico="
-					+ "'" + id + "'";
-
-			consulta.executeUpdate(update);
-			JOptionPane.showMessageDialog(null, "Musico actualizado correctamente");
-			consulta.close();
-			correcto = true;
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "Campos inválidos");
-			e.printStackTrace();
-		}
-
-		return correcto;
-	}
-
+	@Override
 	public boolean insertNuevoMusico(String nombre, String desc, String tipo) {
 		boolean correcto = false;
 		try {
@@ -460,6 +456,7 @@ public class GestionBD {
 		return correcto;
 	}
 
+	@Override
 	public ArrayList<Podcaster> llenarListaPodcaster() {
 
 		ArrayList<Podcaster> podcaster = new ArrayList<Podcaster>();
@@ -527,20 +524,20 @@ public class GestionBD {
 //		}
 //		return podcasts;
 //	}
+	@Override
 	public boolean editarAlbumAdministrador(String id, String nombre, String año, String genero) {
 		boolean correcto = false;
 
 		try {
 			Statement consulta = conexion.createStatement();
-			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'"
-					+ ", Año=" + "'" + año + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum="
-					+ "'" + id + "'";
+			String update = "UPDATE album SET IDAlbum=" + "'" + id + "'" + ", Titulo=" + "'" + nombre + "'" + ", Año="
+					+ "'" + año + "'" + ", Genero=" + "'" + genero + "'" + "WHERE IDAlbum=" + "'" + id + "'";
 
 			consulta.executeUpdate(update);
 			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
 			System.out.println(update);
 			consulta.close();
-			
+
 			correcto = true;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
@@ -549,7 +546,8 @@ public class GestionBD {
 
 		return correcto;
 	}
-	
+
+	@Override
 	public boolean eliminarAlbumAdministrador(String id) {
 		boolean correcto = false;
 
@@ -570,35 +568,35 @@ public class GestionBD {
 		return correcto;
 	}
 
-	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,String textidcancion) {
-	    boolean correcto = false;
+	@Override
+	public boolean editarCancionesAdministrador(String ldAudio, String Idalbum, String textduracion, String nombreAudio,
+			String textidcancion) {
+		boolean correcto = false;
 
-	        try {
-	            Statement consulta = conexion.createStatement();
+		try {
+			Statement consulta = conexion.createStatement();
 
-	            String update =  "UPDATE audio AS a " +
-	                    "JOIN canciones AS c ON a.IDAudio = c.IDAudio " +
-	                    "SET " +
-	                    "a.IDAudio = "+"'"+ ldAudio+"'"+
-	                    "a.Nombre = "+"'"+nombreAudio +"'" +
-	                    "a.Duracion = "+"'"+textduracion +"'" +
-	                    "c.IDCancion = "+"'"+textidcancion +"'" +
-	                    "c.IDAlbum = "+"'"+Idalbum +"'" ;
+			String update = "UPDATE audio AS a " + "JOIN canciones AS c ON a.IDAudio = c.IDAudio " + "SET "
+					+ "a.IDAudio = " + "'" + ldAudio + "'" + "a.Nombre = " + "'" + nombreAudio + "'" + "a.Duracion = "
+					+ "'" + textduracion + "'" + "c.IDCancion = " + "'" + textidcancion + "'" + "c.IDAlbum = " + "'"
+					+ Idalbum + "'";
 
-	            consulta.executeUpdate(update);
-	            JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
-	            consulta.close();
-	            correcto = true;
-	            System.out.println(update);
-	        } catch (Exception e) {
-	            JOptionPane.showMessageDialog(null, "Campos inválidos");
-	            e.printStackTrace();
-	        }
+			consulta.executeUpdate(update);
+			JOptionPane.showMessageDialog(null, "Album actualizado correctamente");
+			consulta.close();
+			correcto = true;
+			System.out.println(update);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Campos inválidos");
+			e.printStackTrace();
+		}
 
-	        return correcto;
-	    }
-public boolean eliminarCancionAdministrador(String id) {
-		
+		return correcto;
+	}
+
+	@Override
+	public boolean eliminarCancionAdministrador(String id) {
+
 		boolean correcto = false;
 
 		try {
@@ -617,6 +615,8 @@ public boolean eliminarCancionAdministrador(String id) {
 
 		return correcto;
 	}
+
+	@Override
 	public ArrayList<Album> llenarListaDeAlbumsAdmin() {
 		ArrayList<Album> albums = new ArrayList<Album>();
 		try {
@@ -655,6 +655,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return albums;
 	}
 
+	@Override
 	public ArrayList<Cancion> llenarListaDeCancionesAdmin() {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
@@ -697,6 +698,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return canciones;
 	}
 
+	@Override
 	public boolean insertNuevoAlbum(String nombre, String id, String genero, String año) {
 		boolean correcto = false;
 		try {
@@ -719,6 +721,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return correcto;
 	}
 
+	@Override
 	public ArrayList<Cancion> buscarAnuncios() {
 		ArrayList<Cancion> anuncios = new ArrayList<Cancion>();
 		try {
@@ -759,6 +762,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return anuncios;
 	}
 
+	@Override
 	public ArrayList<PlayList> llenarListaDePlaylists(Cliente cliente) {
 		ArrayList<PlayList> playlist = new ArrayList<PlayList>();
 		try {
@@ -778,6 +782,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return playlist;
 	}
 
+	@Override
 	public ArrayList<Cancion> llenarListaDeCancionesPorPlayList(PlayList playList) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
@@ -808,6 +813,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return canciones;
 	}
 
+	@Override
 	public ArrayList<Cancion> llenarListaDeCancionesConAudioPorPlayList(PlayList playList) {
 		ArrayList<Cancion> canciones = new ArrayList<Cancion>();
 		try {
@@ -849,6 +855,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return canciones;
 	}
 
+	@Override
 	public int contarPlayList(Cliente cliente) {
 		int playlist = 0;
 		try {
@@ -868,6 +875,7 @@ public boolean eliminarCancionAdministrador(String id) {
 		return playlist;
 	}
 
+	@Override
 	public int contarCantidadDeCancionEnPlayList(PlayList playlist) {
 		int num = 0;
 		try {
@@ -887,7 +895,9 @@ public boolean eliminarCancionAdministrador(String id) {
 		return num;
 	}
 
-	public void crearPlayList(String nombre, Cliente cliente) {
+	@Override
+	public boolean crearPlayList(String nombre, Cliente cliente) {
+		boolean correcto = true;
 		try {
 			Statement consulta = conexion.createStatement();
 
@@ -901,11 +911,15 @@ public boolean eliminarCancionAdministrador(String id) {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
+			correcto = false;
 		}
+		return correcto;
 
 	}
 
-	public void borrarPlayList(PlayList playList) {
+	@Override
+	public boolean borrarPlayList(PlayList playList) {
+		boolean correcto = true;
 		try {
 			Statement consulta = conexion.createStatement();
 
@@ -916,10 +930,14 @@ public boolean eliminarCancionAdministrador(String id) {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
+			correcto = false;
 		}
+		return correcto;
 	}
 
-	public void borrarCancionesDePlayList(PlayList playList) {
+	@Override
+	public boolean borrarCancionesDePlayList(PlayList playList) {
+		boolean correcto = true;
 		try {
 			Statement consulta = conexion.createStatement();
 
@@ -930,10 +948,14 @@ public boolean eliminarCancionAdministrador(String id) {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
+			correcto = false;
 		}
+		return correcto;
 	}
 
-	public void insertarCancionesEnPlayList(String id, String cancion) {
+	@Override
+	public boolean insertarCancionesEnPlayList(String id, String cancion) {
+		boolean correcto = true;
 		try {
 			Statement consulta = conexion.createStatement();
 
@@ -945,7 +967,9 @@ public boolean eliminarCancionAdministrador(String id) {
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Campos inválidos");
 			e.printStackTrace();
+			correcto = false;
 		}
+		return correcto;
 	}
 
 }
