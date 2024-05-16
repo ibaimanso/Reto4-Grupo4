@@ -1,4 +1,4 @@
-                    -----INSTRUCIONES-----
+-----INSTRUCIONES-----
 
   Debido ha la cantidad de Mb que ocupa nuestra base de datos vamos a tener que
   dar unas breves instrucciones para poder ejecutar la base de datos sin problemas
@@ -16,7 +16,7 @@
      realizado en la base de datos y por ultimo un archivo .zip llamado "reto4.zip" este sera
      nuestro archivo estrella. Vamos a descargarlo!
 
-             -----INSTRUCCIONES PARA IMPORTAR LA BASE DE DATOS-----
+-----INSTRUCCIONES PARA IMPORTAR LA BASE DE DATOS-----
 
   1. Descargamos el .zip de la Base de datos, el cual se encuentra en la carpeta de drive
      que hemos linkeado anteriormente. Este se llama reto4.zip
@@ -39,7 +39,7 @@
      de datos perfectamente importada sin ningun problema y con todos los audios e imagenes que contiene esta.
 
 
-             -----GRACIAS POR LEER Y ESPERO QUE FUNCIONE-----
+-----GRACIAS POR LEER Y ESPERO QUE FUNCIONE-----
 
      
 
