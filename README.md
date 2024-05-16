@@ -1,4 +1,4 @@
------INSTRUCIONES-----
+-----INSTRUCcIONES-----
 
   Debido ha la cantidad de Mb que ocupa nuestra base de datos vamos a tener que
   dar unas breves instrucciones para poder ejecutar la base de datos sin problemas
