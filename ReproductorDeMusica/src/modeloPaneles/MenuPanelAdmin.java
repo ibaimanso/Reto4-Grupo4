@@ -88,16 +88,21 @@ public class MenuPanelAdmin extends JPanel{
 		btnDescubrirPodcast.setMargin(new Insets(10, 20, 10, 20));
 		panel_1.add(btnDescubrirPodcast);
 		
-		JButton btnPlayList = new JButton("Estadisticas");
-		btnPlayList.setBounds(144, 218, 234, 43);
-		btnPlayList.setBackground(new Color(173, 255, 47)); 
+		JButton btnEstadisticas = new JButton("Estadisticas");
+		btnEstadisticas.setBounds(144, 218, 234, 43);
+		btnEstadisticas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ventana.cambiarDePanel(19, 0);
+			}
+		});
+		btnEstadisticas.setBackground(new Color(173, 255, 47)); 
 
-		btnPlayList.setForeground(Color.BLACK);
+		btnEstadisticas.setForeground(Color.BLACK);
 
-		btnPlayList.setFont(new Font("Arial", Font.BOLD, 16));
+		btnEstadisticas.setFont(new Font("Arial", Font.BOLD, 16));
 
-		btnPlayList.setMargin(new Insets(10, 20, 10, 20));
-		panel_1.add(btnPlayList);
+		btnEstadisticas.setMargin(new Insets(10, 20, 10, 20));
+		panel_1.add(btnEstadisticas);
 
 		JButton bntCerrarSesion = new JButton("");
 		bntCerrarSesion.setIcon(new ImageIcon("multimedia/cerrarSesion.png"));

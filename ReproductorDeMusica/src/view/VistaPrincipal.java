@@ -9,7 +9,9 @@ import javax.swing.JFrame;
 import logica.GestionDeLaInformacion;
 import modeloPaneles.AdminAlbumes;
 import modeloPaneles.AdminCanciones;
+import modeloPaneles.AdminPodcaster;
 import modeloPaneles.DescubrirMusica;
+import modeloPaneles.Estadisticas;
 import modeloPaneles.Login;
 import modeloPaneles.Menu;
 import modeloPaneles.MenuPanelAdmin;
@@ -151,6 +153,13 @@ public class VistaPrincipal extends JFrame{
 		case 17:
 			setContentPane(new PanelReproducionPodcasts(this, gestion, cont));
 			break;
+		case 18:
+			setContentPane(new AdminPodcaster(this, gestion));
+			break;
+		case 19:
+			setContentPane(new Estadisticas(this, gestion));
+			break;
+		
 		
 	
 		}
