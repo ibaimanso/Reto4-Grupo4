@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"controlador"},{"l":"interfaces"},{"l":"jUnit"},{"l":"logica"},{"l":"modelo"},{"l":"modeloPaneles"},{"l":"view"}];updateSearchResults();

@@ -14,6 +14,13 @@ import view.VistaPrincipal;
 import java.awt.Font;
 
 public class Estadisticas extends JPanel implements Paneles {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	public Estadisticas(VistaPrincipal ventana, GestionDeLaInformacion gestion) {
 		
 		setBackground(new Color(0, 255, 127));
