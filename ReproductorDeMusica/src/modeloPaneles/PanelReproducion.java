@@ -204,8 +204,9 @@ public class PanelReproducion extends JPanel {
 	public void mostarAnuncio() {
 		Long tiempoAnuncio = System.currentTimeMillis();
 		Long tiempoAnuncio30000 = tiempoAnuncio + 30000;
-		control.cambiarCancion(anuncios.get(0));
+		control.cambiarCancion(anuncios.get(1));
 		cambiarInfoAnuncio();
+		control.reproducir();
 		while (tiempoAnuncio < tiempoAnuncio30000) {
 			btnPlay.setEnabled(false);
 			btnAnterior.setEnabled(false);
@@ -259,7 +260,7 @@ public class PanelReproducion extends JPanel {
 
 	public void cancionSiguiente() {
 		if (cliente.getPremium().equalsIgnoreCase("Free")) {
-			if (System.currentTimeMillis() < tiempo + 600000) {
+			if (System.currentTimeMillis() < tiempo + 1000) {
 				JOptionPane.showMessageDialog(null, "No han pasado 10 mins");
 			} else {
 				if (contador >= canciones.size() - 1) {

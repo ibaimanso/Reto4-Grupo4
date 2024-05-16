@@ -28,7 +28,7 @@ public class GestionFicheros {
 	 */
 	public void escribirFichero(ArrayList<Cancion> cancion, String archivo) {
 		try {
-			BufferedWriter escribirFichero = new BufferedWriter(new FileWriter("C:/Users/in1dw3/Downloads/" + archivo + ".txt", false));
+			BufferedWriter escribirFichero = new BufferedWriter(new FileWriter("./" + archivo + ".txt", false));
 			for (int i = 0; i < cancion.size(); i++) {
 				escribirFichero.write(cancion.get(i).toString());
 				escribirFichero.newLine();
